@@ -28,7 +28,7 @@ final class SumTwoLongNumbersSpec {
 
     @ParameterizedTest
     @ValueSource(longs = [1L, 99L, 1_983_322L, 8_923_021_768L, Long.MAX_VALUE])
-    void 'returns an incorrect result if the sum of the numbers exceeds the maximum Long'(long a) {
+    void 'returns an incorrect result if sum exceeds maximum Long'(long a) {
         def sum = Long.MAX_VALUE + 1
         def b = (sum - a) as long
         def actualSum = calculator.sum(a, b) as BigInteger
