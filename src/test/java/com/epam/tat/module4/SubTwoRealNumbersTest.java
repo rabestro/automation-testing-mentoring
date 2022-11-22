@@ -7,20 +7,20 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 @DisplayName("Calculator adds two double numbers")
 public class SubTwoRealNumbersTest extends CalculatorTest {
-    
+
     @ParameterizedTest
     @CsvFileSource(resources = "sub-long-numbers.csv", useHeadersInDisplayName = true)
     @DisplayName("sub two whole numbers")
-    void sumLongNumbers(double a, double b, double expectedSum) {
+    void subWholeNumbers(double a, double b, double expectedResult) {
         double result = calculator.sub(a, b);
-        Assertions.assertEquals(expectedSum, result, "the subtraction of two whole numbers is wrong");
+        Assertions.assertEquals(expectedResult, result, "the subtraction of two whole numbers is wrong");
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "sub-real-numbers.csv", useHeadersInDisplayName = true)
     @DisplayName("sum two real numbers")
-    void sumDoubleNumbers(double a, double b, double expectedSum) {
+    void subDoubleNumbers(double a, double b, double expectedResult) {
         double result = calculator.sub(a, b);
-        Assertions.assertEquals(expectedSum, result, DELTA, "the subtraction of two real numbers is wrong");
+        Assertions.assertEquals(expectedResult, result, DELTA, "the subtraction of two real numbers is wrong");
     }
 }

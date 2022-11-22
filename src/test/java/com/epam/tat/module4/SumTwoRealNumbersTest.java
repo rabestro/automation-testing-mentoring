@@ -11,7 +11,7 @@ public class SumTwoRealNumbersTest extends CalculatorTest {
     @ParameterizedTest
     @CsvFileSource(resources = "sum-long-numbers.csv", useHeadersInDisplayName = true)
     @DisplayName("sum two whole numbers")
-    void sumLongNumbers(double a, double b, double expectedSum) {
+    void sumLWholeNumbers(double a, double b, double expectedSum) {
         double result = calculator.sum(a, b);
         Assertions.assertEquals(expectedSum, result, "the sum of two whole numbers is wrong");
     }
