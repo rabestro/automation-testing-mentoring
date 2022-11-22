@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 @DisplayName("Calculator adds two double numbers")
-public class SubtractTwoRealNumbersTest extends CalculatorTest {
+final class SubtractTwoRealNumbersTest extends CalculatorTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "sub-long-numbers.csv", useHeadersInDisplayName = true)
