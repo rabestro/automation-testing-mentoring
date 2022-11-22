@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-@DisplayName("Calculator adds two double numbers")
+@DisplayName("Calculator subtracts two double numbers")
 final class SubtractTwoRealNumbersTest extends CalculatorTest {
 
     @ParameterizedTest
