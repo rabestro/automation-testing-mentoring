@@ -6,8 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 @DisplayName("Calculator adds two double numbers")
-public class SumTwoDoubleNumbersTest extends CalculatorTest {
-    private static final double DELTA = 0.000_000_000_1;
+public class SumTwoRealNumbersTest extends CalculatorTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "sum-long-numbers.csv", useHeadersInDisplayName = true)
@@ -18,7 +17,7 @@ public class SumTwoDoubleNumbersTest extends CalculatorTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "sum-double-numbers.csv", useHeadersInDisplayName = true)
+    @CsvFileSource(resources = "sum-real-numbers.csv", useHeadersInDisplayName = true)
     @DisplayName("sum two real numbers")
     void sumDoubleNumbers(double a, double b, double expectedSum) {
         double result = calculator.sum(a, b);

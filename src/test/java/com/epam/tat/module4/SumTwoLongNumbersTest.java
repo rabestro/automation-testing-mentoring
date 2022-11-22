@@ -15,5 +15,4 @@ final class SumTwoLongNumbersTest extends CalculatorTest {
         long result = calculator.sum(a, b);
         Assertions.assertEquals(expectedSum, result, "the sum of two long numbers is wrong");
     }
-
 }
