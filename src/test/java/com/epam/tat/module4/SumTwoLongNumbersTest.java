@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 final class SumTwoLongNumbersTest extends CalculatorTest {
 
     @ParameterizedTest
-    @CsvFileSource(resources = "sum-long-correct.csv", useHeadersInDisplayName = true)
+    @CsvFileSource(resources = "sum-long-numbers.csv", useHeadersInDisplayName = true)
     @DisplayName("sum two long numbers")
     void sumLongNumbers(long a, long b, long expectedSum) {
         long result = calculator.sum(a, b);
