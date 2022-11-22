@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 @DisplayName("Calculator multiply two real numbers")
-final class MultiplyTwoRealNumbersTest extends CalculatorTest {
+final class MultiplyRealNumbersTest extends CalculatorTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "multiply-long-numbers.csv", useHeadersInDisplayName = true)

@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
 @DisplayName("Calculator divide two long numbers")
-final class DivideTwoLongNumbersTest extends CalculatorTest {
+final class DivideLongNumbersTest extends CalculatorTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "divide-long-numbers.csv", useHeadersInDisplayName = true)

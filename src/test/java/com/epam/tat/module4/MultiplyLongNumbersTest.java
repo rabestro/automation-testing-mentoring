@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 @DisplayName("Calculator multiply two long numbers")
-final class MultiplyTwoLongNumbersTest extends CalculatorTest {
+final class MultiplyLongNumbersTest extends CalculatorTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "multiply-long-numbers.csv", useHeadersInDisplayName = true)
