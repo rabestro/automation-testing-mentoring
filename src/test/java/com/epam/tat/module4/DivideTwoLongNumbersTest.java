@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Calculator divide two long numbers")
 final class DivideTwoLongNumbersTest extends CalculatorTest {
@@ -30,7 +29,6 @@ final class DivideTwoLongNumbersTest extends CalculatorTest {
         }, "the division of long number by zero throws wrong exception");
 
         var expectedMessage = "divide by zero";
-        assertTrue(exception.getMessage().contains(expectedMessage));
 
         assertThat(exception.getMessage(), containsString(expectedMessage));
     }
