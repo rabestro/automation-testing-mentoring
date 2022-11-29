@@ -15,25 +15,22 @@ import static java.lang.Math.sqrt;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @Execution(ExecutionMode.CONCURRENT)
-@DisplayName("Calculator calculates sine")
-final class SineTest extends CalculatorTest {
-
-    private static Stream<Arguments> sineSampleData() {
+@DisplayName("Calculator calculates cotangent")
+final class CotangentTest extends CalculatorTest {
+    private static Stream<Arguments> cotangentSampleData() {
         return Stream.of(
-                arguments(0, 0),
-                arguments(PI / 6, 1./2),
-                arguments(PI / 4, sqrt(2) / 2),
-                arguments(PI / 3, sqrt(3) / 2),
-                arguments(PI / 2, 1),
-                arguments(PI, 0)
+                arguments(PI / 6, sqrt(3)),
+                arguments(PI / 4, 1),
+                arguments(PI / 3, sqrt(3) / 3),
+                arguments(PI / 2, 0)
         );
     }
 
-    @ParameterizedTest(name = "sine {0, number, 0.00} is {1, number, 0.00}")
-    @MethodSource("sineSampleData")
-    @DisplayName("calculates sine for a real number")
-    void calculatesSine(double radian, double expected) {
-        var actual = calculator.sin(radian);
+    @ParameterizedTest(name = "cotangent {0, number, 0.00} is {1, number, 0.00}")
+    @MethodSource("cotangentSampleData")
+    @DisplayName("calculates cotangent for a radian")
+    void calculatesCotangent(double radian, double expected) {
+        var actual = calculator.ctg(radian);
         Assertions.assertEquals(expected, actual, DELTA);
     }
 }

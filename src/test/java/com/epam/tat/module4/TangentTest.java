@@ -30,8 +30,8 @@ final class TangentTest extends CalculatorTest {
 
     @ParameterizedTest(name = "tangent {0, number, 0.00} is {1, number, 0.00}")
     @MethodSource("tangentSampleData")
-    @DisplayName("check for a number that is positive")
-    void checkLongPositiveNumber(double radian, double expected) {
+    @DisplayName("calculates tangent for a radian")
+    void calculatesTangent(double radian, double expected) {
         var actual = calculator.tg(radian);
         Assertions.assertEquals(expected, actual, DELTA);
     }

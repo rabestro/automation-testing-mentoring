@@ -32,7 +32,7 @@ final class CosineTest extends CalculatorTest {
     @ParameterizedTest(name = "cosine {0, number, 0.00} is {1, number, 0.00}")
     @MethodSource("cosineSampleData")
     @DisplayName("calculates cosine for a real number")
-    void checkLongPositiveNumber(double radian, double expected) {
+    void calculatesCosine(double radian, double expected) {
         var actual = calculator.cos(radian);
         Assertions.assertEquals(expected, actual, DELTA);
     }
