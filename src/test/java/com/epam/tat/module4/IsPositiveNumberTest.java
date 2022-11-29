@@ -2,6 +2,8 @@ package com.epam.tat.module4;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -9,6 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
  * Numbers can be positive, negative or zero.
  * Zero is neither positive nor negative.
  */
+@Execution(ExecutionMode.CONCURRENT)
 @DisplayName("Calculator checks if a number is positive")
 final class IsPositiveNumberTest extends CalculatorTest {
 
