@@ -35,7 +35,7 @@ final class SqrtTest extends CalculatorTest {
 
     @ParameterizedTest(name = "sqrt {0, number, 0.00} is {1, number, 0.00}")
     @MethodSource("sqrtSampleData")
-    @DisplayName("calculates tangent for a radian")
+    @DisplayName("calculates sqrt for a number")
     void calculatesSqrt(double number, double expected) {
         var actual = calculator.sqrt(number);
         Assertions.assertEquals(expected, actual, DELTA);
