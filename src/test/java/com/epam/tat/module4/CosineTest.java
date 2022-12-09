@@ -1,6 +1,5 @@
 package com.epam.tat.module4;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
@@ -12,6 +11,8 @@ import java.util.stream.Stream;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.closeTo;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @Execution(ExecutionMode.CONCURRENT)
@@ -34,6 +35,6 @@ final class CosineTest extends CalculatorTest {
     @DisplayName("calculates cosine for a real number")
     void calculatesCosine(double radian, double expected) {
         var actual = calculator.cos(radian);
-        Assertions.assertEquals(expected, actual, DELTA);
+        assertThat(actual, closeTo(expected, DELTA));
     }
 }
