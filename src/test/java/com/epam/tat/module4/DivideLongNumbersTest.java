@@ -31,8 +31,6 @@ final class DivideLongNumbersTest extends CalculatorTest {
             long result = calculator.div(number, 0);
         }, "the division of long number by zero throws wrong exception");
 
-        var expectedMessage = "divide by zero";
-
-        assertThat(exception.getMessage(), containsString(expectedMessage));
+        assertThat(exception.getMessage(), containsString("divide by zero"));
     }
 }
