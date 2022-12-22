@@ -138,6 +138,12 @@
     </developer>
   </developers>
 
+  <scm>
+    <connection>scm:git:https://github.com/rabestro/automation-testing-mentoring.git</connection>
+    <developerConnection>scm:git:https://github.com/rabestro/automation-testing-mentoring.git</developerConnection>
+    <url>https://github.com/rabestro/automation-testing-mentoring</url>
+  </scm>
+
   <issueManagement>
     <system>GitHub Issues</system>
     <url>https://github.com/rabestro/automation-testing-mentoring/issues</url>
