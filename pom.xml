@@ -89,7 +89,7 @@
 
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>http://127.0.0.1/bugzilla/</url>
+    <url>https://github.com/rabestro/automation-testing-mentoring/issues</url>
   </issueManagement>
 
 </project>
