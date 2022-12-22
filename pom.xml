@@ -9,16 +9,53 @@
   <artifactId>automation-testing-mentoring</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>automation-testing-mentoring</name>
-  <url>https://www.github.com/rabestro/automation-testing-mentoring</url>
-  <description>Automation testing mentoring with Java: basic</description>
+  <modules>
+    <module>4-calculator</module>
+    <module>5-selenium-webdriver</module>
+  </modules>
 
   <properties>
     <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <junit.version>5.9.1</junit.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.7.1</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest</artifactId>
+        <version>2.2</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-params</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <pluginManagement>
@@ -37,7 +74,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.0.0-M5</version>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
@@ -63,6 +100,15 @@
     </pluginManagement>
   </build>
 
+  <!-- More Project Information -->
+
+  <name>Automation Testing mentoring</name>
+  <url>https://www.github.com/rabestro/automation-testing-mentoring</url>
+  <description>
+    Automated Testing Mentoring with Java: Basic [core track]
+  </description>
+  <inceptionYear>2022</inceptionYear>
+
   <licenses>
     <license>
       <name>Apache-2.0</name>
@@ -71,6 +117,11 @@
       <comments>A business-friendly OSS license</comments>
     </license>
   </licenses>
+
+  <organization>
+    <name>EPAM Systems</name>
+    <url>https://www.epam.com</url>
+  </organization>
 
   <developers>
     <developer>
@@ -86,6 +137,12 @@
       <timezone>Europe/Riga</timezone>
     </developer>
   </developers>
+
+  <scm>
+    <connection>scm:git:https://github.com/rabestro/automation-testing-mentoring.git</connection>
+    <developerConnection>scm:git:https://github.com/rabestro/automation-testing-mentoring.git</developerConnection>
+    <url>https://github.com/rabestro/automation-testing-mentoring</url>
+  </scm>
 
   <issueManagement>
     <system>GitHub Issues</system>
