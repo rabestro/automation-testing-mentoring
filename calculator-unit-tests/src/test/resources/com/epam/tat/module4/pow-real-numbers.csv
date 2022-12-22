@@ -1,0 +1,15 @@
+a,  b,  expected result
+0, 1, 0
+1, 0, 1
+1.9, 0, 1
+2.2250738585072014E-308, 0, 1
+1.79769313486231570e+308, 0, 1
+Infinity, 0, 1
+-Infinity, 0, 1
+NaN, 0, 1
+Infinity, 1, Infinity
+-Infinity, 1, -Infinity
+-Infinity, 2, Infinity
+Infinity, 2, Infinity
+2, 2, 4
+2, 2.5, 5.65685424949238
