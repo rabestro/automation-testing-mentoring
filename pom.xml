@@ -16,9 +16,9 @@
 
   <properties>
     <java.version>17</java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>5.9.1</junit.version>
   </properties>
 
@@ -96,6 +96,14 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.4.1</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <version>3.1.0</version>
+          <configuration>
+            <scmBranch>gh-pages</scmBranch>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -129,14 +137,30 @@
       <name>Jegors Čemisovs</name>
       <email>jegors_cemisovs@epam.com</email>
       <url>https://www.linkedin.com/in/jegors-cemisovs</url>
-      <organization>EPAM Systems</organization>
-      <organizationUrl>https://www.epam.com</organizationUrl>
       <roles>
-        <role>developer</role>
+        <role>mentee</role>
       </roles>
+      <properties>
+        <picUrl>https://static.cdn.epam.com/avatar/6c0dc5c3379cf55c547e8244d744e6f8.jpg</picUrl>
+      </properties>
       <timezone>Europe/Riga</timezone>
     </developer>
   </developers>
+
+  <contributors>
+    <contributor>
+      <name>Yury Barsukou</name>
+      <email>Yury_Barsukou@epam.com</email>
+      <url>https://github.com/yury-barsukou</url>
+      <roles>
+        <role>mentor</role>
+      </roles>
+      <properties>
+        <picUrl>https://static.cdn.epam.com/avatar/ceff37575213888724490f0b2646a87a.jpg</picUrl>
+      </properties>
+      <timezone>Europe/Riga</timezone>
+    </contributor>
+  </contributors>
 
   <scm>
     <connection>scm:git:https://github.com/rabestro/automation-testing-mentoring.git</connection>
@@ -148,5 +172,12 @@
     <system>GitHub Issues</system>
     <url>https://github.com/rabestro/automation-testing-mentoring/issues</url>
   </issueManagement>
+
+  <distributionManagement>
+    <site>
+      <id>github</id>
+      <url>scm:git:git@github.com:rabestro/automation-testing-mentoring.git</url>
+    </site>
+  </distributionManagement>
 
 </project>
