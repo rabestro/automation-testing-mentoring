@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.epam.engx</groupId>
@@ -10,11 +9,14 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>selenium-webdriver</artifactId>
+    <modelVersion>4.0.0</modelVersion>
 
-    <name>Selenium Webdriver</name>
+    <artifactId>selenium-task-1</artifactId>
+
+    <name>Selenium Webdriver - I Can Win</name>
     <description>
-        Practical task for module "Selenium Webdriver"
+        Automate the script using the Selenium WebDriver power,
+        framework unit test, and Page Object concepts.
     </description>
 
     <dependencies>

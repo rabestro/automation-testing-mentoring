@@ -1,17 +1,20 @@
-package com.epam.engx.atm.icanwin;
+package com.epam.engx.webdriver;
 
-import com.epam.engx.atm.icanwin.page.PastebinPage;
+import com.epam.engx.webdriver.page.PastebinPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ICanWinTest {
+final class ICanWinTest {
     private static final String CODE = "Hello from WebDriver";
     private static final String TITLE = "helloweb";
 
@@ -20,11 +23,14 @@ public class ICanWinTest {
 
     @BeforeEach
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        var prefs = Map.of("profile.default_content_setting_values.cookies", 2);
+        driver = new ChromeDriver(new ChromeOptions()
+                .addArguments("--incognito", "start-maximized")
+                .setExperimentalOption("prefs", prefs)
+        );
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get(PastebinPage.HOMEPAGE_URL);
 
+        driver.get(PastebinPage.HOMEPAGE_URL);
         pastebinPage = new PastebinPage(driver);
     }
 
@@ -34,11 +40,11 @@ public class ICanWinTest {
     }
 
     @Test
-    public void search() {
+    @DisplayName("Publish code snippets on PasteBin site")
+    void postCode() {
         pastebinPage.postCode(TITLE, CODE);
 
         assertEquals(CODE, pastebinPage.code());
         assertEquals(TITLE, pastebinPage.title());
     }
-
 }
