@@ -16,6 +16,9 @@
     <version>1.0-SNAPSHOT</version>
 
     <name>Calculator JUnit Tests</name>
+    <description>
+        Write unit tests for the calculator jar  library (Calculator-1.0.jar)
+    </description>
 
     <dependencies>
         <!-- Subject under test -->
