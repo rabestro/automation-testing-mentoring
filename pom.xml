@@ -12,6 +12,7 @@
   <modules>
     <module>calculator</module>
     <module>selenium-task-1</module>
+    <module>selenium-task-2</module>
   </modules>
 
   <properties>

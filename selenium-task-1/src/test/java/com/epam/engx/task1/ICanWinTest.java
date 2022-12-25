@@ -1,6 +1,6 @@
-package com.epam.engx.webdriver;
+package com.epam.engx.task1;
 
-import com.epam.engx.webdriver.page.PastebinPage;
+import com.epam.engx.task1.page.PastebinPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
