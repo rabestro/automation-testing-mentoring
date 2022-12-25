@@ -1,11 +1,11 @@
-package com.epam.engx.atm.icanwin.page;
+package com.epam.engx.webdriver.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class PastebinPage {
+public final class PastebinPage {
     public static final String HOMEPAGE_URL = "https://pastebin.com/";
 
     @FindBy(id = "postform-text")

@@ -11,10 +11,13 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.epam.engx.atm</groupId>
-    <artifactId>selenium-webdriver</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>selenium-task-1</artifactId>
+
     <name>Selenium Webdriver - I Can Win</name>
+    <description>
+        Automate the script using the Selenium WebDriver power,
+        framework unit test, and Page Object concepts.
+    </description>
 
     <dependencies>
         <dependency>
