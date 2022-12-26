@@ -24,24 +24,23 @@ public final class BringItOnTest {
     private WebDriver driver;
     private PastebinPage pastebinPage;
 
-    @BeforeMethod(description = "Publish code snippets on PasteBin site")
+    @BeforeMethod(description = "Open PasteBin site")
     public void setUp() {
         driver = webDriver();
         pastebinPage = new PastebinPage(driver);
-        pastebinPage.postCode(TITLE, CODE);
     }
 
     @AfterMethod
     public void tearDown() {
-//        driver.quit();
+        driver.quit();
     }
 
-    @Test(testName = "checks")
+    @Test(testName = "Publish code snippets on PasteBin site")
     void postCode() {
-        pastebinPage.postCode(TITLE, CODE);
+        var response = pastebinPage.postCode(TITLE, CODE);
 
-        assertEquals(pastebinPage.code(), CODE);
-        assertEquals(pastebinPage.title(), TITLE);
+        assertEquals(response.title(), "Bad Request (#400)");
+        assertEquals(response.text(), "Unable to verify your data submission.");
     }
 
     private WebDriver webDriver() {
