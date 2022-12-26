@@ -1,6 +1,6 @@
-package com.epam.engx.webdriver;
+package com.epam.engx.task1;
 
-import com.epam.engx.webdriver.page.PastebinPage;
+import com.epam.engx.task1.page.PastebinPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +14,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("I Can Win")
 final class ICanWinTest {
     private static final String CODE = "Hello from WebDriver";
     private static final String TITLE = "helloweb";
@@ -46,5 +47,6 @@ final class ICanWinTest {
 
         assertEquals(CODE, pastebinPage.code());
         assertEquals(TITLE, pastebinPage.title());
+        assertEquals("10 Minutes", pastebinPage.expiration());
     }
 }

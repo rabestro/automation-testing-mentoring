@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.epam.engx</groupId>
@@ -9,13 +10,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
+    <artifactId>selenium-task-2</artifactId>
 
-    <artifactId>selenium-task-1</artifactId>
-
-    <name>Selenium - I Can Win</name>
+    <name>Selenium - Bring It On</name>
     <description>
-        Browser automation using Selenium WebDriver, JUnit 5, and Page Object concepts.
+        Browser automation using Selenium WebDriver, TestNG, and Page Object concepts.
     </description>
 
     <dependencies>
@@ -24,16 +23,9 @@
             <artifactId>selenium-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
         </dependency>
     </dependencies>
+
 </project>

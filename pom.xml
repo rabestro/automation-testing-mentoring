@@ -1,207 +1,241 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <packaging>pom</packaging>
-  <groupId>com.epam.engx</groupId>
-  <artifactId>automation-testing-mentoring</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <groupId>com.epam.engx</groupId>
+    <artifactId>automation-testing-mentoring</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modelVersion>4.0.0</modelVersion>
 
-  <modules>
-    <module>calculator</module>
-    <module>selenium-task-1</module>
-  </modules>
+    <modules>
+        <module>calculator</module>
+        <module>selenium-task-1</module>
+        <module>selenium-task-2</module>
+    </modules>
 
-  <properties>
-    <java.version>17</java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <junit.version>5.9.1</junit.version>
-  </properties>
+    <properties>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.9.1</junit.version>
+    </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-java</artifactId>
-        <version>4.7.2</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest</artifactId>
-        <version>2.2</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-params</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>4.7.2</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>2.2</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>7.7.0</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.2.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.3.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.10.1</version>
-        </plugin>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.10.1</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <release>${java.version}</release>
+                    </configuration>
+                </plugin>
 
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.3.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
 
-        <plugin>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.12.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.4.1</version>
-        </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.12.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.4.1</version>
+                </plugin>
 
-        <!-- Apache Maven Surefire -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.0.0-M7</version>
-        </plugin>
+                <!-- Apache Maven Surefire -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M7</version>
+                    <configuration>
+                        <statelessTestsetReporter
+                                implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5Xml30StatelessReporter">
+                            <disable>false</disable>
+                            <version>3.0</version>
+                            <usePhrasedFileName>false</usePhrasedFileName>
+                            <usePhrasedTestSuiteClassName>true</usePhrasedTestSuiteClassName>
+                            <usePhrasedTestCaseClassName>true</usePhrasedTestCaseClassName>
+                            <usePhrasedTestCaseMethodName>true</usePhrasedTestCaseMethodName>
+                        </statelessTestsetReporter>
+                        <consoleOutputReporter
+                                implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5ConsoleOutputReporter">
+                            <disable>false</disable>
+                            <encoding>UTF-8</encoding>
+                            <usePhrasedFileName>false</usePhrasedFileName>
+                        </consoleOutputReporter>
+                        <statelessTestsetInfoReporter
+                                implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoReporter">
+                            <disable>false</disable>
+                            <usePhrasedFileName>false</usePhrasedFileName>
+                            <usePhrasedClassNameInRunning>true</usePhrasedClassNameInRunning>
+                            <usePhrasedClassNameInTestCaseSummary>true</usePhrasedClassNameInTestCaseSummary>
+                        </statelessTestsetInfoReporter>
+                    </configuration>
+                </plugin>
 
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <version>3.0.0-M7</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>integration-test</goal>
-                <goal>verify</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.0.0-M7</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-scm-publish-plugin</artifactId>
-          <version>3.1.0</version>
-          <configuration>
-            <scmBranch>gh-pages</scmBranch>
-          </configuration>
-        </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-publish-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <scmBranch>gh-pages</scmBranch>
+                    </configuration>
+                </plugin>
 
-      </plugins>
-    </pluginManagement>
-  </build>
+            </plugins>
+        </pluginManagement>
+    </build>
 
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>3.0.0-M7</version>
-      </plugin>
-    </plugins>
-  </reporting>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.0.0-M7</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
-  <!-- More Project Information -->
+    <!-- More Project Information -->
 
-  <name>Automation Testing mentoring</name>
-  <url>https://www.github.com/rabestro/automation-testing-mentoring</url>
-  <description>
-    Automated Testing Mentoring with Java: Basic [core track]
-  </description>
-  <inceptionYear>2022</inceptionYear>
+    <name>Automation Testing mentoring</name>
+    <url>https://www.github.com/rabestro/automation-testing-mentoring</url>
+    <description>
+        Automated Testing Mentoring with Java: Basic [core track]
+    </description>
+    <inceptionYear>2022</inceptionYear>
 
-  <licenses>
-    <license>
-      <name>Apache-2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-      <comments>A business-friendly OSS license</comments>
-    </license>
-  </licenses>
+    <licenses>
+        <license>
+            <name>Apache-2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
 
-  <organization>
-    <name>EPAM Systems</name>
-    <url>https://www.epam.com</url>
-  </organization>
+    <organization>
+        <name>EPAM Systems</name>
+        <url>https://www.epam.com</url>
+    </organization>
 
-  <developers>
-    <developer>
-      <id>rabestro</id>
-      <name>Jegors Čemisovs</name>
-      <roles>
-        <role>mentee</role>
-      </roles>
-      <timezone>Europe/Riga</timezone>
-    </developer>
-  </developers>
+    <developers>
+        <developer>
+            <id>rabestro</id>
+            <name>Jegors Čemisovs</name>
+            <roles>
+                <role>mentee</role>
+            </roles>
+            <timezone>Europe/Riga</timezone>
+        </developer>
+    </developers>
 
-  <contributors>
-    <contributor>
-      <name>Yury Barsukou</name>
-      <roles>
-        <role>mentor</role>
-      </roles>
-      <properties>
-        <picUrl>https://static.cdn.epam.com/avatar/ceff37575213888724490f0b2646a87a.jpg</picUrl>
-      </properties>
-      <timezone>Europe/Minsk</timezone>
-    </contributor>
-  </contributors>
+    <contributors>
+        <contributor>
+            <name>Yury Barsukou</name>
+            <roles>
+                <role>mentor</role>
+            </roles>
+            <properties>
+                <picUrl>https://static.cdn.epam.com/avatar/ceff37575213888724490f0b2646a87a.jpg</picUrl>
+            </properties>
+            <timezone>Europe/Minsk</timezone>
+        </contributor>
+    </contributors>
 
-  <scm>
-    <connection>scm:git:https://github.com/rabestro/automation-testing-mentoring.git</connection>
-    <developerConnection>scm:git:https://github.com/rabestro/automation-testing-mentoring.git</developerConnection>
-    <url>https://github.com/rabestro/automation-testing-mentoring</url>
-  </scm>
+    <scm>
+        <connection>scm:git:https://github.com/rabestro/automation-testing-mentoring.git</connection>
+        <developerConnection>scm:git:https://github.com/rabestro/automation-testing-mentoring.git</developerConnection>
+        <url>https://github.com/rabestro/automation-testing-mentoring</url>
+    </scm>
 
-  <issueManagement>
-    <system>GitHub Issues</system>
-    <url>https://github.com/rabestro/automation-testing-mentoring/issues</url>
-  </issueManagement>
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/rabestro/automation-testing-mentoring/issues</url>
+    </issueManagement>
 
-  <distributionManagement>
-    <site>
-      <id>github</id>
-      <url>scm:git:git@github.com:rabestro/automation-testing-mentoring.git</url>
-    </site>
-  </distributionManagement>
+    <distributionManagement>
+        <site>
+            <id>github</id>
+            <url>scm:git:git@github.com:rabestro/automation-testing-mentoring.git</url>
+        </site>
+    </distributionManagement>
 
 </project>
