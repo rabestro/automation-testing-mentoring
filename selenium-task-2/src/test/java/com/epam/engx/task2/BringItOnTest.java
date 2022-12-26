@@ -24,18 +24,19 @@ public final class BringItOnTest {
     private WebDriver driver;
     private PastebinPage pastebinPage;
 
-    @BeforeMethod
+    @BeforeMethod(description = "Publish code snippets on PasteBin site")
     public void setUp() {
         driver = webDriver();
         pastebinPage = new PastebinPage(driver);
+        pastebinPage.postCode(TITLE, CODE);
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+//        driver.quit();
     }
 
-    @Test(testName = "Publish code snippets on PasteBin site")
+    @Test(testName = "checks")
     void postCode() {
         pastebinPage.postCode(TITLE, CODE);
 

@@ -12,10 +12,9 @@
 
     <artifactId>selenium-task-2</artifactId>
 
-    <name>Selenium Webdriver - Bring It On</name>
+    <name>Selenium - Bring It On</name>
     <description>
-        Automate the script using the Selenium WebDriver power,
-        framework unit test, and Page Object concepts.
+        Browser automation using Selenium WebDriver, TestNG, and Page Object concepts.
     </description>
 
     <dependencies>
