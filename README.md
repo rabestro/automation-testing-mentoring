@@ -16,7 +16,7 @@ The repository contains my solutions for practical tasks of the course.
    - JavaScript Executor, 
    - Selenium Server + Selenium Grid
 7. TA Frameworks: 
-   - Layers, Runner, Business Objects
+   - Layers, com.epam.engx.aircompany.Runner, Business Objects
 8. Design Patterns in TA Frameworks implementation
 9. Automated testing of Web Services: best practices
 10. BDD TA Frameworks

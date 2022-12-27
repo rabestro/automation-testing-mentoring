@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.epam.engx</groupId>
+        <artifactId>automation-testing-mentoring</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.github.vitalliuss</groupId>
+    <artifactId>aircompany</artifactId>
+
+    <name>AirCompany</name>
+    <description>
+        Fix all code mistakes in the given project “AirCompany”
+        to do the project follow Clean Code Concept.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+    </dependencies>
+
+    <contributors>
+        <contributor>
+            <name>Yury Barsukou</name>
+            <roles>
+                <role>mentor</role>
+            </roles>
+            <timezone>Europe/Minsk</timezone>
+        </contributor>
+        <contributor>
+            <name>Sergei Volchek</name>
+            <roles>
+                <role>teacher</role>
+            </roles>
+            <properties>
+                <description>
+                    original pretty version
+                </description>
+            </properties>
+            <timezone>Europe/Minsk</timezone>
+        </contributor>
+        <contributor>
+            <name>Aliaksei Safronau</name>
+            <roles>
+                <role>teacher</role>
+            </roles>
+            <properties>
+                <description>
+                    original pretty version
+                </description>
+            </properties>
+            <timezone>Europe/Minsk</timezone>
+        </contributor>
+        <contributor>
+            <name>Vitali Shulha</name>
+            <email>vitalliuss@gmail.com</email>
+            <url>https://github.com/vitalliuss</url>
+            <roles>
+                <role>teacher</role>
+            </roles>
+            <properties>
+                <description>
+                    final corrupted version with violations
+                </description>
+            </properties>
+            <timezone>Europe/Minsk</timezone>
+        </contributor>
+    </contributors>
+</project>
