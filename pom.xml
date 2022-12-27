@@ -156,6 +156,7 @@
                     <version>3.1.0</version>
                     <configuration>
                         <scmBranch>gh-pages</scmBranch>
+                        <siteOutputEncoding>${project.build.sourceEncoding}</siteOutputEncoding>
                     </configuration>
                 </plugin>
 
