@@ -12,6 +12,7 @@
     <modules>
         <module>aircompany</module>
         <module>calculator</module>
+        <module>selenium-pages</module>
         <module>selenium-task-1</module>
         <module>selenium-task-2</module>
         <module>selenium-task-3</module>
@@ -25,6 +26,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Common page objects for browser automation tests -->
+            <dependency>
+                <groupId>com.epam.engx.selenium.pages</groupId>
+                <artifactId>selenium-pages</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>

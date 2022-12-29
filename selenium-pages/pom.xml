@@ -10,30 +10,18 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.epam.engx.selenium</groupId>
-    <artifactId>selenium-task-3</artifactId>
+    <groupId>com.epam.engx.selenium.pages</groupId>
+    <artifactId>selenium-pages</artifactId>
 
-    <name>Hurt Me Plenty</name>
+    <name>Page Objects</name>
     <description>
-        Selenium WebDriver, JUnit 5, AssertJ, and Page Object concepts.
+        Common page objects for browser automation tests
     </description>
 
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
         </dependency>
     </dependencies>
 </project>
