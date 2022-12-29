@@ -13,15 +13,20 @@
     <groupId>com.epam.engx.selenium.pages</groupId>
     <artifactId>selenium-pages</artifactId>
 
-    <name>Page Objects</name>
+    <name>Selenium - Page Objects</name>
     <description>
         Common page objects for browser automation tests
     </description>
 
+    <!--
+    How to create a jar containing test classes:
+    https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html
+    -->
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

@@ -13,12 +13,16 @@
     <groupId>com.epam.engx.selenium</groupId>
     <artifactId>selenium-task-3</artifactId>
 
-    <name>Hurt Me Plenty</name>
+    <name>Selenium - Hurt Me Plenty</name>
     <description>
         Selenium WebDriver, JUnit 5, AssertJ, and Page Object concepts.
     </description>
 
     <dependencies>
+        <dependency>
+            <groupId>com.epam.engx.selenium.pages</groupId>
+            <artifactId>selenium-pages</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
