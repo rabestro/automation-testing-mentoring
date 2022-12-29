@@ -1,0 +1,23 @@
+package com.epam.engx.selenium.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
+
+// page_url = https://cloud.google.com/s/results?q=Google%20Cloud%20Platform%20Pricing%20Calculator
+public class SearchResult extends AbstractPage {
+
+    @FindBy(xpath = "//a[@class='gs-title']")
+    private List<WebElement> results;
+
+    public SearchResult(WebDriver driver) {
+        super(driver);
+    }
+
+    public List<Link> links() {
+        return results.stream().map(Link::new).filter(Link::hasText).toList();
+    }
+
+}
