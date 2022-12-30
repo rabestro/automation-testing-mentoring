@@ -16,6 +16,12 @@ public class PricingCalculator extends AbstractPage {
     @FindBy(name = "quantity")
     private WebElement numberOfInstances;
 
+    @FindBy(id = "select_115")
+    private WebElement series;
+
+    @FindBy(id = "select_option_201")
+    private WebElement seriesN1;
+
     public PricingCalculator(WebDriver driver) {
         super(driver);
         driver.switchTo().frame(mainFrame);
@@ -34,5 +40,15 @@ public class PricingCalculator extends AbstractPage {
 
     public String getInstances() {
         return numberOfInstances.getAttribute(VALUE);
+    }
+
+    public PricingCalculator setSeriesN1() {
+        series.click();
+        seriesN1.click();
+        return this;
+    }
+
+    public String getSeries() {
+        return series.getText();
     }
 }

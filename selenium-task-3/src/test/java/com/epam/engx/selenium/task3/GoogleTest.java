@@ -66,4 +66,15 @@ final class GoogleTest {
                 .isNotBlank()
                 .isEqualTo("4");
     }
+
+    @Test
+    @Order(4)
+    @DisplayName("set series as N1")
+    void setSeries() {
+        // when
+        pricingCalculator.setSeriesN1();
+
+        then(pricingCalculator.getSeries())
+                .isEqualTo("N1");
+    }
 }
