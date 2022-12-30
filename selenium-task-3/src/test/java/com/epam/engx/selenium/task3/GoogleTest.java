@@ -7,11 +7,14 @@ import com.epam.engx.selenium.pages.WebDriverFabric;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 
+import static com.epam.engx.selenium.pages.PricingCalculator.Menu.INSTANCE_TYPE;
+import static com.epam.engx.selenium.pages.PricingCalculator.Menu.SERIES;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class GoogleTest {
     private static final String TERM = "Google Cloud Platform Pricing Calculator";
+
     private static WebDriver driver;
     private static SearchResult searchResult;
     // Subject under test
@@ -69,12 +72,40 @@ final class GoogleTest {
 
     @Test
     @Order(4)
-    @DisplayName("set series as N1")
+    @DisplayName("default series is E2")
+    void checkSeries() {
+        // when
+        var selectedSeries = pricingCalculator.selectedItem(SERIES);
+
+        then(selectedSeries)
+                .isEqualTo("E2");
+    }
+
+
+    @Test
+    @Order(5)
+    @DisplayName("we set series to N1")
     void setSeries() {
         // when
-        pricingCalculator.setSeriesN1();
+        pricingCalculator.select(SERIES, "N1");
 
-        then(pricingCalculator.getSeries())
+        then(pricingCalculator.selectedItem(SERIES))
                 .isEqualTo("N1");
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("set instance type")
+    void setInstanceType() {
+        // given
+        var instanceType = "n1-standard-8";
+
+        // when
+        pricingCalculator.select(INSTANCE_TYPE, instanceType);
+
+        then(pricingCalculator.selectedItem(INSTANCE_TYPE))
+                .contains(instanceType)
+                .contains("vCPUs: 8")
+                .contains("RAM: 30");
     }
 }

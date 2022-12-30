@@ -11,15 +11,14 @@ public class PricingCalculator extends AbstractPage {
     @FindBy(name = "quantity")
     private WebElement numberOfInstances;
 
-    @FindBy(id = "select_115")
-    private WebElement series;
-
-    @FindBy(id = "select_option_201")
-    private WebElement seriesN1;
-
     public PricingCalculator(WebDriver driver) {
         super(driver);
         switchToCalculatorArea();
+    }
+
+    public static PricingCalculator openPage(WebDriver driver) {
+        driver.get("https://cloud.google.com/products/calculator");
+        return new PricingCalculator(driver);
     }
 
     private void switchToCalculatorArea() {
@@ -29,9 +28,8 @@ public class PricingCalculator extends AbstractPage {
         driver.switchTo().frame(myFrame);
     }
 
-    public static PricingCalculator openPage(WebDriver driver) {
-        driver.get("https://cloud.google.com/products/calculator");
-        return new PricingCalculator(driver);
+    public String getInstances() {
+        return numberOfInstances.getAttribute(VALUE);
     }
 
     public PricingCalculator setInstances(int instances) {
@@ -39,17 +37,32 @@ public class PricingCalculator extends AbstractPage {
         return this;
     }
 
-    public String getInstances() {
-        return numberOfInstances.getAttribute(VALUE);
-    }
-
-    public PricingCalculator setSeriesN1() {
-        series.click();
-        seriesN1.click();
+    public PricingCalculator select(Menu menu, String item) {
+        menu.click(driver);
+        var itemXpath = "//md-option/div[contains(text(),'%s')]".formatted(item);
+        driver.findElement(By.xpath(itemXpath)).click();
         return this;
     }
 
-    public String getSeries() {
-        return series.getText();
+    public String selectedItem(Menu menu) {
+        var element = By.xpath(menu.baseXpath + "/md-select-value");
+        return driver.findElement(element).getText();
     }
+
+    public enum Menu {
+        SERIES("Series"),
+        INSTANCE_TYPE("Instance type");
+        final String placeholder;
+        final String baseXpath;
+
+        Menu(String placeholder) {
+            this.placeholder = placeholder;
+            this.baseXpath = "//md-select[@placeholder='%s']".formatted(placeholder);
+        }
+
+        void click(WebDriver driver) {
+            driver.findElement(By.xpath(baseXpath)).click();
+        }
+    }
+
 }
