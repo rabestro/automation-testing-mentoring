@@ -14,7 +14,7 @@ public class PricingCalculator extends AbstractPage {
     private WebElement myFrame;
 
     @FindBy(name = "quantity")
-    private WebElement quantity;
+    private WebElement numberOfInstances;
 
     public PricingCalculator(WebDriver driver) {
         super(driver);
@@ -22,13 +22,17 @@ public class PricingCalculator extends AbstractPage {
         driver.switchTo().frame(myFrame);
     }
 
-    public PricingCalculator setQuantity(int instances) {
-        this.quantity.click();
-        this.quantity.sendKeys(String.valueOf(instances));
+    public static PricingCalculator openPage(WebDriver driver) {
+        driver.get("https://cloud.google.com/products/calculator");
+        return new PricingCalculator(driver);
+    }
+
+    public PricingCalculator setInstances(int instances) {
+        numberOfInstances.sendKeys(String.valueOf(instances));
         return this;
     }
 
-    public String quantity() {
-        return quantity.getText();
+    public String getInstances() {
+        return numberOfInstances.getAttribute(VALUE);
     }
 }

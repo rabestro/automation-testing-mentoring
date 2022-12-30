@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.function.Function;
 
 // page_url = https://cloud.google.com/s/results?q=Google%20Cloud%20Platform%20Pricing%20Calculator
 public class SearchResult extends AbstractPage {
@@ -21,12 +21,8 @@ public class SearchResult extends AbstractPage {
         return results.stream().map(Link::new).filter(Link::hasText).toList();
     }
 
-    public <T extends AbstractPage> T goFirst(Class<T> pageType) {
+    public <T extends AbstractPage> T goFirst(Function<? super WebDriver, T> pageFabric) {
         results.stream().findFirst().orElseThrow().click();
-        try {
-            return pageType.getDeclaredConstructor(WebDriver.class).newInstance(driver);
-        } catch (Exception e) {
-            throw new NoSuchElementException(e);
-        }
+        return pageFabric.apply(driver);
     }
 }

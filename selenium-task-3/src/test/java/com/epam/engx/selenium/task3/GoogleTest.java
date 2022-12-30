@@ -30,7 +30,7 @@ final class GoogleTest {
 
     @Test
     @Order(1)
-    @DisplayName("search for Google Cloud Platform Pricing Calculator")
+    @DisplayName("search for " + TERM)
     void searchGoogleCloudPlatformPricingCalculator() {
         // when
         searchResult = GoogleCloud.openPage(driver).search(TERM);
@@ -40,16 +40,14 @@ final class GoogleTest {
                 .isNotEmpty()
                 .extracting("text")
                 .contains(TERM);
-
-
     }
 
     @Test
     @Order(2)
-    @DisplayName("open Google Cloud Platform Pricing Calculator")
+    @DisplayName("open " + TERM)
     void openGoogleCloudPlatformPricingCalculator() {
         // when
-        pricingCalculator = searchResult.goFirst(PricingCalculator.class);
+        pricingCalculator = searchResult.goFirst(PricingCalculator::new);
 
         then(pricingCalculator)
                 .as("open %s", TERM)
@@ -58,12 +56,12 @@ final class GoogleTest {
 
     @Test
     @Order(3)
-    @DisplayName("estimate")
-    void estimate() {
+    @DisplayName("set number of instances as 4")
+    void setNumberOfInstances() {
         // when
-        pricingCalculator.setQuantity(4);
+        pricingCalculator.setInstances(4);
 
-        then(pricingCalculator.quantity())
+        then(pricingCalculator.getInstances())
                 .isNotNull()
                 .isNotBlank()
                 .isEqualTo("4");
