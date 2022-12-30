@@ -1,17 +1,12 @@
 package com.epam.engx.selenium.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 // page_url = https://cloud.google.com/products/calculator
 public class PricingCalculator extends AbstractPage {
-
-    @FindBy(xpath = "//iframe")
-    private WebElement mainFrame;
-
-    @FindBy(id = "myFrame")
-    private WebElement myFrame;
 
     @FindBy(name = "quantity")
     private WebElement numberOfInstances;
@@ -24,7 +19,13 @@ public class PricingCalculator extends AbstractPage {
 
     public PricingCalculator(WebDriver driver) {
         super(driver);
+        switchToCalculatorArea();
+    }
+
+    private void switchToCalculatorArea() {
+        var mainFrame = driver.findElement(By.xpath("//iframe"));
         driver.switchTo().frame(mainFrame);
+        var myFrame = driver.findElement(By.id("myFrame"));
         driver.switchTo().frame(myFrame);
     }
 
