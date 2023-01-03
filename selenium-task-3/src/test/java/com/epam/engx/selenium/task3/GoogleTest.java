@@ -7,8 +7,7 @@ import com.epam.engx.selenium.pages.WebDriverFabric;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 
-import static com.epam.engx.selenium.pages.PricingCalculator.Menu.INSTANCE_TYPE;
-import static com.epam.engx.selenium.pages.PricingCalculator.Menu.SERIES;
+import static com.epam.engx.selenium.pages.PricingCalculator.Menu.*;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -27,7 +26,8 @@ final class GoogleTest {
     }
 
     @AfterAll
-    static void tearDown() {
+    static void tearDown() throws InterruptedException {
+//        Thread.sleep(3000);
         driver.quit();
     }
 
@@ -75,7 +75,7 @@ final class GoogleTest {
     @DisplayName("default series is E2")
     void checkSeries() {
         // when
-        var selectedSeries = pricingCalculator.selectedItem(SERIES);
+        var selectedSeries = pricingCalculator.valueOf(SERIES);
 
         then(selectedSeries)
                 .isEqualTo("E2");
@@ -84,28 +84,57 @@ final class GoogleTest {
 
     @Test
     @Order(5)
-    @DisplayName("we set series to N1")
+    @DisplayName("set series to N1")
     void setSeries() {
         // when
         pricingCalculator.select(SERIES, "N1");
 
-        then(pricingCalculator.selectedItem(SERIES))
+        then(pricingCalculator.valueOf(SERIES))
                 .isEqualTo("N1");
     }
 
     @Test
     @Order(6)
-    @DisplayName("set instance type")
+    @DisplayName("set instance type: n1-standard-8 (vCPUs: 8, RAM: 30 GB)")
     void setInstanceType() {
         // given
         var instanceType = "n1-standard-8";
 
         // when
-        pricingCalculator.select(INSTANCE_TYPE, instanceType);
+        pricingCalculator.select(INSTANCE, instanceType);
 
-        then(pricingCalculator.selectedItem(INSTANCE_TYPE))
+        then(pricingCalculator.valueOf(INSTANCE))
                 .contains(instanceType)
                 .contains("vCPUs: 8")
                 .contains("RAM: 30");
+    }
+
+    @Test
+    @Order(9)
+    @DisplayName("set Local SSD to 2x375 Gb")
+    void setLocalSSD() {
+        // given
+        var ssdType = "2x375";
+
+        // when
+        pricingCalculator.select(SSD, ssdType);
+
+        then(pricingCalculator.valueOf(SSD))
+                .contains(ssdType);
+    }
+
+    @Test
+    @Order(11)
+    @DisplayName("set datacenter location: Frankfurt (europe-west3)")
+    void setDatacenter() {
+        // given
+        var datacenter = "Frankfurt";
+
+        // when
+        pricingCalculator.select(DATACENTER, datacenter);
+
+        then(pricingCalculator.valueOf(DATACENTER))
+                .contains(datacenter)
+                .contains("europe-west3");
     }
 }

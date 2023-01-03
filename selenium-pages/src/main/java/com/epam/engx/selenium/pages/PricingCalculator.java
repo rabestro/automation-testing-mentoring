@@ -3,6 +3,7 @@ package com.epam.engx.selenium.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 // page_url = https://cloud.google.com/products/calculator
@@ -40,18 +41,23 @@ public class PricingCalculator extends AbstractPage {
     public PricingCalculator select(Menu menu, String item) {
         menu.click(driver);
         var itemXpath = "//md-option/div[contains(text(),'%s')]".formatted(item);
-        driver.findElement(By.xpath(itemXpath)).click();
+        var element = driver.findElement(By.xpath(itemXpath));
+        var action = new Actions(driver);
+        action.moveToElement(element);
+        element.click();
         return this;
     }
 
-    public String selectedItem(Menu menu) {
+    public String valueOf(Menu menu) {
         var element = By.xpath(menu.baseXpath + "/md-select-value");
         return driver.findElement(element).getText();
     }
 
     public enum Menu {
         SERIES("Series"),
-        INSTANCE_TYPE("Instance type");
+        SSD("Local SSD"),
+        DATACENTER("Datacenter location"),
+        INSTANCE("Instance type");
         final String placeholder;
         final String baseXpath;
 
@@ -61,7 +67,10 @@ public class PricingCalculator extends AbstractPage {
         }
 
         void click(WebDriver driver) {
-            driver.findElement(By.xpath(baseXpath)).click();
+            var element = driver.findElement(By.xpath(baseXpath));
+            var action = new Actions(driver);
+            action.moveToElement(element);
+            element.click();
         }
     }
 
