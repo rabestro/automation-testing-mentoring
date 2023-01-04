@@ -7,7 +7,6 @@ import com.epam.engx.selenium.pages.WebDriverFabric;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 
-import static com.epam.engx.selenium.pages.PricingCalculator.Menu.*;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -75,7 +74,7 @@ final class GoogleTest {
     @DisplayName("default series is E2")
     void checkSeries() {
         // when
-        var selectedSeries = pricingCalculator.valueOf(SERIES);
+        var selectedSeries = pricingCalculator.valueOf("series");
 
         then(selectedSeries)
                 .isEqualTo("E2");
@@ -87,9 +86,9 @@ final class GoogleTest {
     @DisplayName("set series to N1")
     void setSeries() {
         // when
-        pricingCalculator.select(SERIES, "N1");
+        pricingCalculator.dropdownMenu("series", "n1");
 
-        then(pricingCalculator.valueOf(SERIES))
+        then(pricingCalculator.valueOf("series"))
                 .isEqualTo("N1");
     }
 
@@ -101,9 +100,9 @@ final class GoogleTest {
         var instanceType = "n1-standard-8";
 
         // when
-        pricingCalculator.select(INSTANCE, instanceType);
+        pricingCalculator.dropdownMenu("instance", instanceType.toUpperCase());
 
-        then(pricingCalculator.valueOf(INSTANCE))
+        then(pricingCalculator.valueOf("instance"))
                 .contains(instanceType)
                 .contains("vCPUs: 8")
                 .contains("RAM: 30");
@@ -113,28 +112,22 @@ final class GoogleTest {
     @Order(9)
     @DisplayName("set Local SSD to 2x375 Gb")
     void setLocalSSD() {
-        // given
-        var ssdType = "2x375";
-
         // when
-        pricingCalculator.select(SSD, ssdType);
+        pricingCalculator.dropdownMenu("ssd", "2");
 
-        then(pricingCalculator.valueOf(SSD))
-                .contains(ssdType);
+        then(pricingCalculator.valueOf("ssd"))
+                .contains("2x375");
     }
 
     @Test
     @Order(11)
     @DisplayName("set datacenter location: Frankfurt (europe-west3)")
     void setDatacenter() {
-        // given
-        var datacenter = "Frankfurt";
-
         // when
-        pricingCalculator.select(DATACENTER, datacenter);
+        pricingCalculator.dropdownMenu("location", "europe-west3");
 
-        then(pricingCalculator.valueOf(DATACENTER))
-                .contains(datacenter)
+        then(pricingCalculator.valueOf("location"))
+                .contains("Frankfurt")
                 .contains("europe-west3");
     }
 }

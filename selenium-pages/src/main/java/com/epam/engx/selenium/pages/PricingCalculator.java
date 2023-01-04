@@ -8,9 +8,19 @@ import org.openqa.selenium.support.FindBy;
 
 // page_url = https://cloud.google.com/products/calculator
 public class PricingCalculator extends AbstractPage {
+    private static final String CSS_MENU = "md-select[ng-model$='%s']";
+    private static final String CSS_ITEM = "md-option[value*='%s']";
+    private static final String CSS_VALUE = "[ng-model$='%s'] > md-select-value div.md-text";
+    private static final String CSS_CHECKBOX = "md-checkbox[ng-model$='%s']";
 
     @FindBy(name = "quantity")
     private WebElement numberOfInstances;
+
+    @FindBy(css = "md-checkbox[aria-label='Add GPUs']")
+    private WebElement checkboxAddGpu;
+
+    @FindBy(css = "md-select[ng-model$='gpuType']")
+    private WebElement gpuType;
 
     public PricingCalculator(WebDriver driver) {
         super(driver);
@@ -38,40 +48,34 @@ public class PricingCalculator extends AbstractPage {
         return this;
     }
 
-    public PricingCalculator select(Menu menu, String item) {
-        menu.click(driver);
-        var itemXpath = "//md-option/div[contains(text(),'%s')]".formatted(item);
-        var element = driver.findElement(By.xpath(itemXpath));
-        var action = new Actions(driver);
-        action.moveToElement(element);
-        element.click();
+    public PricingCalculator checkbox(String checkbox) {
+        click(CSS_CHECKBOX.formatted(checkbox));
         return this;
     }
 
-    public String valueOf(Menu menu) {
-        var element = By.xpath(menu.baseXpath + "/md-select-value");
-        return driver.findElement(element).getText();
+    public PricingCalculator dropdownMenu(String menuName, String itemName) {
+        click(CSS_MENU.formatted(menuName));
+        click(CSS_ITEM.formatted(itemName));
+        return this;
     }
 
-    public enum Menu {
-        SERIES("Series"),
-        SSD("Local SSD"),
-        DATACENTER("Datacenter location"),
-        INSTANCE("Instance type");
-        final String placeholder;
-        final String baseXpath;
+    private void click(String cssSelector) {
+        var element = driver.findElement(By.cssSelector(cssSelector));
+//        moveTo(element);
 
-        Menu(String placeholder) {
-            this.placeholder = placeholder;
-            this.baseXpath = "//md-select[@placeholder='%s']".formatted(placeholder);
-        }
+        new Actions(driver).click(element).perform();
+//        element.click();
+    }
 
-        void click(WebDriver driver) {
-            var element = driver.findElement(By.xpath(baseXpath));
-            var action = new Actions(driver);
-            action.moveToElement(element);
-            element.click();
-        }
+    public void moveTo(WebElement element) {
+//        var js = (JavascriptExecutor) driver;
+//        js.executeScript("arguments[0].scrollIntoView();", element);
+        new Actions(driver).click(element);
+    }
+
+    public String valueOf(String menuName) {
+        var cssValue = CSS_VALUE.formatted(menuName);
+        return driver.findElement(By.cssSelector(cssValue)).getText();
     }
 
 }
