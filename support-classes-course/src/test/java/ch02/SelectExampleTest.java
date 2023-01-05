@@ -155,10 +155,7 @@ final class SelectExampleTest {
 
         then(selected)
                 .as("there should be 2 in the list")
-                .hasSize(2);
-
-        then(selected)
-                .as("assert on the getText for the list entries")
+                .hasSize(2)
                 .extracting("text")
                 .containsExactly("Second", "Third");
 
