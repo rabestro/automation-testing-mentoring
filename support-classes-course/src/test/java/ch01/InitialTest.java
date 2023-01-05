@@ -25,7 +25,7 @@ final class InitialTest {
     }
 
     @Test
-    @DisplayName("The title is correct")
+    @DisplayName("The page title is correct")
     void anInitialTest() {
         assertThat(driver.getTitle())
                 .isEqualTo("Support Classes Example");
