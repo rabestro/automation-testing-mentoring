@@ -1,4 +1,4 @@
-package ch05;
+package ch05_01;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textMatches;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-public final class SupportClassesTestPage {
+final class SupportClassesTestPage {
     private static final By SELECT_MENU_LOCATOR = By.id("select-menu");
     private static final By MESSAGE_LOCATOR = By.id("message");
     private static final Pattern NON_WHITESPACE = Pattern.compile("\\S");
@@ -19,23 +19,23 @@ public final class SupportClassesTestPage {
     private final WebDriver driver;
 
     // basic constructor using WebDriver
-    public SupportClassesTestPage(WebDriver driver) {
+    SupportClassesTestPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public void selectSingleOptionMessage(final String singleOptionText) {
+    void selectSingleOptionMessage(final String singleOptionText) {
         var singleSelectMenu = wait.until(visibilityOfElementLocated(SELECT_MENU_LOCATOR));
         var select = new Select(singleSelectMenu);
         select.selectByVisibleText(singleOptionText);
     }
 
-    public void waitForMessageReceived() {
+    void waitForMessageReceived() {
         wait.until(visibilityOfElementLocated(MESSAGE_LOCATOR));
         wait.until(textMatches(MESSAGE_LOCATOR, NON_WHITESPACE));
     }
 
-    public String getLastSingleMessage() {
+    String getLastSingleMessage() {
         return driver.findElement(MESSAGE_LOCATOR).getText();
     }
 }
