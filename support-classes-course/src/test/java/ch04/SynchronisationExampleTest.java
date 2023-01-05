@@ -28,7 +28,7 @@ import static org.assertj.core.api.BDDAssertions.then;
  * - re-use waits
  * - timeouts
  * - this is synchronisation not 'sleep' based on time
- * - we can also use WebDriverWait as an assertion mechanism so we don't need asserts in page objects
+ * - we can also use WebDriverWait as an assertion mechanism, so we don't need asserts in page objects
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 final class SynchronisationExampleTest {
@@ -56,7 +56,6 @@ final class SynchronisationExampleTest {
                 .as("the message is not immediately displayed, need to wait")
                 .isInstanceOf(NoSuchElementException.class);
     }
-
 
     @Test
     void implicit_wait() {
