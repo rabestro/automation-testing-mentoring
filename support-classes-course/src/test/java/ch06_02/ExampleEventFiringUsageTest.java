@@ -3,14 +3,16 @@ package ch06_02;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 final class ExampleEventFiringUsageTest {
@@ -26,35 +28,36 @@ final class ExampleEventFiringUsageTest {
 
     @Test
     void create_from_abstract() {
+        var events = new EventFiringDecorator<>(
+                new HighLighterEventListener(), new ScreenshotEventListener()
+        ).decorate(driver);
 
-        // TODO: create an EventFiringWebDriver
-        // with a HighLighterEventListener
-        // and a ScreenshotterEventListener
+        var page = new SimpleSupportPageObject(events);
+        var message = page.chooseOption(4);
 
-        EventFiringWebDriver events = new EventFiringWebDriver(driver);
-        events.register(new HighLighterEventListener());
-        events.register(new ScreenshotterEventListener());
-
-        final SimpleSupportPageObject page = new SimpleSupportPageObject(events);
-
-        String message = page.chooseOption(4);
-        Assertions.assertEquals("Received message: selected 4", message);
+        then(message)
+                .endsWith("selected 4");
 
         message = page.chooseOption(3);
-        Assertions.assertEquals("Received message: selected 3", message);
+
+        then(message)
+                .endsWith("selected 3");
 
         message = page.chooseOption(2);
-        Assertions.assertEquals("Received message: selected 2", message);
+
+        then(message)
+                .endsWith("selected 2");
 
         message = page.chooseOption(1);
-        Assertions.assertEquals("Received message: selected 1", message);
+
+        then(message)
+                .endsWith("selected 1");
     }
 
     @AfterEach
     void closeDriver() {
         driver.quit();
     }
-
 
     private static class SimpleSupportPageObject {
         private final WebDriver driver;
@@ -67,14 +70,17 @@ final class ExampleEventFiringUsageTest {
 
         String chooseOption(int optionNumber) {
 
-            final WebElement option = this.driver.findElement(By.id("select-menu"));
-            final Select selectOption = new Select(option);
+            var option = this.driver.findElement(By.id("select-menu"));
+            var selectOption = new Select(option);
             selectOption.selectByIndex(optionNumber - 1);
 
             // wait for all messages to render and return the message response text
-            WebElement listMesssage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#single-list li.message")));
-            final WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#message")));
-            wait.until(ExpectedConditions.textToBePresentInElementLocated(By.cssSelector("#message"), "Received message:"));
+            wait.until(
+                    visibilityOfElementLocated(By.cssSelector("#single-list li.message")));
+            var message = wait.until(
+                    visibilityOfElementLocated(By.cssSelector("#message")));
+            wait.until(
+                    textToBePresentInElementLocated(By.cssSelector("#message"), "Received message:"));
 
             return message.getText();
         }
