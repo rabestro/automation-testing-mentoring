@@ -1,4 +1,4 @@
-package ch01.overview;
+package ch01;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
