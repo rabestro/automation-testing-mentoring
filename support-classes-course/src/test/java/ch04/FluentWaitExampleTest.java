@@ -38,7 +38,7 @@ final class FluentWaitExampleTest {
         // WebDriverWait is built on FluentWait so we have a lot of control over the wait
         // todo: customise timeout message, poll every 50 milliseconds,
         //       and ignore StaleElementReferenceException.class
-        final WebElement message = new WebDriverWait(driver, Duration.ofSeconds(5))
+        var message = new WebDriverWait(driver, Duration.ofSeconds(5))
                 .withMessage("Could not find a Message")
                 .pollingEvery(Duration.ofMillis(50))
                 .ignoring(StaleElementReferenceException.class)
@@ -70,12 +70,11 @@ final class FluentWaitExampleTest {
     }
 
     @AfterEach
-    public void closeDriver() {
+    void closeDriver() {
         driver.quit();
     }
 
-    private record HistoryMessagesIncreaseInNumber(int initialCount)
-            implements Function<WebElement, Boolean> {
+    private record HistoryMessagesIncreaseInNumber(int initialCount) implements Function<WebElement, Boolean> {
 
         @Override
         public Boolean apply(final WebElement element) {
