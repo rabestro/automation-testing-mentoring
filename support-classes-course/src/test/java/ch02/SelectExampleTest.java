@@ -11,14 +11,14 @@ import org.openqa.selenium.support.ui.Select;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.BDDAssertions.then;
 
+/**
+ * There are many types of abstractions that we can use and a very simple,
+ * low level abstraction is an Element Abstraction, a wrapper around an
+ * element on the screen. In this video we will explain what this means
+ * and how it can help us to use Select as an example.
+ */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 final class SelectExampleTest {
-    /*
-        There are many types of abstractions that we can use and a very simple,
-        low level abstraction is an Element Abstraction,
-        a wrapper around an element on the screen.
-        In this video we will explain what this means and how it can help us using Select as an example.
-    */
     private static WebDriver driver;
 
     @BeforeAll
