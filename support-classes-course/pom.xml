@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.epam.engx</groupId>
+        <artifactId>automation-testing-mentoring</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>support-classes-course</artifactId>
+
+    <name>Advanced Selenium: Support Classes</name>
+    <description>
+        Make your automated execution code more robust using support classes within Selenium WebDriver.
+        In this course, instructor Alan Richardson takes a deep dive into Selenium WebDriver,
+        explaining how support classes can make updating and maintaining your test code much easier.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <contributors>
+        <contributor>
+            <name>Alan Richardson</name>
+            <url>https://www.eviltester.com/</url>
+            <roles>
+                <role>author</role>
+            </roles>
+            <timezone>Europe/London</timezone>
+        </contributor>
+    </contributors>
+
+</project>

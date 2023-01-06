@@ -14,6 +14,7 @@
         <module>calculator</module>
         <module>selenium-task-1</module>
         <module>selenium-task-2</module>
+        <module>support-classes-course</module>
     </modules>
 
     <properties>
@@ -58,6 +59,12 @@
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
                 <version>7.7.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>3.23.1</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
