@@ -3,53 +3,48 @@ package ch05_05;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LoadableSupportPage extends LoadableComponent {
+import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+
+final class LoadableSupportPage extends LoadableComponent<LoadableSupportPage> {
     private final WebDriverWait wait;
     private final WebDriver driver;
 
-    @FindBy(how = How.ID, using = "select-menu")
+    @FindBy(id = "select-menu")
     private WebElement selectMenu;
 
-    @FindBy(how = How.ID, using = "resend-select")
+    @FindBy(id = "resend-select")
     private WebElement resendSelect;
 
-    @FindBy(how = How.ID, using = "message")
+    @FindBy(id = "message")
     private WebElement message;
 
-    public LoadableSupportPage(WebDriver driver) {
+    LoadableSupportPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public void select(final String singleOptionText) {
-        final Select select = new Select(selectMenu);
+    void select(String singleOptionText) {
+        var select = new Select(selectMenu);
         select.selectByVisibleText(singleOptionText);
     }
 
-    public String getMessage() {
-        wait.until(ExpectedConditions.visibilityOf(message));
-        wait.until(ExpectedConditions.
-                textToBePresentInElement(message, "Received"));
+    String getMessage() {
+        wait.until(visibilityOf(message));
+        wait.until(textToBePresentInElement(message, "Received"));
         return message.getText();
     }
 
-    public MessageHistoryComponent messageHistory() {
+    MessageHistoryComponent messageHistory() {
         return new MessageHistoryComponent(driver);
-    }
-
-    public void waitTillReady() {
-        wait.until(ExpectedConditions.titleIs("Support Classes Example"));
-        wait.until(ExpectedConditions.elementToBeClickable(resendSelect));
     }
 
     @Override
@@ -59,19 +54,17 @@ public class LoadableSupportPage extends LoadableComponent {
 
     @Override
     protected void isLoaded() throws Error {
-        boolean ready = false;
-
-        try {
-            boolean hasTitleLoaded = driver.getTitle().equals("Support Classes Example");
-            boolean hasButtonLoaded = resendSelect.isEnabled();
-
-            ready = hasTitleLoaded && hasButtonLoaded;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (!ready) {
+        if (notLoaded()) {
             throw new Error("Page has not loaded");
+        }
+    }
+
+    private boolean notLoaded() {
+        try {
+            return !driver.getTitle().equals("Support Classes Example")
+                    || !resendSelect.isEnabled();
+        } catch (Exception e) {
+            return true;
         }
     }
 }
