@@ -6,12 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 /**
  * The ExpectedConditions class provides a lot of pre-built methods for synchronisation,
@@ -42,11 +42,9 @@ final class ExpectedConditionsExampleTest {
         // explain other conditions
 
         final WebElement message = new WebDriverWait(driver, Duration.ofSeconds(10)).
-                until(ExpectedConditions.
-                        visibilityOfElementLocated(
-                                By.cssSelector("#single-list li.message")));
-        // view code and see how expected conditions work
+                until(visibilityOfElementLocated(By.cssSelector("#single-list li.message")));
 
+        // view code and see how expected conditions work
         then(message.getText())
                 .startsWith("Received message:");
     }

@@ -22,13 +22,13 @@ final class PageFactoryTest {
         var page = new SupportClassesPage(driver);
 
         then(page.countSingleMessageHistory())
-                .isEqualTo(0);
+                .isZero();
 
         // when
         page.clickResendSingleButton();
 
         then(page.countSingleMessageHistory())
-                .isEqualTo(1);
+                .isOne();
 
         then(page.waitForMessage())
                 .isEqualTo("Received message: selected 1");

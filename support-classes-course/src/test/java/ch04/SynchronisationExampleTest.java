@@ -48,7 +48,7 @@ final class SynchronisationExampleTest {
         resendButton.click();
 
         // when
-        Throwable thrown = catchThrowable(() ->
+        var thrown = catchThrowable(() ->
                 driver.findElement(By.cssSelector("#single-list li.message"))
         );
 

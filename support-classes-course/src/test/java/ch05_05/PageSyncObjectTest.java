@@ -35,8 +35,7 @@ final class PageSyncObjectTest {
         // wait for the history component to be ready
         history.waitTillReady();
 
-        then(history.countSingleHistoryMessages())
-                .isEqualTo(1);
+        then(history.countSingleHistoryMessages()).isOne();
 
         then(history.getSingleHistoryMessage(0))
                 .isEqualTo("Received message: selected 2");
