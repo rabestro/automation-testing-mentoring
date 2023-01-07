@@ -1,5 +1,6 @@
 package com.epam.engx.selenium.pages.gcpc;
 
+import com.paulhammant.ngwebdriver.ByAngular;
 import com.paulhammant.ngwebdriver.NgWebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -24,14 +25,14 @@ public final class GoogleCloudPricingCalculator extends LoadableComponent<Google
         PageFactory.initElements(driver, this);
     }
 
+    public String getInstances() {
+        return numberOfInstances.getAttribute("value");
+    }
+
     public GoogleCloudPricingCalculator setInstances(int instances) {
         numberOfInstances.click();
         numberOfInstances.sendKeys(String.valueOf(instances));
         return this;
-    }
-
-    public String getInstances() {
-        return numberOfInstances.getAttribute("value");
     }
 
     @Override
@@ -57,5 +58,19 @@ public final class GoogleCloudPricingCalculator extends LoadableComponent<Google
             // ignored
         }
         throw new Error("Page has not loaded");
+    }
+
+    @SuppressWarnings("CssInvalidHtmlTagReference")
+    public class Menu {
+        private static final By VALUE = By.cssSelector("md-select-value div.md-text");
+        private final WebElement select;
+
+        public Menu(String model) {
+            select = driver.findElement(ByAngular.model(model));
+        }
+
+        public String value() {
+            return select.findElement(VALUE).getText();
+        }
     }
 }
