@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
 
+import java.util.List;
+
 import static com.paulhammant.ngwebdriver.ByAngularModel.FindBy;
 
 public final class GoogleCloudPricingCalculator extends LoadableComponent<GoogleCloudPricingCalculator> {
@@ -61,7 +63,7 @@ public final class GoogleCloudPricingCalculator extends LoadableComponent<Google
     }
 
     @SuppressWarnings("CssInvalidHtmlTagReference")
-    public class Menu {
+    public final class Menu {
         private static final By VALUE = By.cssSelector("md-select-value div.md-text");
         private final WebElement select;
 
@@ -69,8 +71,38 @@ public final class GoogleCloudPricingCalculator extends LoadableComponent<Google
             select = driver.findElement(ByAngular.model(model));
         }
 
-        public String value() {
+        public String text() {
             return select.findElement(VALUE).getText();
+        }
+
+        public List<Option> options() {
+            var area = select.getAttribute("aria-owns");
+            var container = driver.findElement(By.id(area));
+            var options = container.findElements(By.cssSelector("md-option"));
+            return options.stream().map(Option::new).toList();
+        }
+
+        public final class Option {
+            private final WebElement item;
+
+            Option(WebElement item) {
+                this.item = item;
+            }
+
+            public String getValue() {
+                return item.getAttribute("value");
+            }
+
+            public String getText() {
+                return item.getAttribute("textContent").strip();
+            }
+
+            public void select() {
+                select.click();
+                ngDriver.waitForAngularRequestsToFinish();
+                item.click();
+                ngDriver.waitForAngularRequestsToFinish();
+            }
         }
     }
 }

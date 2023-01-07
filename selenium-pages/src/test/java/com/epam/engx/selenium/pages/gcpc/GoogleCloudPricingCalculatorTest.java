@@ -56,10 +56,10 @@ class GoogleCloudPricingCalculatorTest {
     @Test
     void default_operating_system_and_software() {
         // when
-        calculator.get();
-        var operatingSystem = calculator.new Menu("listingCtrl.computeServer.os");
+        var operatingSystem = calculator.get()
+                .new Menu("listingCtrl.computeServer.os");
 
-        then(operatingSystem.value())
+        then(operatingSystem.text())
                 .startsWith("Free")
                 .contains("Debian", "CentOS", "CoreOS", "Ubuntu");
     }
@@ -67,10 +67,73 @@ class GoogleCloudPricingCalculatorTest {
     @Test
     void default_provisioning_model() {
         // when
-        calculator.get();
-        var provisioningModel = calculator.new Menu("listingCtrl.computeServer.class");
+        var provisioningModel = calculator.get()
+                .new Menu("listingCtrl.computeServer.class");
 
-        then(provisioningModel.value())
+        then(provisioningModel.text())
                 .isEqualTo("Regular");
+    }
+
+    @Test
+    void default_machine_family() {
+        // when
+        calculator.get();
+        var machineFamily = calculator.new Menu("listingCtrl.computeServer.family");
+
+        then(machineFamily.text())
+                .isEqualTo("General purpose");
+    }
+
+
+    @Test
+    void default_datacenter_location() {
+        // when
+        var datacenterLocation = calculator.get()
+                .new Menu("listingCtrl.computeServer.location");
+
+        then(datacenterLocation.text())
+                .isEqualTo("Iowa (us-central1)");
+    }
+
+    @Test
+    void available_datacenter_locations() {
+        // when
+        var locations = calculator.get()
+                .new Menu("listingCtrl.computeServer.location")
+                .options();
+
+        then(locations)
+                .as("Google has at least ten data centers")
+                .isNotEmpty()
+                .hasSizeGreaterThan(10)
+                .extracting("value")
+                .contains("us-central1", "us-east1", "us-west1", "europe-west1");
+
+        then(locations)
+                .as("Google has data centers in London and Frankfurt")
+                .extracting("text")
+                .contains("London (europe-west2)", "Frankfurt (europe-west3)");
+    }
+
+    @RepeatedTest(5)
+    void select_frankfurt_datacenter() {
+        // when
+        var datacenterLocation = calculator.get()
+                .new Menu("listingCtrl.computeServer.location");
+
+        var datacenter = datacenterLocation.options()
+                .stream()
+                .filter(loc -> loc.getText().startsWith("Frankfurt"))
+                .findFirst();
+
+        then(datacenter)
+                .isPresent();
+
+        var frankfurt = datacenter.get();
+        frankfurt.select();
+
+        then(datacenterLocation.text())
+                .as("set datacenter location as %s", frankfurt.getText())
+                .isEqualTo("Frankfurt (europe-west3)");
     }
 }

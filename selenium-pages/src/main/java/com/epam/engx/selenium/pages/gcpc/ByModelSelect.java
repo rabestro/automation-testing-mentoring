@@ -6,6 +6,10 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+/**
+ * A custom locator for Google Cloud Pricing Calculator
+ * which locates "md-select" elements by the value of the "ng-model" attribute.
+ */
 public final class ByModelSelect extends By {
     private final By locator;
 
