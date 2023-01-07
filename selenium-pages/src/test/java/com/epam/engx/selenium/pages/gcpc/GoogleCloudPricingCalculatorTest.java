@@ -52,4 +52,25 @@ class GoogleCloudPricingCalculatorTest {
         then(calculator.getInstances())
                 .isEqualTo(Integer.toString(instances));
     }
+
+    @Test
+    void default_operating_system_and_software() {
+        // when
+        calculator.get();
+        var operatingSystem = calculator.new Menu("listingCtrl.computeServer.os");
+
+        then(operatingSystem.value())
+                .startsWith("Free")
+                .contains("Debian", "CentOS", "CoreOS", "Ubuntu");
+    }
+
+    @Test
+    void default_provisioning_model() {
+        // when
+        calculator.get();
+        var provisioningModel = calculator.new Menu("listingCtrl.computeServer.class");
+
+        then(provisioningModel.value())
+                .isEqualTo("Regular");
+    }
 }
