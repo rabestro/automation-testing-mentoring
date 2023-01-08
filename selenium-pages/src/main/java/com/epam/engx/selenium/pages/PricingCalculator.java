@@ -61,15 +61,15 @@ public class PricingCalculator extends AbstractPage {
 
     private void click(String cssSelector) {
         var element = driver.findElement(By.cssSelector(cssSelector));
-//        moveTo(element);
+//        moveTo(item);
 
         new Actions(driver).click(element).perform();
-//        element.click();
+//        item.click();
     }
 
     public void moveTo(WebElement element) {
 //        var js = (JavascriptExecutor) driver;
-//        js.executeScript("arguments[0].scrollIntoView();", element);
+//        js.executeScript("arguments[0].scrollIntoView();", item);
         new Actions(driver).click(element);
     }
 
