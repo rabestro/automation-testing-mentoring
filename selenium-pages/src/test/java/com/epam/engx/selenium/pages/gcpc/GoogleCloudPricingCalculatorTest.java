@@ -1,5 +1,6 @@
 package com.epam.engx.selenium.pages.gcpc;
 
+import com.epam.engx.selenium.pages.GoogleCloudPricingCalculator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -9,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.Map;
 
+import static com.epam.engx.selenium.pages.gcpc.Dropdown.*;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @DisplayName("Google Cloud Pricing Calculator")
@@ -100,7 +102,8 @@ class GoogleCloudPricingCalculatorTest {
         // when
         var locations = calculator.get()
                 .new Menu("listingCtrl.computeServer.location")
-                .options();
+                .options()
+                .toList();
 
         then(locations)
                 .as("Google has at least ten data centers")
@@ -121,19 +124,114 @@ class GoogleCloudPricingCalculatorTest {
         var datacenterLocation = calculator.get()
                 .new Menu("listingCtrl.computeServer.location");
 
-        var datacenter = datacenterLocation.options()
-                .stream()
+        var frankfurt = datacenterLocation.options()
                 .filter(loc -> loc.getText().startsWith("Frankfurt"))
                 .findFirst();
 
-        then(datacenter)
+        then(frankfurt)
                 .isPresent();
 
-        var frankfurt = datacenter.get();
-        frankfurt.select();
+        frankfurt.get().select();
 
         then(datacenterLocation.text())
-                .as("set datacenter location as %s", frankfurt.getText())
+                .as("set datacenter location as %s", frankfurt.get().getText())
                 .isEqualTo("Frankfurt (europe-west3)");
+    }
+
+    @RepeatedTest(5)
+    void set_series_to_n1() {
+        var series = calculator.get()
+                .setInstances(4)
+                .new Menu("listingCtrl.computeServer.series");
+
+        then(series.text())
+                .as("default series after page load")
+                .isEqualTo("E2");
+
+        series.select("N1");
+
+        then(series.text())
+                .as("set series to N1")
+                .isEqualTo("N1");
+
+        var machineType = calculator
+                .new Menu("listingCtrl.computeServer.instance");
+
+        then(machineType.text())
+                .as("default machine type for N1 series")
+                .startsWith("n1-standard-1")
+                .contains("vCPUs: 1")
+                .contains("RAM: 3.75GB");
+    }
+
+    @RepeatedTest(10)
+    void set_machine_Type_n1_standard_8() {
+        calculator.get()
+                .setInstances(4)
+                .new Menu("listingCtrl.computeServer.series")
+                .select("N1");
+
+        var machineType = calculator
+                .new Menu("listingCtrl.computeServer.instance");
+
+        then(machineType.text())
+                .as("default machine type for N1 series")
+                .startsWith("n1-standard-1")
+                .contains("vCPUs: 1")
+                .contains("RAM: 3.75GB");
+
+        machineType.select("n1-standard-8");
+
+        then(machineType.text())
+                .as("set machine type n1-standard-8")
+                .startsWith("n1-standard-8")
+                .contains("vCPUs: 8")
+                .contains("RAM: 30GB");
+    }
+
+    @Test
+    void first_setup() {
+        calculator.get()
+                .setInstances(4)
+                .set(OS, "free")
+                .set(PROVISIONING_MODEL, "regular")
+                .set(MACHINE_FAMILY, "General")
+                .set(SERIES, "n1")
+                .set(INSTANCE_TYPE, "n1-standard-8")
+                .set(DATACENTER_LOCATION, "Frankfurt");
+
+        then(calculator.get(OS))
+                .startsWith("Free")
+                .contains("Debian", "CentOS", "CoreOS", "Ubuntu");
+
+        then(calculator.get(PROVISIONING_MODEL))
+                .isEqualTo("Regular");
+
+        then(calculator.get(INSTANCE_TYPE))
+                .as("machine type n1-standard-8")
+                .startsWith("n1-standard-8")
+                .contains("vCPUs: 8")
+                .contains("RAM: 30GB");
+
+        then(calculator.get(DATACENTER_LOCATION))
+                .isEqualTo("Frankfurt (europe-west3)");
+    }
+
+    @Test
+    void second_setup() {
+        calculator.get()
+                .setInstances(5)
+                .set(OS, "free")
+                .set(PROVISIONING_MODEL, "regular")
+                .set(MACHINE_FAMILY, "General")
+                .set(SERIES, "n1")
+                .set(INSTANCE_TYPE, "n1-standard-16")
+                .set(DATACENTER_LOCATION, "Sydney");
+
+        then(calculator.parameters())
+                .isNotEmpty()
+                .containsKeys("computeServer.family")
+                .containsValues("General purpose", "N1")
+                .containsEntry("computeServer.instance", "n1-standard-16 (vCPUs: 16, RAM: 60GB)");
     }
 }

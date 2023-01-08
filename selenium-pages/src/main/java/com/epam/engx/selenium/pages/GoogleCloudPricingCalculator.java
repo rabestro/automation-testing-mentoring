@@ -1,5 +1,6 @@
-package com.epam.engx.selenium.pages.gcpc;
+package com.epam.engx.selenium.pages;
 
+import com.epam.engx.selenium.pages.gcpc.Dropdown;
 import com.paulhammant.ngwebdriver.ByAngular;
 import com.paulhammant.ngwebdriver.NgWebDriver;
 import org.openqa.selenium.By;
@@ -7,16 +8,21 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.ByAll;
 import org.openqa.selenium.support.ui.LoadableComponent;
 
-import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import static com.paulhammant.ngwebdriver.ByAngularModel.FindBy;
+import static java.util.stream.Collectors.toUnmodifiableMap;
 
 public final class GoogleCloudPricingCalculator extends LoadableComponent<GoogleCloudPricingCalculator> {
-    private final WebDriver driver;
-    private final NgWebDriver ngDriver;
+    private static final By VALUE = By.cssSelector("md-select-value div.md-text");
 
+    final NgWebDriver ngDriver;
+    private final WebDriver driver;
     @FindBy(model = "listingCtrl.computeServer.quantity")
     private WebElement numberOfInstances;
 
@@ -35,6 +41,39 @@ public final class GoogleCloudPricingCalculator extends LoadableComponent<Google
         numberOfInstances.click();
         numberOfInstances.sendKeys(String.valueOf(instances));
         return this;
+    }
+
+    public GoogleCloudPricingCalculator set(Dropdown dropdown, String value) {
+        return this.new Menu(dropdown.model()).select(value);
+    }
+
+    public String get(Dropdown dropdown) {
+        return new Menu(dropdown.model()).text();
+    }
+
+    public Map<String, String> parameters() {
+        return driver.findElements(new ByAll(
+                        By.cssSelector("md-select[ng-model^='listingCtrl.']"),
+                        By.cssSelector("input[ng-model^='listingCtrl.']"),
+                        By.cssSelector("md-checkbox[ng-model^='listingCtrl.']")
+                ))
+                .stream()
+                .collect(toUnmodifiableMap(this::getModel, this::getValue));
+    }
+
+    private String getModel(WebElement element) {
+        return element
+                .getAttribute("ng-model")
+                .substring("listingCtrl.".length());
+    }
+
+    private String getValue(WebElement element) {
+        return switch (element.getTagName()) {
+            case "md-select" -> element.getText();
+            case "input" -> element.getAttribute("value");
+            case "md-checkbox" -> element.getDomAttribute("aria-checked");
+            default -> "unknown";
+        };
     }
 
     @Override
@@ -64,7 +103,6 @@ public final class GoogleCloudPricingCalculator extends LoadableComponent<Google
 
     @SuppressWarnings("CssInvalidHtmlTagReference")
     public final class Menu {
-        private static final By VALUE = By.cssSelector("md-select-value div.md-text");
         private final WebElement select;
 
         public Menu(String model) {
@@ -72,14 +110,31 @@ public final class GoogleCloudPricingCalculator extends LoadableComponent<Google
         }
 
         public String text() {
-            return select.findElement(VALUE).getText();
+            return select.getText();
         }
 
-        public List<Option> options() {
+        public GoogleCloudPricingCalculator select(String prefix) {
+            var option = options()
+                    .filter(startsIgnoreCase(prefix))
+                    .findFirst()
+                    .orElseThrow();
+            if (!option.getText().equalsIgnoreCase(text())) {
+                option.select();
+            }
+            return GoogleCloudPricingCalculator.this;
+        }
+
+        public Stream<Option> options() {
             var area = select.getAttribute("aria-owns");
             var container = driver.findElement(By.id(area));
             var options = container.findElements(By.cssSelector("md-option"));
-            return options.stream().map(Option::new).toList();
+            return options.stream().map(Option::new);
+        }
+
+        private Predicate<Option> startsIgnoreCase(String prefix) {
+            return option -> option.getText()
+                    .toLowerCase()
+                    .startsWith(prefix.toLowerCase());
         }
 
         public final class Option {
@@ -100,7 +155,7 @@ public final class GoogleCloudPricingCalculator extends LoadableComponent<Google
             public void select() {
                 select.click();
                 ngDriver.waitForAngularRequestsToFinish();
-                item.click();
+                ngDriver.evaluateScript(item, "arguments[0].click();");
                 ngDriver.waitForAngularRequestsToFinish();
             }
         }
