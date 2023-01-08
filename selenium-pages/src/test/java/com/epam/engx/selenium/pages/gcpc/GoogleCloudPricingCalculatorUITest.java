@@ -24,7 +24,6 @@ class GoogleCloudPricingCalculatorUITest {
                 .addArguments("--incognito", "start-maximized")
                 .setExperimentalOption("prefs", prefs)
         );
-//        driver.manage().window().maximize();
         calculator = new GoogleCloudPricingCalculator(driver);
     }
 
