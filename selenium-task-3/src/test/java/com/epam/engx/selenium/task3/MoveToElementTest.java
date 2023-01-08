@@ -46,7 +46,7 @@ final class MoveToElementTest {
 
     @MethodSource("elements")
     @ParameterizedTest(name = "click on «{0}»")
-    @DisplayName("click on the element")
+    @DisplayName("click on the item")
     void clickOnElementOnly(String name, By selector) {
         // given
         var element = driver.findElement(selector);
@@ -58,7 +58,7 @@ final class MoveToElementTest {
 //    @Disabled
     @MethodSource("elements")
     @ParameterizedTest(name = "move to «{0}» {1}")
-    @DisplayName("move to the element")
+    @DisplayName("move to the item")
     void testTwo(String name, By selector) {
         var element = driver.findElement(selector);
 
