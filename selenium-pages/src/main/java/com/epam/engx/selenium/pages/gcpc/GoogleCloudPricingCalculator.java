@@ -12,6 +12,8 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.Map;
 
 public final class GoogleCloudPricingCalculator implements AngularCalculator {
+    private static final String HOME_URL = "https://cloud.google.com/products/calculator";
+
     @FindBy(css = "button[ng-disabled^='ComputeEngineForm']")
     private  WebElement addEstimateComputeEngine;
 
@@ -27,7 +29,9 @@ public final class GoogleCloudPricingCalculator implements AngularCalculator {
     }
 
     private void openPage() {
-        driver.get("https://cloud.google.com/products/calculator");
+        if (!driver.getCurrentUrl().startsWith(HOME_URL)) {
+            driver.get(HOME_URL);
+        }
         ngDriver.waitForAngularRequestsToFinish();
         var mainFrame = driver.findElement(By.xpath("//iframe"));
         driver.switchTo().frame(mainFrame);
