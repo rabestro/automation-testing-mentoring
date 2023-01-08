@@ -11,24 +11,30 @@ import java.util.List;
  * Custom locator for models used at Google Cloud Pricing Calculator
  *
  */
-public class ByModel extends By {
-    private final String model;
+public final class ByModel extends By {
+    private final By locator;
 
-    public ByModel(String shortModelName) {
-        this.model = fullModelName(shortModelName);
+    public ByModel(String model) {
+        locator = ByAngular.model(fullName(model));
     }
 
-    private String fullModelName(String shortModelName) {
-        var dots = shortModelName.replaceAll("[^.]", "").length();
+    private String fullName(String model) {
+        var dots = model.replaceAll("[^.]", "").length();
         return switch (dots) {
-            case 0 -> "listingCtrl.computeServer." + shortModelName;
-            case 1 -> "listingCtrl." + shortModelName;
-            default -> shortModelName;
+            case 0 -> "listingCtrl.computeServer." + model;
+            case 1 -> "listingCtrl." + model;
+            default -> model;
         };
     }
 
     @Override
     public List<WebElement> findElements(SearchContext context) {
-        return  context.findElements(ByAngular.model(model));
+        return  context.findElements(locator);
     }
+
+    @Override
+    public String toString() {
+        return locator.toString();
+    }
+
 }
