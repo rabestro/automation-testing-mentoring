@@ -28,6 +28,10 @@
             <artifactId>selenium-java</artifactId>
             <scope>compile</scope>
         </dependency>
+        <!--
+        AngularJS and WebDriver bits and pieces for Java
+        https://github.com/paul-hammant/ngWebDriver
+        -->
         <dependency>
             <groupId>com.paulhammant</groupId>
             <artifactId>ngwebdriver</artifactId>
