@@ -13,11 +13,11 @@ import java.util.function.Function;
 public class SearchResult {
     private final WebDriver driver;
 
-    @FindBy(xpath = "//a[b]")
+    @FindBy(css = "a > b")
     private List<WebElement> results;
 
-    @FindBy(xpath = "//a[b][1]")
-    private WebElement firstResult;
+    @FindBy(css = "a:first-child > b")
+    private WebElement firstResultLink;
 
     public SearchResult(WebDriver driver) {
         this.driver = driver;
@@ -30,7 +30,7 @@ public class SearchResult {
     }
 
     public <T> T goFirst(Function<? super WebDriver, T> pageFabric) {
-        firstResult.click();
+        firstResultLink.click();
         return pageFabric.apply(driver);
     }
 }
