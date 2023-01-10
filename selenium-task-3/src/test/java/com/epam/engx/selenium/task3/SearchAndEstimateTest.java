@@ -16,6 +16,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class SearchAndEstimateTest {
     private static final String TERM = "Google Cloud Platform Pricing Calculator";
+    private static final String FRANKFURT = "Frankfurt";
 
     private static WebDriver driver;
     private static SearchResult searchResult;
@@ -64,14 +65,14 @@ final class SearchAndEstimateTest {
                 .model("computeServer.gpuType").set("NVIDIA Tesla V100")
                 .model("computeServer.gpuCount").set("1")
                 .model("computeServer.ssd").set("2x375")
-                .model("computeServer.location").set("Frankfurt")
+                .model("computeServer.location").set(FRANKFURT)
                 .model("computeServer.cud").set("1");
 
         var estimate = pricingCalculator.estimate();
 
         then(estimate.items())
                 .as("parameters in the Estimate result block")
-                .containsEntry("Region", "Frankfurt")
+                .containsEntry("Region", FRANKFURT)
                 .containsEntry("Provisioning model", "Regular")
                 .containsEntry("Commitment term", "1 Year")
                 .containsEntry("Instance type", "n1-standard-8")

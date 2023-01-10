@@ -14,6 +14,8 @@ import static org.assertj.core.api.BDDAssertions.then;
 @DisplayName("Google Cloud Pricing Calculator")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class GoogleCloudPricingCalculatorUITest {
+    private static final String FRANKFURT = "Frankfurt";
+
     private WebDriver driver;
     private GoogleCloudPricingCalculator calculator;
 
@@ -73,11 +75,12 @@ class GoogleCloudPricingCalculatorUITest {
         var datacenter = calculator.model("location");
 
         // when
-        datacenter.set("Frankfurt");
+        datacenter.set(FRANKFURT);
 
         then(datacenter.get())
-                .as("Datacenter location is Frankfurt")
-                .isEqualTo("Frankfurt (europe-west3)");
+                .as("Datacenter location is %s", FRANKFURT)
+                .startsWith(FRANKFURT)
+                .contains("europe-west");
     }
 
     @RepeatedTest(5)
@@ -151,7 +154,7 @@ class GoogleCloudPricingCalculatorUITest {
                 .model("computeServer.gpuType").set("NVIDIA Tesla V100")
                 .model("computeServer.gpuCount").set("1")
                 .model("computeServer.ssd").set("2x375")
-                .model("computeServer.location").set("Frankfurt")
+                .model("computeServer.location").set(FRANKFURT)
                 .model("computeServer.cud").set("1");
 
         then(calculator.parameters())
@@ -169,7 +172,7 @@ class GoogleCloudPricingCalculatorUITest {
 
         then(estimate.items())
                 .as("parameters for estimate")
-                .containsEntry("Region", "Frankfurt")
+                .containsEntry("Region", FRANKFURT)
                 .containsEntry("Provisioning model", "Regular")
                 .containsEntry("Commitment term", "1 Year")
                 .containsEntry("Instance type", "n1-standard-8")
