@@ -170,7 +170,7 @@ class GoogleCloudPricingCalculatorUITest {
 
         var estimate = calculator.estimate();
 
-        then(estimate.items())
+        then(estimate.getItems())
                 .as("parameters for estimate")
                 .containsEntry("Region", FRANKFURT)
                 .containsEntry("Provisioning model", "Regular")

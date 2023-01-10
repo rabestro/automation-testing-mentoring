@@ -26,19 +26,19 @@ public final class Estimate extends PageFactory {
         return totalEstimatedCost.getText();
     }
 
-    public String item(String label) {
+    public String getItem(String label) {
         var path = "//*[@id='compute']/md-list/md-list-item/div[contains(.,'%s')]".formatted(label);
         return driver.findElement(By.xpath(path)).getText();
     }
 
-    public Map<String, String> items() {
+    public Map<String, String> getItems() {
         return Stream.of("Region", "Commitment term", "Provisioning model",
                         "Instance type", "Operating System", "Local SSD")
-                .collect(Collectors.toUnmodifiableMap(Function.identity(), this::value));
+                .collect(Collectors.toUnmodifiableMap(Function.identity(), this::getValue));
     }
 
-    private String value(String text) {
-        return item(text).lines().findFirst().orElse("")
+    private String getValue(String text) {
+        return getItem(text).lines().findFirst().orElse("")
                 .replaceFirst("[^:]+?: ", "");
     }
 }

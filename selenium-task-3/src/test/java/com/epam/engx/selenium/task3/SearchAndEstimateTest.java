@@ -70,7 +70,7 @@ final class SearchAndEstimateTest {
 
         var estimate = pricingCalculator.estimate();
 
-        then(estimate.items())
+        then(estimate.getItems())
                 .as("parameters in the Estimate result block")
                 .containsEntry("Region", FRANKFURT)
                 .containsEntry("Provisioning model", "Regular")
