@@ -5,8 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-// page_url = https://cloud.google.com/
 public final class GoogleCloud extends PageFactory {
+    private static final String HOME_PAGE = "https://cloud.google.com/";
+
     private final WebDriver driver;
 
     @FindBy(name = "q")
@@ -18,7 +19,7 @@ public final class GoogleCloud extends PageFactory {
     }
 
     public static GoogleCloud openPage(WebDriver driver) {
-        driver.get("https://cloud.google.com/");
+        driver.get(HOME_PAGE);
         return new GoogleCloud(driver);
     }
 
