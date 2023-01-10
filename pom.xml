@@ -12,8 +12,10 @@
     <modules>
         <module>aircompany</module>
         <module>calculator</module>
+        <module>selenium-pages</module>
         <module>selenium-task-1</module>
         <module>selenium-task-2</module>
+        <module>selenium-task-3</module>
         <module>support-classes-course</module>
     </modules>
 
@@ -21,10 +23,19 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.1</junit.version>
+        <mockito.version>4.11.0</mockito.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- Common page objects for browser automation tests -->
+            <dependency>
+                <groupId>com.epam.engx.selenium.pages</groupId>
+                <artifactId>selenium-pages</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
@@ -66,6 +77,24 @@
                 <artifactId>assertj-core</artifactId>
                 <version>3.23.1</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.paulhammant</groupId>
+                <artifactId>ngwebdriver</artifactId>
+                <version>1.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

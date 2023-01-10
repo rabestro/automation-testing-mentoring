@@ -11,7 +11,7 @@ The repository contains my solutions for practical tasks of the course.
 5. Selenium WebDriver
    - [I Can Win](selenium-task-1)
    - [Bring It On](selenium-task-2)
-   - Hurt Me Plenty
+   - [Hurt Me Plenty](selenium-task-3)
    - Hardcore
 6. Selenium WebDriver Advanced: 
    - Actions, 

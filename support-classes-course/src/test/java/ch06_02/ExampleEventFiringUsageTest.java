@@ -19,7 +19,7 @@ final class ExampleEventFiringUsageTest {
     private WebDriver driver;
 
     @BeforeEach
-    public void createDriver() {
+    void createDriver() {
         driver = new ChromeDriver();
 
         // trigger time delays with the hash and extra delay with _

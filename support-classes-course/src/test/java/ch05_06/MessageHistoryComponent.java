@@ -17,7 +17,7 @@ final class MessageHistoryComponent extends SlowLoadableComponent<MessageHistory
     @FindBy(how = How.CSS, using = "#single-list li")
     List<WebElement> singleMessages;
 
-    public MessageHistoryComponent(final WebDriver driver) {
+    public MessageHistoryComponent(WebDriver driver) {
         super(Clock.systemDefaultZone(), 10);
         PageFactory.initElements(driver, this);
     }
