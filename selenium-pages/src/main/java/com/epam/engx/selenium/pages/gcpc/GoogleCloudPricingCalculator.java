@@ -15,7 +15,7 @@ public final class GoogleCloudPricingCalculator implements AngularCalculator {
     private static final String HOME_URL = "https://cloud.google.com/products/calculator";
 
     @FindBy(css = "button[ng-disabled^='ComputeEngineForm']")
-    private  WebElement addEstimateComputeEngine;
+    private  WebElement addEstimateComputeEngineButton;
 
     private final NgWebDriver ngDriver;
     private final WebDriver driver;
@@ -59,7 +59,7 @@ public final class GoogleCloudPricingCalculator implements AngularCalculator {
 
     @Override
     public Estimate estimate() {
-        click(addEstimateComputeEngine);
+        click(addEstimateComputeEngineButton);
         return new Estimate(driver);
     }
 
