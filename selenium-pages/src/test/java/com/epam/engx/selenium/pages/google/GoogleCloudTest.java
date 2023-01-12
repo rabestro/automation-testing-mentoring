@@ -23,10 +23,9 @@ class GoogleCloudTest {
 
     @Test
     void goTo() {
-        var page = browser.go(GoogleCloud::new);
+        browser.go(GoogleCloud::new);
 
         then(browser.title())
                 .contains("Google", "Cloud", "Computing Services");
     }
-
 }
