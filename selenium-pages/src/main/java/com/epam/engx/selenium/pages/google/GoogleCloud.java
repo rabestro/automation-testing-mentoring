@@ -16,19 +16,7 @@ public final class GoogleCloud extends Page {
         super(driver);
     }
 
-    public static GoogleCloud openPage(WebDriver driver) {
-        driver.get(URL);
-        return new GoogleCloud(driver);
-    }
-
-    public SearchResult search(String text) {
-        searchInput.click();
-        searchInput.sendKeys(text);
-        searchInput.submit();
-        return new SearchResult(driver);
-    }
-
-    public PageConstructor<SearchResult> searchFor(String term) {
+    public PageConstructor<SearchResult> search(String term) {
         searchInput.click();
         searchInput.sendKeys(term);
         searchInput.submit();

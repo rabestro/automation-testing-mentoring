@@ -5,9 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.time.Duration;
 import java.util.List;
-import java.util.function.Function;
 
 // page_url = https://cloud.google.com/s/results?q=Google%20Cloud%20Platform%20Pricing%20Calculator
 public class SearchResult extends Page {
@@ -22,17 +20,13 @@ public class SearchResult extends Page {
     }
 
     public List<Link> links() {
-        return results.stream().map(Link::new).filter(Link::hasText).toList();
+        return results.stream()
+                .map(Link::new)
+                .filter(Link::hasText)
+                .toList();
     }
 
-    public <T> T goFirst(Function<? super WebDriver, T> pageFabric) {
+    public void clickFirstLink() {
         firstResultLink.click();
-        return pageFabric.apply(driver);
-    }
-
-    @Override
-    public SearchResult to() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        return this;
     }
 }

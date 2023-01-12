@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.time.Duration;
 import java.util.Map;
 
 public class Browser {
@@ -18,7 +19,7 @@ public class Browser {
         this.driver = driver;
         this.windows = new DualHashBidiMap<>();
         windows.put(driver.getWindowHandle(), null);
-
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     public static Browser chrome() {
@@ -43,8 +44,22 @@ public class Browser {
         return page;
     }
 
+    public <T extends Page> T switchTo(Class<T> pageClass) {
+        var pageEntry = windows.entrySet().stream()
+                .filter(entry -> entry.getValue().getClass() == pageClass)
+                .findFirst();
+
+        pageEntry.map(Map.Entry::getKey)
+                .ifPresent(driver.switchTo()::window);
+
+        return pageEntry
+                .map(Map.Entry::getValue)
+                .map(pageClass::cast)
+                .orElseThrow();
+    }
+
     public <T extends Page> T go(PageConstructor<T> pageConstructor) {
-        var page =  pageConstructor.apply(driver).to();
+        var page = pageConstructor.apply(driver).to();
         windows.put(driver.getWindowHandle(), page);
         return (T) page;
     }
