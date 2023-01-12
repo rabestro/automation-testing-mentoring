@@ -1,7 +1,7 @@
 package com.epam.engx.selenium.task3;
 
-import com.epam.engx.selenium.pages.GoogleCloud;
-import com.epam.engx.selenium.pages.SearchResult;
+import com.epam.engx.selenium.pages.google.GoogleCloud;
+import com.epam.engx.selenium.pages.google.SearchResult;
 import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculator;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
