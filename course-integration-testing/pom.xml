@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.epam.engx</groupId>
+        <artifactId>automation-testing-mentoring</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>course-integration-testing</artifactId>
+
+    <name>Effective Integration Testing with Spring Boot</name>
+    <description>
+        Writing and running tests is an essential part of delivering reliable software,
+        but we don’t always do so as efficiently as we could. Have you ever been in
+        a situation where all the tests pass, yet the application still doesn’t work?
+        In this course, instructor Terezija Semenski gets you up to speed on how to
+        take advantage of advanced testing features in Spring Boot.
+    </description>
+
+    <contributors>
+        <contributor>
+            <name>Terezija Semenski</name>
+            <url>https://www.linkedin.com/learning/instructors/terezija-semenski</url>
+            <roles>
+                <role>author</role>
+            </roles>
+            <timezone>Europe/London</timezone>
+        </contributor>
+    </contributors>
+</project>
