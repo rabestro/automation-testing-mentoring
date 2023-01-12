@@ -1,13 +1,9 @@
 package com.epam.engx.selenium.pages.gcpc;
 
+import com.epam.engx.selenium.pages.browser.Browser;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
-import java.util.Map;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
@@ -15,23 +11,18 @@ import static org.assertj.core.api.BDDAssertions.then;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class GoogleCloudPricingCalculatorUITest {
     private static final String FRANKFURT = "Frankfurt";
-
-    private WebDriver driver;
+    private Browser browser;
     private GoogleCloudPricingCalculator calculator;
 
     @BeforeEach
-    void setUp() {
-        var prefs = Map.of("profile.default_content_setting_values.cookies", 2);
-        driver = new ChromeDriver(new ChromeOptions()
-                .addArguments("--incognito", "start-maximized")
-                .setExperimentalOption("prefs", prefs)
-        );
-        calculator = new GoogleCloudPricingCalculator(driver);
+    void open_pricing_calculator_page() {
+        browser = Browser.firefox();
+        calculator = browser.go(GoogleCloudPricingCalculator::new);
     }
 
     @AfterEach
-    void tearDown() {
-        driver.quit();
+    void close_tabs_and_quit_browser() {
+        browser.quit();
     }
 
     @Test

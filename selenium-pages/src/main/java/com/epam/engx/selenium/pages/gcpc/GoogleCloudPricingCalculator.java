@@ -1,5 +1,6 @@
 package com.epam.engx.selenium.pages.gcpc;
 
+import com.epam.engx.selenium.pages.browser.Page;
 import com.epam.engx.selenium.pages.gcpc.model.*;
 import com.paulhammant.ngwebdriver.NgWebDriver;
 import org.openqa.selenium.By;
@@ -7,37 +8,34 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.Map;
 
-public final class GoogleCloudPricingCalculator implements AngularCalculator {
-    private static final String HOME_URL = "https://cloud.google.com/products/calculator";
-
-    @FindBy(css = "button[ng-disabled^='ComputeEngineForm']")
-    private  WebElement addEstimateComputeEngineButton;
-
+public final class GoogleCloudPricingCalculator extends Page implements AngularCalculator {
+    private static final String URL = "https://cloud.google.com/products/calculator";
     private final NgWebDriver ngDriver;
-    private final WebDriver driver;
+    @FindBy(css = "button[ng-disabled^='ComputeEngineForm']")
+    private WebElement addEstimateComputeEngineButton;
 
     public GoogleCloudPricingCalculator(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         var js = (JavascriptExecutor) driver;
         ngDriver = new NgWebDriver(js);
-        PageFactory.initElements(driver, this);
-        openPage();
     }
 
-    private void openPage() {
-        if (!driver.getCurrentUrl().startsWith(HOME_URL)) {
-            driver.get(HOME_URL);
+    @Override
+    public GoogleCloudPricingCalculator to() {
+        if (!driver.getCurrentUrl().startsWith(URL)) {
+            driver.get(URL);
         }
         ngDriver.waitForAngularRequestsToFinish();
         var mainFrame = driver.findElement(By.xpath("//iframe"));
         driver.switchTo().frame(mainFrame);
         var myFrame = driver.findElement(By.id("myFrame"));
         driver.switchTo().frame(myFrame);
+        return this;
     }
+
 
     @Override
     public Model model(String model) {
