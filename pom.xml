@@ -16,7 +16,7 @@
         <module>selenium-task-1</module>
         <module>selenium-task-2</module>
         <module>selenium-task-3</module>
-        <module>support-classes-course</module>
+        <module>course-support-classes</module>
     </modules>
 
     <properties>

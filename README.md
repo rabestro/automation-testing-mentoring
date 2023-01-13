@@ -12,10 +12,10 @@ The repository contains my solutions for practical tasks of the course.
    - [I Can Win](selenium-task-1)
    - [Bring It On](selenium-task-2)
    - [Hurt Me Plenty](selenium-task-3)
-   - Hardcore
+   - [Hardcore](selenium-task-4)
 6. Selenium WebDriver Advanced: 
-   - Actions, 
-   - JavaScript Executor, 
+   - Selenium [Support Classes](course-support-classes)
+   - Actions, JavaScript Executor, 
    - Selenium Server + Selenium Grid
 7. TA Frameworks: 
    - Layers, Runner, Business Objects
