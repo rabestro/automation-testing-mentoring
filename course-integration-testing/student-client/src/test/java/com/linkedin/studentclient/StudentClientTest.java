@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest
@@ -17,12 +18,20 @@ class StudentClientTest {
     private StudentClient studentClient;
 
     @Test
-    void get_student_for_given_student() {
+    void get_student_for_given_student_id() {
         //given
-        Long studentId = 1L;
+        var id = 1L;
+
+        stubFor(get("/students/" + id).willReturn(okJson("""
+                {
+                  "id": 1,
+                  "studentName": "Mark",
+                  "grade": 10
+                }
+                """)));
 
         //when
-        Student student = studentClient.getStudent(studentId);
+        var student = studentClient.getStudent(id);
 
         //then
         then(student.getId())
