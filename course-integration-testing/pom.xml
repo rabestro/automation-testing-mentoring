@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.7</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.linkedin</groupId>
+    <artifactId>course-integration-testing</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Effective Integration Testing with Spring Boot</name>
+    <description>
+        Writing and running tests is an essential part of delivering reliable software,
+        but we don’t always do so as efficiently as we could. Have you ever been in
+        a situation where all the tests pass, yet the application still doesn't work?
+        In this course, instructor Terezija Semenski gets you up to speed on how to
+        take advantage of advanced testing features in Spring Boot.
+    </description>
+
+    <modules>
+        <module>student-service</module>
+        <module>student-client</module>
+    </modules>
+
+    <properties>
+        <java.version>17</java.version>
+        <spring-cloud.version>2020.0.0</spring-cloud.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>3.1.5</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <testFramework>JUNIT5</testFramework>
+                    <testMode>MOCKMVC</testMode>
+                    <baseClassForTests>com.linkedin.studentservice.StudentControllerBaseClass</baseClassForTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <contributors>
+        <contributor>
+            <name>Terezija Semenski</name>
+            <url>https://www.linkedin.com/learning/instructors/terezija-semenski</url>
+            <roles>
+                <role>author</role>
+            </roles>
+            <timezone>Europe/London</timezone>
+        </contributor>
+    </contributors>
+</project>
