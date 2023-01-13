@@ -31,6 +31,7 @@ final class FluentWaitExampleTest {
     }
 
     @Test
+    @SuppressWarnings("MagicNumber")
     void explicit_wait_is_fluent() {
         var resendButton = driver.findElement(By.id("resend-select"));
         resendButton.click();
@@ -51,6 +52,7 @@ final class FluentWaitExampleTest {
 
     // using fluent wait to wait using WebElement rather than driver
     @Test
+    @SuppressWarnings("MagicNumber")
     void using_fluent_wait() {
         var resendButton = driver.findElement(By.id("resend-select"));
         resendButton.click();
