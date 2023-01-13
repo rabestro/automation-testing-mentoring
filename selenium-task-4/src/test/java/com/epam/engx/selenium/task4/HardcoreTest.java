@@ -3,6 +3,7 @@ package com.epam.engx.selenium.task4;
 import com.epam.engx.selenium.pages.browser.Browser;
 import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculator;
 import com.epam.engx.selenium.pages.google.GoogleCloud;
+import com.epam.engx.selenium.pages.yopmail.EmailGenerator;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.BDDAssertions.and;
@@ -17,6 +18,7 @@ class HardcoreTest {
     private static Browser browser;
 
     private static GoogleCloudPricingCalculator pricingCalculator;
+    private static EmailGenerator emailGenerator;
 
     @BeforeAll
     static void setUp() {
@@ -55,7 +57,7 @@ class HardcoreTest {
     @Order(2)
     void estimate_the_monthly_rent_for_a_computer_engine() {
         // when
-        pricingCalculator
+        var estimate = pricingCalculator
                 .model("computeServer.quantity").set("4")
                 .model("computeServer.os").set("free")
                 .model("computeServer.class").set("regular")
@@ -66,9 +68,8 @@ class HardcoreTest {
                 .model("computeServer.gpuCount").set("1")
                 .model("computeServer.ssd").set("2x375")
                 .model("computeServer.location").set(FRANKFURT)
-                .model("computeServer.cud").set("1");
-
-        var estimate = pricingCalculator.estimate();
+                .model("computeServer.cud").set("1")
+                .estimate();
 
         then(estimate.getItems())
                 .as("parameters in the Estimate result block")
@@ -84,4 +85,17 @@ class HardcoreTest {
                 .endsWith("per 1 month")
                 .contains("USD 1,081.20");
     }
+
+    @Test
+    @Order(3)
+    void open_yopmail_email_generator_in_the_new_tab() {
+        // when
+        emailGenerator = browser.addTab().go(EmailGenerator::new);
+
+        then(emailGenerator.email())
+                .isNotBlank()
+                .endsWith("@yopmail.com");
+    }
+
+
 }
