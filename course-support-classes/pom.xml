@@ -10,7 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>support-classes-course</artifactId>
+    <artifactId>course-support-classes</artifactId>
 
     <name>Advanced Selenium: Support Classes</name>
     <description>
