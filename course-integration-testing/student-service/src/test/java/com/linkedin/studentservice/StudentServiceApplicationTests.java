@@ -14,5 +14,4 @@ class StudentServiceApplicationTests {
 				.as("the spring context loaded successful")
 				.isTrue();
     }
-
 }
