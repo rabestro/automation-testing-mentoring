@@ -1,14 +1,12 @@
 package com.epam.engx.selenium.pages.google;
 
 import com.epam.engx.selenium.pages.browser.Browser;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class GoogleCloudTest {
-
     private static Browser browser;
 
     @BeforeAll
@@ -22,7 +20,7 @@ class GoogleCloudTest {
     }
 
     @Test
-    void goTo() {
+    void go_to_google_cloud_page() {
         browser.go(GoogleCloud::new);
 
         then(browser.title())
