@@ -1,4 +1,4 @@
-package com.epam.engx.selenium.pages;
+package com.epam.engx.selenium.pages.google;
 
 import org.openqa.selenium.WebElement;
 
