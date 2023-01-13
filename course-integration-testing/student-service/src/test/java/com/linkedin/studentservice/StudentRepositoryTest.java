@@ -53,6 +53,7 @@ class StudentRepositoryTest {
         // when
         var averageGrade = studentRepository.averageGradeForActiveStudents();
 
-        then(averageGrade).isCloseTo(90, DELTA);
+        then(averageGrade)
+                .isCloseTo(90, DELTA);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 
 @SpringBootTest(webEnvironment = NONE)
@@ -35,6 +36,21 @@ class StudentServiceTest {
 
         then(retrievedStudent.getId())
                 .isNotNull();
+    }
+
+    @Test
+    void trying_to_get_student_by_non_existing_id() {
+        // given
+        var nonExistingId = -1L;
+
+        //when
+        var exception = catchThrowable(
+                () -> studentService.getStudentById(nonExistingId)
+        );
+
+        then(exception)
+                .as("the student service thrown an exception")
+                .isInstanceOf(StudentNotFoundException.class);
     }
 }
 
