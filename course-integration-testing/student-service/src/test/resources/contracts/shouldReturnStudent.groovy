@@ -1,7 +1,7 @@
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-    description('Should return a student')
+    description("Should return a student")
     request {
         method GET()
         url "/students/1"

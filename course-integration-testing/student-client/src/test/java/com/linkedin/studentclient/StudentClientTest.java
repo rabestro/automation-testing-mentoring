@@ -5,14 +5,14 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties.StubsMode.LOCAL;
 
 @SpringBootTest
-@AutoConfigureWireMock
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@AutoConfigureStubRunner(ids = "com.linkedin.student-service:student-service:+:8080", stubsMode = LOCAL)
 class StudentClientTest {
     @Autowired
     private StudentClient studentClient;
@@ -22,22 +22,13 @@ class StudentClientTest {
         //given
         var id = 1L;
 
-        stubFor(get("/students/" + id).willReturn(okJson("""
-                {
-                  "id": 1,
-                  "studentName": "Mark",
-                  "grade": 10
-                }
-                """)));
-
         //when
         var student = studentClient.getStudent(id);
 
-        //then
         then(student.getId())
                 .isNotNull();
 
-        then(student.getStudentName())
+        then(student.getName())
                 .isEqualTo("Mark");
 
         then(student.getGrade())
