@@ -5,15 +5,13 @@ import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculator;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class EmailGeneratorTest {
-    private static final String FRANKFURT = "Frankfurt";
     private static Browser browser;
     private static GoogleCloudPricingCalculator pricingCalculator;
-    // System under test
-    private static EmailGenerator emailGenerator;
+    private static YopInbox yopInbox;
 
     @BeforeAll
     static void setUp() {
@@ -23,12 +21,12 @@ class EmailGeneratorTest {
 
     @AfterAll
     static void tearDown() {
-
-//        browser.quit();
+        browser.quit();
     }
 
     @Test
-    void email() {
+    @Order(1)
+    void send_estimate_to_generated_email() {
         // given
         var estimate = pricingCalculator
                 .model("computeServer.quantity").set("4")
@@ -45,19 +43,49 @@ class EmailGeneratorTest {
                 .estimate();
 
         // when
-        emailGenerator = browser.addTab().go(EmailGenerator::new);
+        var emailGenerator = browser.addTab().go(EmailGenerator::new);
         var randomEmail = emailGenerator.email();
+        System.out.println(randomEmail);
 
-        then(randomEmail).endsWith("@yopmail.com");
+        then(randomEmail)
+                .endsWith("@yopmail.com");
 
         // when
         browser.switchTo(pricingCalculator).to();
         estimate.sendTo(randomEmail);
         browser.switchTo(emailGenerator);
 
-        var yopInbox = emailGenerator.inbox();
+        yopInbox = emailGenerator.inbox();
 
-        then(yopInbox.email())
+        then(yopInbox.emailAddress())
                 .isEqualTo(randomEmail);
+    }
+
+    @Test
+    @Order(2)
+    void wait_for_a_new_email() {
+        System.out.println(yopInbox.mailCount());
+
+        then(yopInbox.mailCount())
+                .startsWith("0");
+
+        // when
+        yopInbox.waitForNewEmail();
+
+        then(yopInbox.mailCount())
+                .startsWith("1");
+    }
+
+    @Test
+    @Order(3)
+    void read_mail_with_estimated_monthly_cost() {
+        var email = yopInbox.email();
+
+        then(email.subject())
+                .isEqualTo("Google Cloud Price Estimate");
+
+        then(email.monthlyCost())
+                .startsWith("Estimated Monthly Cost")
+                .contains("USD", "1,081.20");
     }
 }
