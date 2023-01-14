@@ -31,11 +31,16 @@ public class Browser {
         return new Browser(driver);
     }
 
+    public static Browser create() {
+        return firefox();
+    }
+
     public static Browser firefox() {
         return new Browser(new FirefoxDriver());
     }
 
     public void quit() {
+        driver.manage().deleteAllCookies();
         driver.quit();
     }
 
