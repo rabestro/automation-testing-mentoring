@@ -24,7 +24,7 @@
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.9.1</junit.version>
+        <junit.version>5.9.2</junit.version>
         <mockito.version>4.11.0</mockito.version>
     </properties>
 
@@ -83,7 +83,7 @@
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>3.23.1</version>
+                <version>3.24.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
