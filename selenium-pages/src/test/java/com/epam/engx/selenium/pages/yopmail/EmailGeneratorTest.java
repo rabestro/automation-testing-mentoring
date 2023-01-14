@@ -44,7 +44,7 @@ class EmailGeneratorTest {
 
         // when
         var emailGenerator = browser.addTab().go(EmailGenerator::new);
-        var randomEmail = emailGenerator.email();
+        var randomEmail = emailGenerator.randomEmailAddress();
         System.out.println(randomEmail);
 
         then(randomEmail)

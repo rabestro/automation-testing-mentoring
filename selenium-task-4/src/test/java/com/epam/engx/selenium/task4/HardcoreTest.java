@@ -5,6 +5,7 @@ import com.epam.engx.selenium.pages.gcpc.Estimate;
 import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculator;
 import com.epam.engx.selenium.pages.google.GoogleCloud;
 import com.epam.engx.selenium.pages.yopmail.EmailGenerator;
+import com.epam.engx.selenium.pages.yopmail.YopInbox;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.BDDAssertions.and;
@@ -16,21 +17,25 @@ import static org.assertj.core.api.BDDAssertions.then;
 @DisplayName("Search for a Pricing Calculator, Estimate computer engine and Send email")
 class HardcoreTest {
     private static final String FRANKFURT = "Frankfurt";
+    private static final String EXPECTED_CURRENCY = "USD";
+    private static final String EXPECTED_MONTHLY_COST = "1,081.20";
+
     private static Browser browser;
 
     private static GoogleCloudPricingCalculator pricingCalculator;
     private static EmailGenerator emailGenerator;
     private static Estimate estimate;
-    private static String email;
+    private static String randomEmailAddress;
+    private static YopInbox yopInbox;
 
     @BeforeAll
     static void setUp() {
-        browser = Browser.firefox();
+        browser = Browser.create();
     }
 
     @AfterAll
     static void tearDown() {
-//        browser.quit();
+        browser.quit();
     }
 
     @Test
@@ -86,33 +91,63 @@ class HardcoreTest {
                 .as("the monthly rent for configured computer engine")
                 .startsWith("Total Estimated Cost:")
                 .endsWith("per 1 month")
-                .contains("USD 1,081.20");
+                .contains(EXPECTED_CURRENCY)
+                .contains(EXPECTED_MONTHLY_COST);
     }
 
     @Test
     @Order(3)
-    void open_yopmail_email_generator_in_the_new_tab() {
+    void generate_random_yopmail_email_address() {
         // when
         emailGenerator = browser.addTab().go(EmailGenerator::new);
 
-        then(emailGenerator.email())
-                .isNotBlank()
+        randomEmailAddress = emailGenerator.randomEmailAddress();
+
+        then(randomEmailAddress)
+                .as("address ends with YopMail domain")
                 .endsWith("@yopmail.com");
     }
 
     @Test
-    @Order(4)
-    void email_estimate() {
-        var email = emailGenerator.email();
-//        var email = "mounnimonnoure-9944@yopmail.com";
-        System.out.println(email);
-
+    @Order(5)
+    void send_estimate_to_generated_email() {
         browser.switchTo(pricingCalculator).to();
-
-        estimate.sendTo(email);
+        estimate.sendTo(randomEmailAddress);
         browser.switchTo(emailGenerator);
-        // body > div > div.ymaincenter > main > div > div.pagecdr.brounded > div > div:nth-child(2) > div.nw > button:nth-child(3)
 
+        yopInbox = emailGenerator.inbox();
+
+        then(yopInbox.emailAddress())
+                .as("our address in Inbox equals to generated email address")
+                .isEqualTo(randomEmailAddress);
+
+        then(yopInbox.mailCount())
+                .as("we have no emails in our inbox")
+                .startsWith("0");
     }
 
+    @Test
+    @Order(6)
+    void wait_for_a_new_email() {
+        // when
+        yopInbox.waitForNewEmail();
+
+        then(yopInbox.mailCount())
+                .as("a new mail arrived to our inbox")
+                .startsWith("1");
+    }
+
+    @Test
+    @Order(7)
+    void read_mail_with_estimated_monthly_cost() {
+        var estimateMail = yopInbox.email();
+
+        then(estimateMail.subject())
+                .isEqualTo("Google Cloud Price Estimate");
+
+        then(estimateMail.monthlyCost())
+                .startsWith("Estimated Monthly Cost")
+                .contains(EXPECTED_CURRENCY)
+                .contains(EXPECTED_MONTHLY_COST);
+    }
 }

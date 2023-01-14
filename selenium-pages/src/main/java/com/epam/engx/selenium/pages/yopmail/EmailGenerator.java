@@ -21,7 +21,7 @@ public final class EmailGenerator extends Page {
         super(driver);
     }
 
-    public String email() {
+    public String randomEmailAddress() {
         return generatedEmail.getText();
     }
 
