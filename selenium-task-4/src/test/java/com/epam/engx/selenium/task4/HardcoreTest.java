@@ -1,6 +1,7 @@
 package com.epam.engx.selenium.task4;
 
 import com.epam.engx.selenium.pages.browser.Browser;
+import com.epam.engx.selenium.pages.gcpc.Estimate;
 import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculator;
 import com.epam.engx.selenium.pages.google.GoogleCloud;
 import com.epam.engx.selenium.pages.yopmail.EmailGenerator;
@@ -19,6 +20,8 @@ class HardcoreTest {
 
     private static GoogleCloudPricingCalculator pricingCalculator;
     private static EmailGenerator emailGenerator;
+    private static Estimate estimate;
+    private static String email;
 
     @BeforeAll
     static void setUp() {
@@ -27,7 +30,7 @@ class HardcoreTest {
 
     @AfterAll
     static void tearDown() {
-        browser.quit();
+//        browser.quit();
     }
 
     @Test
@@ -57,7 +60,7 @@ class HardcoreTest {
     @Order(2)
     void estimate_the_monthly_rent_for_a_computer_engine() {
         // when
-        var estimate = pricingCalculator
+        estimate = pricingCalculator
                 .model("computeServer.quantity").set("4")
                 .model("computeServer.os").set("free")
                 .model("computeServer.class").set("regular")
@@ -97,5 +100,19 @@ class HardcoreTest {
                 .endsWith("@yopmail.com");
     }
 
+    @Test
+    @Order(4)
+    void email_estimate() {
+        var email = emailGenerator.email();
+//        var email = "mounnimonnoure-9944@yopmail.com";
+        System.out.println(email);
+
+        browser.switchTo(pricingCalculator).to();
+
+        estimate.sendTo(email);
+        browser.switchTo(emailGenerator);
+        // body > div > div.ymaincenter > main > div > div.pagecdr.brounded > div > div:nth-child(2) > div.nw > button:nth-child(3)
+
+    }
 
 }

@@ -58,7 +58,7 @@ public final class GoogleCloudPricingCalculator extends Page implements AngularC
     @Override
     public Estimate estimate() {
         click(addEstimateComputeEngineButton);
-        return new Estimate(driver);
+        return new Estimate(this);
     }
 
     @Override
