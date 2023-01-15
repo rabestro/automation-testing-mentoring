@@ -7,7 +7,11 @@ import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Map;
 
@@ -32,7 +36,22 @@ public class Browser {
     }
 
     public static Browser create() {
-        return firefox();
+        return remote();
+    }
+
+    public static Browser remote() {
+        var capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName("firefox");
+        var driver = new RemoteWebDriver(serverUrl(), capabilities);
+        return new Browser(driver);
+    }
+
+    private static URL serverUrl() {
+        try {
+            return new URL("http://localhost:4444/wd/hub");
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static Browser firefox() {
