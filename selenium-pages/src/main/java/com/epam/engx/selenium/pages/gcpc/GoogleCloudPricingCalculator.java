@@ -28,14 +28,17 @@ public final class GoogleCloudPricingCalculator extends Page implements AngularC
         if (!driver.getCurrentUrl().startsWith(URL)) {
             driver.get(URL);
         }
+        switchToCalculatorFrame();
+        return this;
+    }
+
+    public void switchToCalculatorFrame() {
         ngDriver.waitForAngularRequestsToFinish();
         var mainFrame = driver.findElement(By.xpath("//iframe"));
         driver.switchTo().frame(mainFrame);
         var myFrame = driver.findElement(By.id("myFrame"));
         driver.switchTo().frame(myFrame);
-        return this;
     }
-
 
     @Override
     public Model model(String model) {

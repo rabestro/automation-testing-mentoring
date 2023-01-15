@@ -111,7 +111,7 @@ class HardcoreTest {
     @Test
     @Order(5)
     void send_estimate_to_generated_email() {
-        browser.switchTo(pricingCalculator).to();
+        browser.switchTo(pricingCalculator).switchToCalculatorFrame();
         estimate.sendTo(randomEmailAddress);
         browser.switchTo(emailGenerator);
 
@@ -121,7 +121,7 @@ class HardcoreTest {
                 .as("our address in Inbox equals to generated email address")
                 .isEqualTo(randomEmailAddress);
 
-        then(yopInbox.mailCount())
+        and.then(yopInbox.mailCount())
                 .as("we have no emails in our inbox")
                 .startsWith("0");
     }
@@ -145,7 +145,7 @@ class HardcoreTest {
         then(estimateMail.subject())
                 .isEqualTo("Google Cloud Price Estimate");
 
-        then(estimateMail.monthlyCost())
+        and.then(estimateMail.monthlyCost())
                 .startsWith("Estimated Monthly Cost")
                 .contains(EXPECTED_CURRENCY)
                 .contains(EXPECTED_MONTHLY_COST);
