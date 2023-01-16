@@ -1,8 +1,8 @@
 package com.epam.engx.selenium.pages.browser;
 
-import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculator;
-import com.epam.engx.selenium.pages.google.GoogleCloud;
-import com.epam.engx.selenium.pages.google.SearchResult;
+import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculatorPage;
+import com.epam.engx.selenium.pages.google.GoogleCloudPage;
+import com.epam.engx.selenium.pages.google.SearchResultPage;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.BDDAssertions.and;
@@ -29,15 +29,15 @@ class BrowserTest {
     @Order(10)
     void open_a_new_page_in_the_same_tab() {
         // given the browser opens the Google Cloud page
-        var googleCloud = browser.go(GoogleCloud::new);
+        var googleCloud = browser.go(GoogleCloudPage::new);
 
         // when we perform search without opening the new tab
         var searchResult = browser.go(googleCloud.search(TERM));
 
         then(searchResult)
                 .as("the search produce a lot of results")
-                .isInstanceOf(SearchResult.class)
-                .extracting(SearchResult::links).asList()
+                .isInstanceOf(SearchResultPage.class)
+                .extracting(SearchResultPage::links).asList()
                 .hasSizeGreaterThan(10);
 
         and.then(browser.title())
@@ -56,7 +56,7 @@ class BrowserTest {
     @Order(20)
     void add_new_tab_without_opening_a_new_page() {
         // when we open a page in the browser
-        var googleCloud = browser.go(GoogleCloud::new);
+        var googleCloud = browser.go(GoogleCloudPage::new);
 
         then(browser.title())
                 .as("the browser has a title of opened page")
@@ -84,7 +84,7 @@ class BrowserTest {
     @Order(30)
     void open_a_new_page_in_the_second_tab() {
         // when we open a page in the current tab
-        var calculator = browser.go(GoogleCloudPricingCalculator::new);
+        var calculator = browser.go(GoogleCloudPricingCalculatorPage::new);
 
         then(browser.title())
                 .as("the title is correspond to the opened page")
@@ -99,20 +99,20 @@ class BrowserTest {
     @Order(40)
     void switch_between_open_tabs_by_page_class() {
         // when we switch to a tab with Google Cloud page
-        var googleCloud = browser.switchTo(GoogleCloud.class);
+        var googleCloud = browser.switchTo(GoogleCloudPage.class);
 
         then(googleCloud)
-                .isInstanceOf(GoogleCloud.class);
+                .isInstanceOf(GoogleCloudPage.class);
 
         and.then(browser.title())
                 .as("the title is correspond to the google cloud page")
                 .contains("Computing Services");
 
         // when we switch to a tab with Pricing Calculator
-        var calculator = browser.switchTo(GoogleCloudPricingCalculator.class);
+        var calculator = browser.switchTo(GoogleCloudPricingCalculatorPage.class);
 
         then(calculator)
-                .isInstanceOf(GoogleCloudPricingCalculator.class);
+                .isInstanceOf(GoogleCloudPricingCalculatorPage.class);
 
         and.then(browser.title())
                 .as("the title is correspond to the pricing calculator page")

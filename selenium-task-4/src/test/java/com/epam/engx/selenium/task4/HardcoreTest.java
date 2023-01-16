@@ -2,10 +2,10 @@ package com.epam.engx.selenium.task4;
 
 import com.epam.engx.selenium.pages.browser.Browser;
 import com.epam.engx.selenium.pages.gcpc.Estimate;
-import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculator;
-import com.epam.engx.selenium.pages.google.GoogleCloud;
-import com.epam.engx.selenium.pages.yopmail.EmailGenerator;
-import com.epam.engx.selenium.pages.yopmail.YopInbox;
+import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculatorPage;
+import com.epam.engx.selenium.pages.google.GoogleCloudPage;
+import com.epam.engx.selenium.pages.yopmail.EmailGeneratorPage;
+import com.epam.engx.selenium.pages.yopmail.YopInboxPage;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.BDDAssertions.and;
@@ -22,11 +22,11 @@ class HardcoreTest {
 
     private static Browser browser;
 
-    private static GoogleCloudPricingCalculator pricingCalculator;
-    private static EmailGenerator emailGenerator;
+    private static GoogleCloudPricingCalculatorPage pricingCalculator;
+    private static EmailGeneratorPage emailGeneratorPage;
     private static Estimate estimate;
     private static String randomEmailAddress;
-    private static YopInbox yopInbox;
+    private static YopInboxPage yopInboxPage;
 
     @BeforeAll
     static void setUp() {
@@ -42,14 +42,14 @@ class HardcoreTest {
     @Order(1)
     void search_for_google_cloud_platform_pricing_calculator() {
         // given
-        var googleCloud = browser.go(GoogleCloud::new);
+        var googleCloud = browser.go(GoogleCloudPage::new);
         var searchResults = googleCloud
                 .search("Google Cloud Platform Pricing Calculator");
 
         browser.go(searchResults).clickFirstLink();
 
         // when
-        pricingCalculator = browser.go(GoogleCloudPricingCalculator::new);
+        pricingCalculator = browser.go(GoogleCloudPricingCalculatorPage::new);
 
         then(pricingCalculator.parameters())
                 .as("initial state of the parameters")
@@ -99,9 +99,9 @@ class HardcoreTest {
     @Order(3)
     void generate_random_yopmail_email_address() {
         // when
-        emailGenerator = browser.addTab().go(EmailGenerator::new);
+        emailGeneratorPage = browser.addTab().go(EmailGeneratorPage::new);
 
-        randomEmailAddress = emailGenerator.randomEmailAddress();
+        randomEmailAddress = emailGeneratorPage.randomEmailAddress();
 
         then(randomEmailAddress)
                 .as("address ends with YopMail domain")
@@ -113,15 +113,15 @@ class HardcoreTest {
     void send_estimate_to_generated_email() {
         browser.switchTo(pricingCalculator).switchToCalculatorFrame();
         estimate.sendTo(randomEmailAddress);
-        browser.switchTo(emailGenerator);
+        browser.switchTo(emailGeneratorPage);
 
-        yopInbox = emailGenerator.inbox();
+        yopInboxPage = emailGeneratorPage.inbox();
 
-        then(yopInbox.emailAddress())
+        then(yopInboxPage.emailAddress())
                 .as("our address in Inbox equals to generated email address")
                 .isEqualTo(randomEmailAddress);
 
-        and.then(yopInbox.mailCount())
+        and.then(yopInboxPage.mailCount())
                 .as("we have no emails in our inbox")
                 .startsWith("0");
     }
@@ -130,9 +130,9 @@ class HardcoreTest {
     @Order(6)
     void wait_for_a_new_email() {
         // when
-        yopInbox.waitForNewEmail();
+        yopInboxPage.waitForNewEmail();
 
-        then(yopInbox.mailCount())
+        then(yopInboxPage.mailCount())
                 .as("a new mail arrived to our inbox")
                 .startsWith("1");
     }
@@ -140,7 +140,7 @@ class HardcoreTest {
     @Test
     @Order(7)
     void read_mail_with_estimated_monthly_cost() {
-        var estimateMail = yopInbox.email();
+        var estimateMail = yopInboxPage.email();
 
         then(estimateMail.subject())
                 .isEqualTo("Google Cloud Price Estimate");

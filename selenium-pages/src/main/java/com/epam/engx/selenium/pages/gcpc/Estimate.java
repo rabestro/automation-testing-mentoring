@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class Estimate extends PageFactory {
-    private final GoogleCloudPricingCalculator calculator;
+    private final GoogleCloudPricingCalculatorPage calculator;
 
     @FindBy(css = "div.cpc-cart-total > h2.md-title > b.ng-binding")
     private WebElement totalEstimatedCost;
@@ -22,7 +22,7 @@ public final class Estimate extends PageFactory {
     @FindBy(css = "button.md-raised.md-primary[aria-label='Send Email']")
     private WebElement sendEmailButton;
 
-    public Estimate(GoogleCloudPricingCalculator calculator) {
+    public Estimate(GoogleCloudPricingCalculatorPage calculator) {
         this.calculator = calculator;
         initElements(calculator.driver(), this);
     }

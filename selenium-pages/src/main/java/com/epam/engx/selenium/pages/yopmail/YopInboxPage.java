@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 @SuppressWarnings("SpellCheckingInspection")
-public final class YopInbox extends Page {
+public final class YopInboxPage extends Page {
     private static final String URL = "https://yopmail.com/wm";
     private static final int REFRESH_ATTEMPTS = 10;
 
@@ -22,7 +22,7 @@ public final class YopInbox extends Page {
     @FindBy(id = "ifmail")
     private WebElement mailFraim;
 
-    public YopInbox(WebDriver driver) {
+    public YopInboxPage(WebDriver driver) {
         super(driver);
     }
 
@@ -34,13 +34,13 @@ public final class YopInbox extends Page {
         return mailCount.getText();
     }
 
-    public EstimateMail email() {
+    public EstimateMailPage email() {
         driver.switchTo().frame(mailFraim);
-        return new EstimateMail(driver);
+        return new EstimateMailPage(driver);
     }
 
     @Override
-    public YopInbox to() {
+    public YopInboxPage to() {
         driver.get(URL);
         return this;
     }

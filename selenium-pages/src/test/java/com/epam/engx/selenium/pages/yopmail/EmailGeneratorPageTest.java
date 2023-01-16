@@ -1,22 +1,22 @@
 package com.epam.engx.selenium.pages.yopmail;
 
 import com.epam.engx.selenium.pages.browser.Browser;
-import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculator;
+import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculatorPage;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class EmailGeneratorTest {
+class EmailGeneratorPageTest {
     private static Browser browser;
-    private static GoogleCloudPricingCalculator pricingCalculator;
-    private static YopInbox yopInbox;
+    private static GoogleCloudPricingCalculatorPage pricingCalculator;
+    private static YopInboxPage yopInboxPage;
 
     @BeforeAll
     static void setUp() {
         browser = Browser.firefox();
-        pricingCalculator = browser.go(GoogleCloudPricingCalculator::new);
+        pricingCalculator = browser.go(GoogleCloudPricingCalculatorPage::new);
     }
 
     @AfterAll
@@ -43,7 +43,7 @@ class EmailGeneratorTest {
                 .estimate();
 
         // when
-        var emailGenerator = browser.addTab().go(EmailGenerator::new);
+        var emailGenerator = browser.addTab().go(EmailGeneratorPage::new);
         var randomEmail = emailGenerator.randomEmailAddress();
         System.out.println(randomEmail);
 
@@ -55,31 +55,31 @@ class EmailGeneratorTest {
         estimate.sendTo(randomEmail);
         browser.switchTo(emailGenerator);
 
-        yopInbox = emailGenerator.inbox();
+        yopInboxPage = emailGenerator.inbox();
 
-        then(yopInbox.emailAddress())
+        then(yopInboxPage.emailAddress())
                 .isEqualTo(randomEmail);
     }
 
     @Test
     @Order(2)
     void wait_for_a_new_email() {
-        System.out.println(yopInbox.mailCount());
+        System.out.println(yopInboxPage.mailCount());
 
-        then(yopInbox.mailCount())
+        then(yopInboxPage.mailCount())
                 .startsWith("0");
 
         // when
-        yopInbox.waitForNewEmail();
+        yopInboxPage.waitForNewEmail();
 
-        then(yopInbox.mailCount())
+        then(yopInboxPage.mailCount())
                 .startsWith("1");
     }
 
     @Test
     @Order(3)
     void read_mail_with_estimated_monthly_cost() {
-        var email = yopInbox.email();
+        var email = yopInboxPage.email();
 
         then(email.subject())
                 .isEqualTo("Google Cloud Price Estimate");

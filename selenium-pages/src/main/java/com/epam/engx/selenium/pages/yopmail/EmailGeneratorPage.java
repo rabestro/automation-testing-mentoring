@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public final class EmailGenerator extends Page {
-    private static final String URL = "https://yopmail.com/email-generator";
+public final class EmailGeneratorPage extends Page {
+    private static final String HOME_PAGE = "https://yopmail.com/email-generator";
 
     @FindBy(id = "geny")
     private WebElement generatedEmail;
@@ -17,7 +17,7 @@ public final class EmailGenerator extends Page {
     @FindBy(id = "accept")
     private WebElement acceptCookiesButton;
 
-    public EmailGenerator(WebDriver driver) {
+    public EmailGeneratorPage(WebDriver driver) {
         super(driver);
     }
 
@@ -25,14 +25,14 @@ public final class EmailGenerator extends Page {
         return generatedEmail.getText();
     }
 
-    public YopInbox inbox() {
+    public YopInboxPage inbox() {
         inboxButton.click();
-        return new YopInbox(driver);
+        return new YopInboxPage(driver);
     }
 
     @Override
-    public EmailGenerator to() {
-        driver.get(URL);
+    public EmailGeneratorPage to() {
+        driver.get(HOME_PAGE);
         acceptCookiesButton.click();
         return this;
     }

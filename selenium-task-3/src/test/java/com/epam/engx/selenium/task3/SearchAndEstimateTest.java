@@ -1,9 +1,9 @@
 package com.epam.engx.selenium.task3;
 
 import com.epam.engx.selenium.pages.browser.Browser;
-import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculator;
-import com.epam.engx.selenium.pages.google.GoogleCloud;
-import com.epam.engx.selenium.pages.google.SearchResult;
+import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculatorPage;
+import com.epam.engx.selenium.pages.google.GoogleCloudPage;
+import com.epam.engx.selenium.pages.google.SearchResultPage;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.BDDAssertions.and;
@@ -16,7 +16,7 @@ final class SearchAndEstimateTest {
     private static final String TERM = "Google Cloud Platform Pricing Calculator";
     private static final String FRANKFURT = "Frankfurt";
     private static Browser browser;
-    private static SearchResult searchResult;
+    private static SearchResultPage searchResultPage;
 
     @BeforeAll
     static void setUp() {
@@ -33,12 +33,12 @@ final class SearchAndEstimateTest {
     @DisplayName("search for " + TERM)
     void searchGoogleCloudPlatformPricingCalculator() {
         // given
-        var googleCloud = browser.go(GoogleCloud::new);
+        var googleCloud = browser.go(GoogleCloudPage::new);
 
         // when
-        searchResult = browser.go(googleCloud.search(TERM));
+        searchResultPage = browser.go(googleCloud.search(TERM));
 
-        then(searchResult.links())
+        then(searchResultPage.links())
                 .as("Search results for %s", TERM)
                 .isNotEmpty()
                 .extracting("text")
@@ -50,8 +50,8 @@ final class SearchAndEstimateTest {
     @DisplayName("estimate the monthly rent for a computer engine")
     void openGoogleCloudPlatformPricingCalculator() {
         // given
-        searchResult.clickFirstLink();
-        var pricingCalculator = browser.go(GoogleCloudPricingCalculator::new);
+        searchResultPage.clickFirstLink();
+        var pricingCalculator = browser.go(GoogleCloudPricingCalculatorPage::new);
 
         // when
         pricingCalculator

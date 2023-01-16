@@ -7,15 +7,14 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-// page_url = https://cloud.google.com/s/results?q=Google%20Cloud%20Platform%20Pricing%20Calculator
-public class SearchResult extends Page {
+public final class SearchResultPage extends Page {
     @FindBy(css = "a > b")
     private List<WebElement> results;
 
     @FindBy(css = "a:first-child > b")
     private WebElement firstResultLink;
 
-    public SearchResult(WebDriver driver) {
+    public SearchResultPage(WebDriver driver) {
         super(driver);
     }
 

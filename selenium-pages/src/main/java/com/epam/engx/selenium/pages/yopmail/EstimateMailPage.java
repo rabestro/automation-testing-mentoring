@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class EstimateMail extends Page {
+public final class EstimateMailPage extends Page {
 
     @FindBy(css = "header div.ellipsis")
     private WebElement subject;
@@ -13,7 +13,7 @@ public class EstimateMail extends Page {
     @FindBy(css = "#mail h2")
     private WebElement monthlyCost;
 
-    protected EstimateMail(WebDriver driver) {
+    public EstimateMailPage(WebDriver driver) {
         super(driver);
     }
 
