@@ -16,7 +16,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Effective Integration Testing with Spring Boot</name>
+    <name>Course: Effective Integration Testing with Spring Boot</name>
     <description>
         Writing and running tests is an essential part of delivering reliable software,
         but we don’t always do so as efficiently as we could. Have you ever been in
