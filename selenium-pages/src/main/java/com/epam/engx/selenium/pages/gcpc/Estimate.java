@@ -31,7 +31,7 @@ public final class Estimate extends PageFactory {
         return totalEstimatedCost.getText();
     }
 
-    public String getItem(String label) {
+    public String getItem(CharSequence label) {
         var path = "//*[@id='compute']/md-list/md-list-item/div[contains(.,'%s')]".formatted(label);
         return calculator.findElement(By.xpath(path)).getText();
     }
@@ -42,7 +42,7 @@ public final class Estimate extends PageFactory {
                 .collect(Collectors.toUnmodifiableMap(Function.identity(), this::getValue));
     }
 
-    private String getValue(String text) {
+    private String getValue(CharSequence text) {
         return getItem(text).lines().findFirst().orElse("")
                 .replaceFirst("[^:]+?: ", "");
     }

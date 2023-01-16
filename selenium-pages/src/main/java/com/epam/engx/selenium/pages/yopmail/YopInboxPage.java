@@ -1,14 +1,17 @@
 package com.epam.engx.selenium.pages.yopmail;
 
 import com.epam.engx.selenium.pages.browser.Page;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.FluentWait;
+
+import java.time.Duration;
 
 @SuppressWarnings("SpellCheckingInspection")
 public final class YopInboxPage extends Page {
     private static final String HOME_PAGE = "https://yopmail.com/wm";
-    private static final int REFRESH_ATTEMPTS = 10;
 
     @FindBy(css = "div.wmtop > div.ycptalias > div.bname")
     private WebElement emailAddressLabel;
@@ -46,8 +49,15 @@ public final class YopInboxPage extends Page {
     }
 
     public void waitForNewEmail() {
-        for (int i = REFRESH_ATTEMPTS; i > 0 && mailCount().startsWith("0"); i--) {
-            refreshButton.click();
-        }
+        new FluentWait<>(refreshButton)
+                .withTimeout(Duration.ofSeconds(30L))
+                .pollingEvery(Duration.ofSeconds(5L))
+                .ignoring(NoSuchElementException.class)
+                .until(this::isMailArrived);
+    }
+
+    private boolean isMailArrived(WebElement button) {
+        button.click();
+        return !mailCount().startsWith("0");
     }
 }
