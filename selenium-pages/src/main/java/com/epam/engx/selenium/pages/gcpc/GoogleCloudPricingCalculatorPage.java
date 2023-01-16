@@ -11,31 +11,34 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.Map;
 
-public final class GoogleCloudPricingCalculator extends Page implements AngularCalculator {
+public final class GoogleCloudPricingCalculatorPage extends Page implements AngularCalculator {
     private static final String URL = "https://cloud.google.com/products/calculator";
     private final NgWebDriver ngDriver;
     @FindBy(css = "button[ng-disabled^='ComputeEngineForm']")
     private WebElement addEstimateComputeEngineButton;
 
-    public GoogleCloudPricingCalculator(WebDriver driver) {
+    public GoogleCloudPricingCalculatorPage(WebDriver driver) {
         super(driver);
         var js = (JavascriptExecutor) driver;
         ngDriver = new NgWebDriver(js);
     }
 
     @Override
-    public GoogleCloudPricingCalculator to() {
+    public GoogleCloudPricingCalculatorPage to() {
         if (!driver.getCurrentUrl().startsWith(URL)) {
             driver.get(URL);
         }
+        switchToCalculatorFrame();
+        return this;
+    }
+
+    public void switchToCalculatorFrame() {
         ngDriver.waitForAngularRequestsToFinish();
         var mainFrame = driver.findElement(By.xpath("//iframe"));
         driver.switchTo().frame(mainFrame);
         var myFrame = driver.findElement(By.id("myFrame"));
         driver.switchTo().frame(myFrame);
-        return this;
     }
-
 
     @Override
     public Model model(String model) {
@@ -58,7 +61,7 @@ public final class GoogleCloudPricingCalculator extends Page implements AngularC
     @Override
     public Estimate estimate() {
         click(addEstimateComputeEngineButton);
-        return new Estimate(driver);
+        return new Estimate(this);
     }
 
     @Override

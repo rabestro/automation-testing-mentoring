@@ -31,5 +31,4 @@
             <artifactId>testng</artifactId>
         </dependency>
     </dependencies>
-
 </project>

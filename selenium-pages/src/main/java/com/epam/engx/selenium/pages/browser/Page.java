@@ -15,4 +15,8 @@ public abstract class Page extends PageFactory {
     public Page to() {
         return this;
     }
+
+    public WebDriver driver() {
+        return driver;
+    }
 }

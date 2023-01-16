@@ -9,15 +9,15 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 @DisplayName("Google Cloud Pricing Calculator")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class GoogleCloudPricingCalculatorUITest {
+class GoogleCloudPricingCalculatorPageUITest {
     private static final String FRANKFURT = "Frankfurt";
     private Browser browser;
-    private GoogleCloudPricingCalculator calculator;
+    private GoogleCloudPricingCalculatorPage calculator;
 
     @BeforeEach
     void open_pricing_calculator_page() {
         browser = Browser.firefox();
-        calculator = browser.go(GoogleCloudPricingCalculator::new);
+        calculator = browser.go(GoogleCloudPricingCalculatorPage::new);
     }
 
     @AfterEach

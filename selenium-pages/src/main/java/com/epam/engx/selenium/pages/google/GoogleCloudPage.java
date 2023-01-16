@@ -6,25 +6,25 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public final class GoogleCloud extends Page {
+public final class GoogleCloudPage extends Page {
     private static final String URL = "https://cloud.google.com/";
 
     @FindBy(name = "q")
     private WebElement searchInput;
 
-    public GoogleCloud(WebDriver driver) {
+    public GoogleCloudPage(WebDriver driver) {
         super(driver);
     }
 
-    public PageConstructor<SearchResult> search(String term) {
+    public PageConstructor<SearchResultPage> search(CharSequence term) {
         searchInput.click();
         searchInput.sendKeys(term);
         searchInput.submit();
-        return SearchResult::new;
+        return SearchResultPage::new;
     }
 
     @Override
-    public GoogleCloud to() {
+    public GoogleCloudPage to() {
         driver.get(URL);
         return this;
     }

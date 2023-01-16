@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class GoogleCloudTest {
+class GoogleCloudPageTest {
     private static Browser browser;
 
     @BeforeAll
@@ -21,7 +21,7 @@ class GoogleCloudTest {
 
     @Test
     void go_to_google_cloud_page() {
-        browser.go(GoogleCloud::new);
+        browser.go(GoogleCloudPage::new);
 
         then(browser.title())
                 .contains("Google", "Cloud", "Computing Services");

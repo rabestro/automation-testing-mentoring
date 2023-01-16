@@ -9,6 +9,6 @@ public record Link(String text, String url) {
     }
 
     public boolean hasText() {
-        return !text.isBlank();
+        return !text.isEmpty();
     }
 }
