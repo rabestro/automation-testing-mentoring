@@ -47,12 +47,12 @@ public final class Estimate extends PageFactory {
                 .replaceFirst("[^:]+?: ", "");
     }
 
-    public void sendTo(String email) {
+    public Estimate sendTo(String email) {
         emailEstimateButton.click();
         var emailInput = calculator.findElement(new ByModel("emailQuote.user.email"));
         calculator.click(emailInput);
         emailInput.sendKeys(email);
         calculator.click(sendEmailButton);
+        return this;
     }
-
 }
