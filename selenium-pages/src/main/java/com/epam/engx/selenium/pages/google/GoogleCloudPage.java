@@ -16,7 +16,7 @@ public final class GoogleCloudPage extends Page {
         super(driver);
     }
 
-    public PageConstructor<SearchResultPage> search(String term) {
+    public PageConstructor<SearchResultPage> search(CharSequence term) {
         searchInput.click();
         searchInput.sendKeys(term);
         searchInput.submit();

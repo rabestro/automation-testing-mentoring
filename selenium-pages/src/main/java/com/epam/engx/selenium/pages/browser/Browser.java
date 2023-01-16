@@ -36,7 +36,7 @@ public class Browser {
     }
 
     public static Browser create() {
-        return remote();
+        return firefox();
     }
 
     public static Browser remote() {

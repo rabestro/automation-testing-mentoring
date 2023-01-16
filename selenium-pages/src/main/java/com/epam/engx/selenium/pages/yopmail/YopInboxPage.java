@@ -7,11 +7,11 @@ import org.openqa.selenium.support.FindBy;
 
 @SuppressWarnings("SpellCheckingInspection")
 public final class YopInboxPage extends Page {
-    private static final String URL = "https://yopmail.com/wm";
+    private static final String HOME_PAGE = "https://yopmail.com/wm";
     private static final int REFRESH_ATTEMPTS = 10;
 
     @FindBy(css = "div.wmtop > div.ycptalias > div.bname")
-    private WebElement emailAddress;
+    private WebElement emailAddressLabel;
 
     @FindBy(id = "nbmail")
     private WebElement mailCount;
@@ -27,7 +27,7 @@ public final class YopInboxPage extends Page {
     }
 
     public String emailAddress() {
-        return emailAddress.getText();
+        return emailAddressLabel.getText();
     }
 
     public String mailCount() {
@@ -41,7 +41,7 @@ public final class YopInboxPage extends Page {
 
     @Override
     public YopInboxPage to() {
-        driver.get(URL);
+        driver.get(HOME_PAGE);
         return this;
     }
 
