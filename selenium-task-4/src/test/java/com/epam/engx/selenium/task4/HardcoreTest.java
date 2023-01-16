@@ -140,7 +140,7 @@ class HardcoreTest {
     @Test
     @Order(7)
     void read_mail_with_estimated_monthly_cost() {
-        var estimateMail = yopInboxPage.email();
+        var estimateMail = yopInboxPage.getEstimateEmail();
 
         then(estimateMail.subject())
                 .isEqualTo("Google Cloud Price Estimate");

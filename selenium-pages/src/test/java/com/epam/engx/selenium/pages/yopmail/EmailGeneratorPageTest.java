@@ -79,7 +79,7 @@ class EmailGeneratorPageTest {
     @Test
     @Order(3)
     void read_mail_with_estimated_monthly_cost() {
-        var email = yopInboxPage.email();
+        var email = yopInboxPage.getEstimateEmail();
 
         then(email.subject())
                 .isEqualTo("Google Cloud Price Estimate");

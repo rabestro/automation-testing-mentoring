@@ -34,7 +34,7 @@ public final class YopInboxPage extends Page {
         return mailCount.getText();
     }
 
-    public EstimateMailPage email() {
+    public EstimateMailPage getEstimateEmail() {
         driver.switchTo().frame(mailFraim);
         return new EstimateMailPage(driver);
     }
