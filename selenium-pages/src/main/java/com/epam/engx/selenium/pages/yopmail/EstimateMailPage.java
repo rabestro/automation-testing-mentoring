@@ -1,6 +1,7 @@
 package com.epam.engx.selenium.pages.yopmail;
 
 import com.epam.engx.selenium.pages.browser.Page;
+import com.epam.engx.selenium.pages.model.EstimatedBill;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,15 +14,11 @@ public final class EstimateMailPage extends Page {
     @FindBy(css = "#mail h2")
     private WebElement monthlyCost;
 
-    public EstimateMailPage(WebDriver driver) {
-        super(driver);
+    public EstimateMailPage(WebDriver mail) {
+        super(mail);
     }
 
-    public String subject() {
-        return subject.getText();
-    }
-
-    public String monthlyCost() {
-        return monthlyCost.getText();
+    public EstimatedBill getEstimatedBill() {
+        return new EstimatedBill(subject, monthlyCost);
     }
 }
