@@ -6,7 +6,10 @@ import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculatorPage;
 import com.epam.engx.selenium.pages.google.GoogleCloudPage;
 import com.epam.engx.selenium.pages.yopmail.EmailGeneratorPage;
 import com.epam.engx.selenium.pages.yopmail.YopInboxPage;
+import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.*;
+
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.BDDAssertions.and;
 import static org.assertj.core.api.BDDAssertions.then;
@@ -19,6 +22,7 @@ class HardcoreTest {
     private static final String FRANKFURT = "Frankfurt";
     private static final String EXPECTED_CURRENCY = "USD";
     private static final String EXPECTED_MONTHLY_COST = "1,081.20";
+    private static final BigDecimal EXPECTED_COST = BigDecimal.valueOf(1081.20);
 
     private static Browser browser;
 
@@ -140,14 +144,19 @@ class HardcoreTest {
     @Test
     @Order(7)
     void read_mail_with_estimated_monthly_cost() {
-        var estimateMail = yopInboxPage.getEstimateEmail();
+        var expectedCost = Money.of(EXPECTED_COST, "USD");
+        var estimatedBill = yopInboxPage.getEstimateEmail().getEstimatedBill();
 
-        then(estimateMail.subject())
+        then(estimatedBill.subject())
                 .isEqualTo("Google Cloud Price Estimate");
 
-        and.then(estimateMail.monthlyCost())
-                .startsWith("Estimated Monthly Cost")
-                .contains(EXPECTED_CURRENCY)
-                .contains(EXPECTED_MONTHLY_COST);
+        then(estimatedBill.monthlyCost().getCurrency())
+                .asString().isEqualTo("USD");
+
+        then(estimatedBill.monthlyCost().getNumberStripped())
+                .isEqualByComparingTo(EXPECTED_COST);
+
+        then(estimatedBill.monthlyCost())
+                .isEqualByComparingTo(expectedCost);
     }
 }
