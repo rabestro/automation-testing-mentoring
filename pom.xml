@@ -38,6 +38,14 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- Java Money and Currency API for the Java™ Platform -->
+            <dependency>
+                <groupId>org.javamoney</groupId>
+                <artifactId>moneta</artifactId>
+                <version>1.4.2</version>
+                <type>pom</type>
+            </dependency>
+
             <!-- Maven’s Bill of Materials (BOM) for JUnit 5-->
             <dependency>
                 <groupId>org.junit</groupId>
@@ -74,7 +82,7 @@
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>3.24.1</version>
+                <version>3.24.2</version>
                 <scope>test</scope>
             </dependency>
 
