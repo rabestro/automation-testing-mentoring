@@ -46,6 +46,27 @@
                 <type>pom</type>
             </dependency>
 
+            <!-- a complete YAML 1.1 processor for JVM -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.33</version>
+            </dependency>
+
+            <!-- Project Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.24</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.4</version>
+            </dependency>
+
             <!-- Maven’s Bill of Materials (BOM) for JUnit 5-->
             <dependency>
                 <groupId>org.junit</groupId>
@@ -94,17 +115,12 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- Selenium automates browsers. That's it! -->
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
                 <version>4.7.2</version>
                 <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-collections4</artifactId>
-                <version>4.4</version>
             </dependency>
 
             <dependency>
