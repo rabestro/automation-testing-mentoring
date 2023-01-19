@@ -123,6 +123,7 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- AngularJS and WebDriver bits and pieces for Java -->
             <dependency>
                 <groupId>com.paulhammant</groupId>
                 <artifactId>ngwebdriver</artifactId>

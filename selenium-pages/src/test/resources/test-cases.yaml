@@ -1,0 +1,27 @@
+tests:
+  - description: hardcore (base)
+    computeServer: &base
+      quantity: 4
+      os: free
+      class: regular
+      series: n1
+      instance: n1-standard-8
+      addGPUs: true
+      gpuType: NVIDIA Tesla V100
+      gpuCount: 1
+      ssd: 2x375
+      location: Frankfurt
+      cud: 1
+    monthlyCost: USD 1,080.20
+
+  - description: two processors
+    computeServer:
+      <<: *base
+      quantity: 2
+    monthlyCost: USD 540.60
+
+  - description: one processors
+    computeServer:
+      <<: *base
+      quantity: 1
+    monthlyCost: USD 270.30
