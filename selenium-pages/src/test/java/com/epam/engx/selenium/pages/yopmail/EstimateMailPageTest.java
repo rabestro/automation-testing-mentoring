@@ -1,33 +1,23 @@
 package com.epam.engx.selenium.pages.yopmail;
 
-import org.junit.jupiter.api.AfterEach;
+import com.epam.engx.selenium.pages.BaseLocalTest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
-import java.util.Objects;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-
-class EstimateMailPageTest {
-    private WebDriver driver;
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+class EstimateMailPageTest extends BaseLocalTest {
 
     @BeforeEach
-    void setUp() {
-        driver = new FirefoxDriver();
-        var url = this.getClass().getResource("/estimateMail.html");
-        driver.get("file://" + Objects.requireNonNull(url).getPath());
-    }
-
-    @AfterEach
-    void tearDown() {
-        driver.quit();
+    void openMail() {
+        openHtmlFile("/estimate-mail.html");
     }
 
     @Test
-    void getEstimatedBill() {
+    void get_estimated_bill() {
         // given
         var mail = new EstimateMailPage(driver);
 

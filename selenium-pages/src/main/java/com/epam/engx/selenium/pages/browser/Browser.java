@@ -1,9 +1,9 @@
 package com.epam.engx.selenium.pages.browser;
 
+import com.paulhammant.ngwebdriver.NgWebDriver;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WindowType;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -13,14 +13,17 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 
-public class Browser {
+public class Browser implements SearchContext {
     private final WebDriver driver;
+    private final NgWebDriver ngDriver;
     private final BidiMap<String, Page> windows;
 
     public Browser(WebDriver driver) {
         this.driver = driver;
+        this.ngDriver = new NgWebDriver((JavascriptExecutor) driver);
         this.windows = new DualHashBidiMap<>();
         windows.put(driver.getWindowHandle(), null);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -102,7 +105,21 @@ public class Browser {
         return driver;
     }
 
+    public NgWebDriver ngDriver() {
+        return ngDriver;
+    }
+
     BidiMap<String, Page> tabs() {
         return windows;
+    }
+
+    @Override
+    public List<WebElement> findElements(By by) {
+        return driver.findElements(by);
+    }
+
+    @Override
+    public WebElement findElement(By by) {
+        return driver.findElement(by);
     }
 }

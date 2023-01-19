@@ -2,6 +2,7 @@ package com.epam.engx.selenium.pages.gcpc;
 
 import com.epam.engx.selenium.pages.browser.Page;
 import com.epam.engx.selenium.pages.gcpc.model.*;
+import com.epam.engx.selenium.pages.utils.ByModel;
 import com.paulhammant.ngwebdriver.NgWebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -14,8 +15,15 @@ import java.util.Map;
 public final class GoogleCloudPricingCalculatorPage extends Page implements AngularCalculator {
     private static final String URL = "https://cloud.google.com/products/calculator";
     private final NgWebDriver ngDriver;
+
     @FindBy(css = "button[ng-disabled^='ComputeEngineForm']")
     private WebElement addEstimateComputeEngineButton;
+
+    @FindBy(xpath = "//iframe")
+    private WebElement accountFrame;
+
+    @FindBy(id = "myFrame")
+    private WebElement myFrame;
 
     public GoogleCloudPricingCalculatorPage(WebDriver driver) {
         super(driver);
@@ -34,9 +42,7 @@ public final class GoogleCloudPricingCalculatorPage extends Page implements Angu
 
     public void switchToCalculatorFrame() {
         ngDriver.waitForAngularRequestsToFinish();
-        var mainFrame = driver.findElement(By.xpath("//iframe"));
-        driver.switchTo().frame(mainFrame);
-        var myFrame = driver.findElement(By.id("myFrame"));
+        driver.switchTo().frame(accountFrame);
         driver.switchTo().frame(myFrame);
     }
 
@@ -53,8 +59,12 @@ public final class GoogleCloudPricingCalculatorPage extends Page implements Angu
         };
     }
 
+    public void setParameters(Map<String, String> parameters) {
+        parameters.forEach((key, value) -> model(key).set(value));
+    }
+
     @Override
-    public Map<String, String> parameters() {
+    public Map<String, String> getParameters() {
         return new Parameters(driver).get();
     }
 

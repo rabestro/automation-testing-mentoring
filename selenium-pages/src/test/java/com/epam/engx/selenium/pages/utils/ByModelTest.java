@@ -1,4 +1,4 @@
-package com.epam.engx.selenium.pages.gcpc;
+package com.epam.engx.selenium.pages.utils;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;

@@ -55,7 +55,7 @@ class HardcoreTest {
         // when
         pricingCalculator = browser.go(GoogleCloudPricingCalculatorPage::new);
 
-        then(pricingCalculator.parameters())
+        then(pricingCalculator.getParameters())
                 .as("initial state of the parameters")
                 .isNotEmpty()
                 .hasSizeGreaterThan(10)

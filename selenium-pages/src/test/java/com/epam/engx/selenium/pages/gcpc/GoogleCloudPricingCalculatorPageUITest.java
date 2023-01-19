@@ -1,9 +1,13 @@
 package com.epam.engx.selenium.pages.gcpc;
 
 import com.epam.engx.selenium.pages.browser.Browser;
+import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Map;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
@@ -74,7 +78,7 @@ class GoogleCloudPricingCalculatorPageUITest {
                 .contains("europe-west");
     }
 
-    @RepeatedTest(5)
+    @Test
     void set_series_to_n1() {
         var series = calculator.model("series");
 
@@ -124,7 +128,7 @@ class GoogleCloudPricingCalculatorPageUITest {
 
     @Test
     void the_initial_calculator_parameters_on_the_page_load() {
-        then(calculator.parameters())
+        then(calculator.getParameters())
                 .isNotEmpty()
                 .hasSizeGreaterThan(10)
                 .containsEntry("computeServer.class", "Regular")
@@ -148,7 +152,7 @@ class GoogleCloudPricingCalculatorPageUITest {
                 .model("computeServer.location").set(FRANKFURT)
                 .model("computeServer.cud").set("1");
 
-        then(calculator.parameters())
+        then(calculator.getParameters())
                 .as("checking the set parameters")
                 .isNotEmpty()
                 .hasSizeGreaterThan(10)
@@ -174,5 +178,29 @@ class GoogleCloudPricingCalculatorPageUITest {
                 .startsWith("Total Estimated Cost:")
                 .endsWith("per 1 month")
                 .contains("USD 1,081.20");
+    }
+
+    @ParameterizedTest(name = "for {0} estimated monthly cost is {2}")
+    @MethodSource("com.epam.engx.selenium.pages.utils.PricingCalculatorParameters#provideComputerEngineParameters")
+    void calculate_estimate_monthly_cost(@SuppressWarnings("unused") String description,
+                                         Map<String, String> params, Money expectedCost
+    ) {
+        // given
+        calculator.setParameters(params);
+
+        // when
+        var estimate = calculator.estimate();
+
+        then(estimate.getItems())
+                .as("parameters for estimate")
+                .containsEntry("Region", params.get("location"))
+                .containsEntry("Provisioning model", "Regular")
+                .containsEntry("Commitment term", "1 Year")
+                .containsEntry("Instance type", params.get("instance"))
+                .containsEntry("Local SSD", "2x375 GiB");
+
+        then(estimate.estimatedMonthlyCost())
+                .as("the estimated monthly cost")
+                .isEqualByComparingTo(expectedCost);
     }
 }

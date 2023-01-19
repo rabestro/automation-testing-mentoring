@@ -22,7 +22,7 @@ public interface Calculator {
      *
      * @return returns a map containing the name of the models with their value
      */
-    Map<String, String> parameters();
+    Map<String, String> getParameters();
 
     /**
      * Estimation of the monthly rent for current parameters

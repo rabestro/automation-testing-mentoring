@@ -13,7 +13,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Search for a Google Cloud Pricing Calculator and Estimate Computer Engine")
 final class SearchAndEstimateTest {
-    private static final String TERM = "Google Cloud Platform Pricing Calculator";
+    private static final String TERM = "Google Cloud Pricing Calculator";
     private static final String FRANKFURT = "Frankfurt";
     private static Browser browser;
     private static SearchResultPage searchResultPage;

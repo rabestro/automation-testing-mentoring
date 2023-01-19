@@ -1,4 +1,4 @@
-package com.epam.engx.selenium.pages.gcpc;
+package com.epam.engx.selenium.pages.utils;
 
 import com.paulhammant.ngwebdriver.ByAngular;
 import org.openqa.selenium.By;

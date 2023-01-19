@@ -37,5 +37,4 @@ public final class ItemExtractionFunction implements Function<WebElement, Map.En
                 ? Map.entry(m.group("label").strip(), m.group("value").strip())
                 : Map.entry("", "");
     }
-
 }
