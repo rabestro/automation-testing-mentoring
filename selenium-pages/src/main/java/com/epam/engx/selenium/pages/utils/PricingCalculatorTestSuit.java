@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Data
-public class PricingCalculatorTestSuit {
+public final class PricingCalculatorTestSuit {
     private List<PricingCalculatorTestCase> tests;
 
     public Stream<Arguments> stream() {
