@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Hardcore (Firefox)" type="JUnit" factoryName="JUnit" editBeforeRun="true">
+    <module name="selenium-task-4" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.epam.engx.selenium.task4.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="com.epam.engx.selenium.task4" />
+    <option name="MAIN_CLASS_NAME" value="com.epam.engx.selenium.task4.HardcoreTest" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <option name="VM_PARAMETERS" value="-ea -Dbrowser=firefox" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
