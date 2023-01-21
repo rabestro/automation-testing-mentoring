@@ -1,8 +1,8 @@
-package com.epam.engx.selenium.pages.utils;
+package com.epam.engx.selenium.pages.test;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Tag("slow")
 @ParameterizedTest(name = "for {0} estimated monthly cost is {2}")
-@MethodSource("com.epam.engx.selenium.pages.utils.PricingCalculatorParameters#provideComputerEngineParameters")
+@ArgumentsSource(PricingCalculatorParameters.class)
 public @interface PricingCalculatorParameterizedTest {
 }

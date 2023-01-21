@@ -1,7 +1,7 @@
 package com.epam.engx.selenium.pages.gcpc;
 
 import com.epam.engx.selenium.pages.browser.Browser;
-import com.epam.engx.selenium.pages.utils.PricingCalculatorParameterizedTest;
+import com.epam.engx.selenium.pages.test.PricingCalculatorParameterizedTest;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;

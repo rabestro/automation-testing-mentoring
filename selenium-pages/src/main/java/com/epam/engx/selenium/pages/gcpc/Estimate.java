@@ -1,6 +1,6 @@
 package com.epam.engx.selenium.pages.gcpc;
 
-import com.epam.engx.selenium.pages.utils.ByModel;
+import com.epam.engx.selenium.pages.gcpc.component.ByModel;
 import com.epam.engx.selenium.pages.utils.USMoneyParser;
 import org.javamoney.moneta.Money;
 import org.openqa.selenium.By;

@@ -1,12 +1,9 @@
 package com.epam.engx.selenium.pages.utils;
 
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.extension.ExtendWith;
+import com.epam.engx.selenium.pages.UnitTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
@@ -14,8 +11,7 @@ import java.util.Map;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;
 
-@ExtendWith(MockitoExtension.class)
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@UnitTest
 class ItemExtractionFunctionTest {
     private final ItemExtractionFunction extractionFunction = new ItemExtractionFunction();
 

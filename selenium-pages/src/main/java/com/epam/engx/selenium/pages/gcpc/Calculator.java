@@ -1,6 +1,6 @@
 package com.epam.engx.selenium.pages.gcpc;
 
-import com.epam.engx.selenium.pages.gcpc.model.Model;
+import com.epam.engx.selenium.pages.gcpc.component.Component;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public interface Calculator {
      * @param model - name to search for a model in the DOM
      * @return the model found by name
      */
-    Model model(String model);
+    Component model(String model);
 
     /**
      * Current values of all parameters in the calculator

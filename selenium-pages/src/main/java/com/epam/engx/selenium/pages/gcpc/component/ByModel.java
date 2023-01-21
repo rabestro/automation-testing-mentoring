@@ -1,4 +1,4 @@
-package com.epam.engx.selenium.pages.utils;
+package com.epam.engx.selenium.pages.gcpc.component;
 
 import com.paulhammant.ngwebdriver.ByAngular;
 import org.openqa.selenium.By;
@@ -36,5 +36,4 @@ public final class ByModel extends By {
     public String toString() {
         return locator.toString();
     }
-
 }

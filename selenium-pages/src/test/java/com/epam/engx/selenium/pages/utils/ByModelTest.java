@@ -1,23 +1,19 @@
 package com.epam.engx.selenium.pages.utils;
 
+import com.epam.engx.selenium.pages.UnitTest;
+import com.epam.engx.selenium.pages.gcpc.component.ByModel;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 
 import static org.assertj.core.api.BDDAssertions.and;
 import static org.mockito.BDDMockito.then;
 
-@ExtendWith(MockitoExtension.class)
-@SuppressWarnings("AccessStaticViaInstance")
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@UnitTest
 class ByModelTest {
     @Mock
     private SearchContext searchContext;
@@ -29,13 +25,14 @@ class ByModelTest {
     }
 
     @ParameterizedTest(name = "model: {0}")
-    @CsvSource({
-            "listingCtrl.computeServer.os, model(listingCtrl.computeServer.os)",
-            "computeServer.os, model(listingCtrl.computeServer.os)",
-            "os, model(listingCtrl.computeServer.os)",
-            "persistentDisk.location, model(listingCtrl.persistentDisk.location)",
-            "location, model(listingCtrl.computeServer.location)"
+    @CsvSource(delimiter = '|', value = {
+            "listingCtrl.computeServer.os   | model(listingCtrl.computeServer.os)",
+            "computeServer.os               | model(listingCtrl.computeServer.os)",
+            "os                             | model(listingCtrl.computeServer.os)",
+            "persistentDisk.location        | model(listingCtrl.persistentDisk.location)",
+            "location                       | model(listingCtrl.computeServer.location)"
     })
+    @SuppressWarnings("AccessStaticViaInstance")
     void create_a_locator_by_angular_model_name(String model, String locator) {
         // given
         var byModel = new ByModel(model);

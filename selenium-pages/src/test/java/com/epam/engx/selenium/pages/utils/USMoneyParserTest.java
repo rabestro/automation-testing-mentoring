@@ -1,8 +1,6 @@
 package com.epam.engx.selenium.pages.utils;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
+import com.epam.engx.selenium.pages.UnitTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -10,8 +8,7 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-@DisplayName("The Page Object parses money representation on web page")
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@UnitTest
 class USMoneyParserTest {
 
     @ParameterizedTest

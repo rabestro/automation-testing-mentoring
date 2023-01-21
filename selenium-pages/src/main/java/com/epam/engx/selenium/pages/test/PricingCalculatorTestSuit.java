@@ -1,4 +1,4 @@
-package com.epam.engx.selenium.pages.utils;
+package com.epam.engx.selenium.pages.test;
 
 import lombok.Data;
 import org.junit.jupiter.params.provider.Arguments;

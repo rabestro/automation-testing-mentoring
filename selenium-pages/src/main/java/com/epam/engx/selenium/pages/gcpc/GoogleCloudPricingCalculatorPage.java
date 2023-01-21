@@ -1,8 +1,8 @@
 package com.epam.engx.selenium.pages.gcpc;
 
 import com.epam.engx.selenium.pages.browser.Page;
-import com.epam.engx.selenium.pages.gcpc.model.*;
-import com.epam.engx.selenium.pages.utils.ByModel;
+import com.epam.engx.selenium.pages.gcpc.component.Component;
+import com.epam.engx.selenium.pages.gcpc.component.ComponentFactory;
 import com.paulhammant.ngwebdriver.NgWebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -13,8 +13,9 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.util.Map;
 
-public final class GoogleCloudPricingCalculatorPage extends Page implements AngularCalculator {
+public final class GoogleCloudPricingCalculatorPage extends Page {
     private static final String URL = "https://cloud.google.com/products/calculator";
+    private final ComponentFactory componentFactory;
     private final NgWebDriver ngDriver;
 
     @FindBy(css = "button[ng-disabled^='ComputeEngineForm']")
@@ -30,6 +31,7 @@ public final class GoogleCloudPricingCalculatorPage extends Page implements Angu
         super(driver);
         var js = (JavascriptExecutor) driver;
         ngDriver = new NgWebDriver(js);
+        componentFactory = new ComponentFactory(driver, this::click);
     }
 
     @Override
@@ -47,17 +49,12 @@ public final class GoogleCloudPricingCalculatorPage extends Page implements Angu
         driver.switchTo().frame(myFrame);
     }
 
-    @Override
-    public Model model(String model) {
-        var element = driver.findElement(new ByModel(model));
+    public Component model(String model) {
+        return componentFactory.apply(model);
+    }
 
-        return switch (element.getTagName()) {
-            case "md-select" -> new Select(this, element, OptionEquals::new);
-            case "input" -> new Input(this, element);
-            case "md-checkbox" -> new Checkbox(this, element);
-            default -> throw new UnsupportedOperationException(
-                    "No implementation for " + element.getTagName());
-        };
+    public Map<String, String> getParameters() {
+        return new Parameters(driver).get();
     }
 
     public GoogleCloudPricingCalculatorPage setParameters(Map<String, String> parameters) {
@@ -69,24 +66,16 @@ public final class GoogleCloudPricingCalculatorPage extends Page implements Angu
         return setParameters(new Yaml().<Map<String, String>>load(yamlString));
     }
 
-    @Override
-    public Map<String, String> getParameters() {
-        return new Parameters(driver).get();
-    }
-
-    @Override
     public Estimate estimate() {
         click(addEstimateComputeEngineButton);
         return new Estimate(this);
     }
 
-    @Override
     public void click(WebElement element) {
         ngDriver.evaluateScript(element, "arguments[0].click();");
         ngDriver.waitForAngularRequestsToFinish();
     }
 
-    @Override
     public WebElement findElement(By by) {
         return driver.findElement(by);
     }

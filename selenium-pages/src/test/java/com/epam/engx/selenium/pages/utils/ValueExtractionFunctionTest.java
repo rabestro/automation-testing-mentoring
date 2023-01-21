@@ -1,7 +1,6 @@
 package com.epam.engx.selenium.pages.utils;
 
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
+import com.epam.engx.selenium.pages.UnitTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -9,7 +8,7 @@ import java.util.function.Function;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@UnitTest
 class ValueExtractionFunctionTest {
     private final Function<CharSequence, String> extractionFunction = new ValueExtractionFunction();
 
