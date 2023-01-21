@@ -6,8 +6,8 @@ import org.yaml.snakeyaml.Yaml;
 import java.util.stream.Stream;
 
 @SuppressWarnings("unused")
-public final class PricingCalculatorParameters {
-    private static final String TEST_CASES = "/test-cases.yaml";
+final class PricingCalculatorParameters {
+    private static final String TEST_CASES = "/pricing-calculator-parameters.yaml";
 
     private PricingCalculatorParameters() {
     }

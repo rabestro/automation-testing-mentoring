@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.yaml.snakeyaml.Yaml;
 
 import java.util.Map;
 
@@ -59,8 +60,13 @@ public final class GoogleCloudPricingCalculatorPage extends Page implements Angu
         };
     }
 
-    public void setParameters(Map<String, String> parameters) {
+    public GoogleCloudPricingCalculatorPage setParameters(Map<String, String> parameters) {
         parameters.forEach((key, value) -> model(key).set(value));
+        return this;
+    }
+
+    public GoogleCloudPricingCalculatorPage setParameters(String yamlString) {
+        return setParameters(new Yaml().<Map<String, String>>load(yamlString));
     }
 
     @Override

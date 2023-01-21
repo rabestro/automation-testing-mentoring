@@ -19,6 +19,20 @@ import static org.assertj.core.api.BDDAssertions.then;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("Search for a Pricing Calculator, Estimate computer engine and Send email")
 class HardcoreTest {
+    private static final String TASK_COMPUTER_ENGINE_PARAMETERS = """
+            quantity: 4
+            os: free
+            class: regular
+            series: n1
+            instance: n1-standard-8
+            addGPUs: true
+            gpuType: NVIDIA Tesla V100
+            gpuCount: 1
+            ssd: 2x375
+            location: Frankfurt
+            cud: 1
+            """;
+
     private static final String FRANKFURT = "Frankfurt";
     private static final String EXPECTED_CURRENCY = "USD";
     private static final String EXPECTED_MONTHLY_COST = "1,081.20";
@@ -70,17 +84,7 @@ class HardcoreTest {
     void estimate_the_monthly_rent_for_a_computer_engine() {
         // when
         estimate = pricingCalculator
-                .model("computeServer.quantity").set("4")
-                .model("computeServer.os").set("free")
-                .model("computeServer.class").set("regular")
-                .model("computeServer.series").set("n1")
-                .model("computeServer.instance").set("n1-standard-8")
-                .model("computeServer.addGPUs").set("true")
-                .model("computeServer.gpuType").set("NVIDIA Tesla V100")
-                .model("computeServer.gpuCount").set("1")
-                .model("computeServer.ssd").set("2x375")
-                .model("computeServer.location").set(FRANKFURT)
-                .model("computeServer.cud").set("1")
+                .setParameters(TASK_COMPUTER_ENGINE_PARAMETERS)
                 .estimate();
 
         then(estimate.getItems())
