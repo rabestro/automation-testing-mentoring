@@ -20,7 +20,7 @@ class GoogleCloudPricingCalculatorPageUITest {
 
     @BeforeEach
     void open_pricing_calculator_page() {
-        browser = Browser.firefox();
+        browser = Browser.create();
         calculator = browser.go(GoogleCloudPricingCalculatorPage::new);
     }
 

@@ -20,7 +20,7 @@ final class SearchAndEstimateTest {
 
     @BeforeAll
     static void setUp() {
-        browser = Browser.firefox();
+        browser = Browser.create();
     }
 
     @AfterAll

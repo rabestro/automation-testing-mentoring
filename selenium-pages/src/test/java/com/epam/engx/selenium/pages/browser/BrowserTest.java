@@ -17,7 +17,7 @@ class BrowserTest {
 
     @BeforeAll
     static void setUp() {
-        browser = Browser.firefox();
+        browser = Browser.create();
     }
 
     @AfterAll

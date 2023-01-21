@@ -11,7 +11,7 @@ class GoogleCloudPageTest {
 
     @BeforeAll
     static void setUp() {
-        browser = Browser.chrome();
+        browser = Browser.create();
     }
 
     @AfterAll

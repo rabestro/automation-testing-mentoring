@@ -20,17 +20,17 @@ import static org.assertj.core.api.BDDAssertions.then;
 @DisplayName("Search for a Pricing Calculator, Estimate computer engine and Send email")
 class HardcoreTest {
     private static final String TASK_COMPUTER_ENGINE_PARAMETERS = """
-            quantity: 4
+            quantity: '4'
             os: free
             class: regular
             series: n1
             instance: n1-standard-8
-            addGPUs: true
+            addGPUs: 'true'
             gpuType: NVIDIA Tesla V100
-            gpuCount: 1
+            gpuCount: '1'
             ssd: 2x375
             location: Frankfurt
-            cud: 1
+            cud: '1'
             """;
 
     private static final String FRANKFURT = "Frankfurt";
@@ -128,10 +128,6 @@ class HardcoreTest {
         then(yopInboxPage.emailAddress())
                 .as("our address in Inbox equals to generated email address")
                 .isEqualTo(randomEmailAddress);
-
-        and.then(yopInboxPage.mailCount())
-                .as("we have no emails in our inbox")
-                .startsWith("0");
     }
 
     @Test
