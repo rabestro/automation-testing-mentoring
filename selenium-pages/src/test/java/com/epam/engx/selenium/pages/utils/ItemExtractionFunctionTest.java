@@ -24,17 +24,17 @@ class ItemExtractionFunctionTest {
 
     @ParameterizedTest(name = "{arguments}")
     @CsvSource(delimiterString = "->", useHeadersInDisplayName = true, textBlock = """
-            text -> label -> value
-            Region: Frankfurt -> Region -> Frankfurt
-            Provisioning model: Regular -> Provisioning model -> Regular
-               -> '' -> ''
-            '' -> '' -> ''
+            text                        -> label                -> value
+            Region: Frankfurt           -> Region               -> Frankfurt
+            Provisioning model: Regular -> Provisioning model   -> Regular
+                                        -> ''                   -> ''
+            ''                          -> ''                   -> ''
             'Local SSD: 2x375 GiB
             USD 288
-            ' -> Local SSD -> 2x375 GiB
+            '                           -> Local SSD            -> 2x375 GiB
             'Discount applied
-            Instance type: n1-standard-8' -> Instance type -> n1-standard-8
-            2,920 total hours per month -> '' -> ''
+            Instance type: n1-standard-8' -> Instance type      -> n1-standard-8
+            2,920 total hours per month -> ''                   -> ''
             """)
     void extract_an_item_from_the_web_element(String text, String label, String value) {
         given(webElement.getText())

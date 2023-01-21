@@ -76,6 +76,7 @@
                 <scope>provided</scope>
             </dependency>
 
+            <!-- The Apache Commons Collections -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
