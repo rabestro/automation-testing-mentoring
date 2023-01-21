@@ -19,6 +19,7 @@ The repository contains my solutions for practical tasks of the course.
    - Selenium Server + Selenium Grid
 7. TA Frameworks: 
    - Layers, Runner, Business Objects
+   - [Practical Task](FRAMEWORK.md)
 8. Design Patterns in TA Frameworks implementation
 9. Automated testing of Web Services: best practices
 10. BDD TA Frameworks
