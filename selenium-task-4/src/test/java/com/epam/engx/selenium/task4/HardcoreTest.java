@@ -8,6 +8,7 @@ import com.epam.engx.selenium.pages.yopmail.EmailGeneratorPage;
 import com.epam.engx.selenium.pages.yopmail.YopInboxPage;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.math.BigDecimal;
 
@@ -46,9 +47,13 @@ class HardcoreTest {
     private static String randomEmailAddress;
     private static YopInboxPage yopInboxPage;
 
+    @RegisterExtension
+    private static ScreenshotWatcher5 watcher;
+
     @BeforeAll
     static void setUp() {
         browser = Browser.create();
+        watcher = new ScreenshotWatcher5(browser.driver(), "target/surefire-reports");
     }
 
     @AfterAll

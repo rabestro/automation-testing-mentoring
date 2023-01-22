@@ -67,7 +67,7 @@ public class Browser implements SearchContext {
         return driver().getTitle();
     }
 
-    WebDriver driver() {
+    public WebDriver driver() {
         return driver;
     }
 
