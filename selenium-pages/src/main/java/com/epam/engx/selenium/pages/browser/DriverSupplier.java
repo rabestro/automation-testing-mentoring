@@ -11,26 +11,40 @@ import org.openqa.selenium.safari.SafariDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.function.Supplier;
 
 final class DriverSupplier implements Supplier<WebDriver> {
     private static final String LOCAL_HOST = "http://localhost:4444/wd/hub";
     private static final String FIREFOX = "firefox";
 
+    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
+            .getBundle(System.getProperty("environment", "dev"));
+    private static final String BROWSER_NAME = getString("browser.name", FIREFOX);
+
+    private static String getString(String key, String def) {
+        return Objects.requireNonNullElse(RESOURCE_BUNDLE.getString(key), def);
+    }
+
     private static URL seleniumHostUrl() {
         try {
-            var seleniumHostAddress = System.getProperty("selenium.host", LOCAL_HOST);
+            var seleniumHostAddress = getString("remote.host.url", LOCAL_HOST);
             return new URL(seleniumHostAddress);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public static String getBrowserName() {
+        return BROWSER_NAME;
+    }
+
     @Override
     public WebDriver get() {
         var browser = System.getProperty("browser", FIREFOX);
 
-        return switch (browser) {
+        return switch (BROWSER_NAME) {
             case FIREFOX -> new FirefoxDriver();
             case "remote" -> new RemoteWebDriver(seleniumHostUrl(),
                     new DesiredCapabilities(Map.of("browserName", FIREFOX)));
