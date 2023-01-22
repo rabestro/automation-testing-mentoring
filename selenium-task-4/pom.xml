@@ -10,7 +10,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.epam.engx.selenium</groupId>
     <artifactId>selenium-task-4</artifactId>
 
     <name>Selenium - Hardcore</name>
