@@ -26,7 +26,7 @@ public record ComponentFactory(
             case "input" -> new InputComponent(element);
             case "md-checkbox" -> new CheckboxComponent(element, jsActionClick);
             default -> throw new UnsupportedOperationException(
-                    "No implementation for " + element.getTagName());
+                    "no implementation for " + element.getTagName());
         };
     }
 }

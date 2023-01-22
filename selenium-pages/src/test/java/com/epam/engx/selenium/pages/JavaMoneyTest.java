@@ -2,8 +2,6 @@ package com.epam.engx.selenium.pages;
 
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
 import javax.money.CurrencyUnit;
@@ -17,7 +15,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @DisplayName("Java Money and Currency API")
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@UnitTest
 class JavaMoneyTest {
     private static final String USD_CURRENCY_CODE = "USD";
     private static final int USD_NUMERIC_CODE = 840;

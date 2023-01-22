@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Unit Test of Pages" type="JUnit" factoryName="JUnit">
+    <module name="selenium-pages" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="tags" />
+    <dir value="$PROJECT_DIR$/selenium-pages/src/test/java" />
+    <tag value="fast" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
