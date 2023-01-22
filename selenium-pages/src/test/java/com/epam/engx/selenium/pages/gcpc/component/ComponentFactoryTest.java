@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
+import spock.lang.Subject;
 
 import java.util.function.Consumer;
 
@@ -22,10 +23,11 @@ class ComponentFactoryTest {
     @Mock
     SearchContext root;
     @Mock
-    Consumer<WebElement> jsActionClick;
-    @Mock
     WebElement element;
+    @Mock
+    Consumer<WebElement> jsActionClick;
 
+    @Subject
     ComponentFactory componentFactory;
 
     @BeforeEach
