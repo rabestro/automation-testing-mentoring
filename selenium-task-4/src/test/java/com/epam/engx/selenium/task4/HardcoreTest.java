@@ -48,12 +48,13 @@ class HardcoreTest {
     private static YopInboxPage yopInboxPage;
 
     @RegisterExtension
-    private static ScreenshotWatcher5 watcher;
+    @SuppressWarnings("unused")
+    private final ScreenshotWatcher5 watcher =
+            new ScreenshotWatcher5(browser.driver(), "target/surefire-reports");
 
     @BeforeAll
     static void setUp() {
         browser = Browser.create();
-        watcher = new ScreenshotWatcher5(browser.driver(), "target/surefire-reports");
     }
 
     @AfterAll

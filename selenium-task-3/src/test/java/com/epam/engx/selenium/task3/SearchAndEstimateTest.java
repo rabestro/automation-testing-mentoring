@@ -13,6 +13,19 @@ import static org.assertj.core.api.BDDAssertions.then;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Search for a Google Cloud Pricing Calculator and Estimate Computer Engine")
 final class SearchAndEstimateTest {
+    private static final String TASK_COMPUTER_ENGINE_PARAMETERS = """
+            quantity: '4'
+            os: free
+            class: regular
+            series: n1
+            instance: n1-standard-8
+            addGPUs: 'true'
+            gpuType: NVIDIA Tesla V100
+            gpuCount: '1'
+            ssd: 2x375
+            location: Frankfurt
+            cud: '1'
+            """;
     private static final String TERM = "Google Cloud Pricing Calculator";
     private static final String FRANKFURT = "Frankfurt";
     private static Browser browser;
@@ -54,18 +67,7 @@ final class SearchAndEstimateTest {
         var pricingCalculator = browser.go(GoogleCloudPricingCalculatorPage::new);
 
         // when
-        pricingCalculator
-                .model("computeServer.quantity").set("4")
-                .model("computeServer.os").set("free")
-                .model("computeServer.class").set("regular")
-                .model("computeServer.series").set("n1")
-                .model("computeServer.instance").set("n1-standard-8")
-                .model("computeServer.addGPUs").set("true")
-                .model("computeServer.gpuType").set("NVIDIA Tesla V100")
-                .model("computeServer.gpuCount").set("1")
-                .model("computeServer.ssd").set("2x375")
-                .model("computeServer.location").set(FRANKFURT)
-                .model("computeServer.cud").set("1");
+        pricingCalculator.setParameters(TASK_COMPUTER_ENGINE_PARAMETERS);
 
         var estimate = pricingCalculator.estimate();
 

@@ -10,6 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.epam.engx.selenium.pages</groupId>
     <artifactId>selenium-pages</artifactId>
 
     <name>Selenium - Page Objects</name>

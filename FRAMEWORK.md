@@ -19,6 +19,10 @@ First, you need to update all the dependencies for the test script. To do this, 
 ```shell
 mvn --update-snapshots clean install 
 ```
+In case if you want to install only `selenium-pages` and skip all it's tests:
+```shell
+mvn clean install --projects selenium-pages --update-snapshots -DskipTests
+```
 After the successful execution of the command, you can run tests in a specific subproject. To run the tests of this module, run the following command:
 ```shell
 mvn test --projects selenium-task-4
