@@ -8,10 +8,10 @@ The final framework should include the following:
 2. [x] Page Object/Page Factory for page abstractions
 3. [x] Models for business objects of the required elements
 4. [x] Property files with test data for at least two different environments
-5. [ ] XML suites for smoke tests and other tests
-6. [ ] A screenshot with the date and time is taken if the test fails.
-7. [ ] The framework should include an option for running with Jenkins and browser parameterization, test suite, and environment.
-8. [ ] Test results should be displayed on the job chart, and the screenshots should be archived as artefacts.
+5. [x] XML suites for smoke tests and other tests
+6. [x] A screenshot with the date and time is taken if the test fails.
+7. [x] The framework should include an option for running with Jenkins and browser parameterization, test suite, and environment.
+8. [x] Test results should be displayed on the job chart, and the screenshots should be archived as artefacts.
 
 ## How to run test script
 
