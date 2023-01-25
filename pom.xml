@@ -11,7 +11,7 @@
 
     <modules>
         <module>aircompany</module>
-        <!--        <module>calculator</module>-->
+        <module>calculator</module>
         <module>selenium-pages</module>
         <module>selenium-task-1</module>
         <module>selenium-task-2</module>
