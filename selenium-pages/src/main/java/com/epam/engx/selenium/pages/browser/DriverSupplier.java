@@ -15,13 +15,13 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.function.Supplier;
 
+
 final class DriverSupplier implements Supplier<WebDriver> {
     private static final String LOCAL_HOST = "http://localhost:4444/wd/hub";
-    private static final String FIREFOX = "firefox";
-
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
             .getBundle(System.getProperty("environment", "dev"));
-    private static final String BROWSER_NAME = getString("browser.name", FIREFOX);
+    private static final Driver DRIVER = Driver
+            .valueOf(getString("browser.name", Driver.FIREFOX.name()).toUpperCase());
 
     private static String getString(String key, String def) {
         return Objects.requireNonNullElse(RESOURCE_BUNDLE.getString(key), def);
@@ -36,28 +36,25 @@ final class DriverSupplier implements Supplier<WebDriver> {
         }
     }
 
-    public static String getBrowserName() {
-        return BROWSER_NAME;
-    }
-
     @Override
     public WebDriver get() {
-        var browser = System.getProperty("browser", FIREFOX);
-
-        return switch (BROWSER_NAME) {
+        return switch (DRIVER) {
             case FIREFOX -> new FirefoxDriver();
-            case "remote" -> new RemoteWebDriver(seleniumHostUrl(),
-                    new DesiredCapabilities(Map.of("browserName", FIREFOX)));
-            case "incognito" -> {
+            case REMOTE -> new RemoteWebDriver(seleniumHostUrl(),
+                    new DesiredCapabilities(Map.of("browserName", Driver.FIREFOX.name())));
+            case INCOGNITO -> {
                 var prefs = Map.of("profile.default_content_setting_values.cookies", 2);
                 var options = new ChromeOptions()
                         .addArguments("--incognito", "start-maximized")
                         .setExperimentalOption("prefs", prefs);
                 yield new ChromeDriver(options);
             }
-            case "chrome" -> new ChromeDriver();
-            case "safari" -> new SafariDriver();
-            default -> throw new IllegalStateException("Unexpected value: " + browser);
+            case CHROME -> new ChromeDriver();
+            case SAFARI -> new SafariDriver();
         };
+    }
+
+    enum Driver {
+        FIREFOX, REMOTE, INCOGNITO, CHROME, SAFARI
     }
 }

@@ -13,7 +13,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.util.Map;
 
-public final class GoogleCloudPricingCalculatorPage extends Page {
+public final class GoogleCloudPricingCalculatorPage extends Page implements Calculator {
     private static final String URL = "https://cloud.google.com/products/calculator";
     private final ComponentFactory componentFactory;
     private final NgWebDriver ngDriver;
