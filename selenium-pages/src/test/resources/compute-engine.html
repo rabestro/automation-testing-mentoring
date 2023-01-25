@@ -1,0 +1,137 @@
+<md-content class="cartsection ng-scope" id="compute" ng-if="cloudCartCtrl.showComputeItems">
+    <md-toolbar class="md-theme-light cpc-toolbar">
+        <h2 class="md-toolbar-tools">
+            <span>Compute Engine</span>
+            <span flex="" class="flex"></span>
+        </h2>
+    </md-toolbar>
+    <!-- ngRepeat: item in cloudCartCtrl.cart | filter:cloudCartCtrl.filterComputeItems -->
+    <md-list
+            class="cartitem ng-scope" ng-repeat="item in cloudCartCtrl.cart | filter:cloudCartCtrl.filterComputeItems"
+            role="list">
+        <div layout="row" layout-align="space-between start" class="layout-align-space-between-start layout-row">
+            <div class="md-no-sticky md-subheader">
+                <div class="md-subheader-inner"> <span class="md-subheader-content">
+                        <span class="ng-binding ng-scope">4 x </span>
+                    </span>
+                </div>
+            </div>
+            <!-- ngIf: !cloudCartCtrl.compute.readonly -->
+            <div layout="row" ng-if="!cloudCartCtrl.compute.readonly" class="ng-scope layout-row">
+                <!-- ngIf: item.items.editHook -->
+                <button
+                        class="md-icon-button md-primary md-button ng-scope md-ink-ripple" type="button"
+                        ng-transclude=""
+                        aria-label="copy" ng-if="item.items.editHook" ng-click="listingCtrl.edit(item, false)">
+                    <span class="google-symbols ng-scope">library_add</span>
+                </button><!-- end ngIf: item.items.editHook -->
+                <!-- ngIf: item.items.editHook -->
+                <button
+                        class="md-icon-button md-primary md-button ng-scope md-ink-ripple" type="button"
+                        ng-transclude=""
+                        aria-label="edit" ng-if="item.items.editHook" ng-click="listingCtrl.edit(item, true)">
+                    <span class="google-symbols ng-scope">edit</span>
+                </button><!-- end ngIf: item.items.editHook -->
+                <button class="md-icon-button md-primary md-button md-ink-ripple" type="button" ng-transclude=""
+                        aria-label="remove" ng-click="cloudCartCtrl.removeCartItem(item)">
+                    <span class="google-symbols ng-scope">delete</span>
+                </button>
+            </div><!-- end ngIf: !cloudCartCtrl.compute.readonly -->
+        </div>
+        <md-list-item class="md-1-line md-no-proxy" role="listitem">
+            <div class="md-list-item-text ng-binding">
+                Region: Frankfurt
+            </div>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item class="md-1-line md-no-proxy" role="listitem">
+            <div class="md-list-item-text ng-binding">
+                2,920
+                total hours per month
+            </div>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item
+                class="md-1-line md-no-proxy ng-scope"
+                ng-if="item.items.editHook &amp;&amp; item.items.editHook.initialInputs.class" role="listitem">
+            <div class="md-list-item-text ng-binding">
+                Provisioning model: Regular
+            </div>
+        </md-list-item><!-- end ngIf: item.items.editHook && item.items.editHook.initialInputs.class -->
+        <!-- ngIf: item.items.editHook && item.items.editHook.initialInputs.class -->
+        <md-divider
+                ng-if="item.items.editHook &amp;&amp; item.items.editHook.initialInputs.class"
+                class="ng-scope"></md-divider>
+        <!-- end ngIf: item.items.editHook && item.items.editHook.initialInputs.class -->
+        <md-list-item class="md-1-line md-no-proxy" role="listitem">
+            <div class="md-list-item-text ng-binding cpc-cart-multiline flex" flex=""
+                 ng-class="item.items.sustainedUse || item.items.isInstanceCommitted ? 'cpc-cart-multiline' : ''">
+                Instance type: n1-standard-8
+                <div>
+                    <!-- ngIf: item.items.sustainedUse --><sub ng-if="item.items.sustainedUse"
+                                                               class="ng-binding ng-scope"> Sustained Use Discount
+                    applied
+                    (30%)</sub><!-- end ngIf: item.items.sustainedUse -->
+                    <!-- ngIf: item.items.isInstanceCommitted -->
+                </div>
+            </div>
+            <div class="ng-binding">USD 1,000.70</div>
+        </md-list-item>
+        <md-divider></md-divider>
+        <!-- ngIf: item.items.extendedMemoryCost > 0 -->
+        <!-- ngIf: item.items.extendedMemoryCost > 0 -->
+        <!-- ngIf: item.items.skylakePremium > 0 -->
+        <!-- ngIf: item.items.skylakePremium > 0 -->
+        <md-list-item class="md-1-line md-no-proxy" role="listitem">
+            <div class="md-list-item-text cpc-cart-multiline flex" flex="">
+                Operating System / Software: <span class="ng-binding">Free</span>
+                <!-- ngIf: item.items.osCostPerCore -->
+                <!-- ngIf: item.items.isOsCommitted -->
+            </div>
+            <!-- ngIf: item.items.osCost > 0 -->
+        </md-list-item>
+        <md-divider></md-divider>
+        <!-- ngIf: item.items.gpuCost > 0 -->
+        <!-- ngIf: item.items.gpuCost > 0 -->
+        <!-- ngIf: item.items.nvidiaGridCost > 0 -->
+        <!-- ngIf: item.items.nvidiaGridCost > 0 -->
+        <!-- ngIf: item.items.confidentialVmPrice > 0 -->
+        <!-- ngIf: item.items.confidentialVmPrice > 0 -->
+        <!-- ngIf: item.items.ssd && item.items.ssd != 0 -->
+        <md-list-item class="md-1-line md-no-proxy ng-scope" ng-if="item.items.ssd &amp;&amp; item.items.ssd != 0"
+                      role="listitem">
+            <div class="md-list-item-text ng-binding flex" flex=""
+                 ng-class="item.items.isSsdCommitted ? 'cpc-cart-multiline' : ''">
+                Local SSD: 2x375 GiB
+                <div>
+                    <!-- ngIf: item.items.isSsdCommitted -->
+                </div>
+            </div>
+            <div class="ng-binding">USD 288.00</div>
+        </md-list-item><!-- end ngIf: item.items.ssd && item.items.ssd != 0 -->
+        <!-- ngIf: item.items.ssd && item.items.ssd != 0 -->
+        <md-divider
+                ng-if="item.items.ssd &amp;&amp; item.items.ssd != 0"
+                class="ng-scope"></md-divider><!-- end ngIf: item.items.ssd && item.items.ssd != 0 -->
+        <!-- ngIf: item.items.ephemeralIpHours && item.items.ephemeralIpHours != 0 -->
+        <!-- ngIf: item.items.ephemeralIpHours && item.items.ephemeralIpHours != 0 -->
+        <!-- ngIf: item.items.staticIpUsedHours && item.items.staticIpUsedHours != 0 -->
+        <!-- ngIf: item.items.staticIpUsedHours && item.items.staticIpUsedHours != 0 -->
+        <!-- ngIf: item.items.staticIpUnusedHours && item.items.staticIpUnusedHours != 0 -->
+        <!-- ngIf: item.items.staticIpUnusedHours && item.items.staticIpUnusedHours != 0 -->
+        <!-- ngIf: false -->
+        <!-- ngIf: false -->
+        <!-- ngIf: false -->
+        <!-- ngIf: false -->
+        <md-list-item class="md-1-line md-no-proxy" role="listitem">
+            <div class="md-list-item-text">
+                <b class="ng-binding">Estimated Component Cost:
+                    USD 1,288.70
+                    per 1 month</b>
+            </div>
+        </md-list-item>
+        <md-divider></md-divider>
+        <!-- ngIf: false && item.oldPrice && (item.oldPrice - item.price > 1) -->
+        <!-- ngIf: item.oldPrice && item.oldPrice > item.price -->
+    </md-list><!-- end ngRepeat: item in cloudCartCtrl.cart | filter:cloudCartCtrl.filterComputeItems -->
+</md-content>

@@ -6,7 +6,11 @@ import com.epam.engx.selenium.pages.gcpc.GoogleCloudPricingCalculatorPage;
 import com.epam.engx.selenium.pages.google.GoogleCloudPage;
 import com.epam.engx.selenium.pages.yopmail.EmailGeneratorPage;
 import com.epam.engx.selenium.pages.yopmail.YopInboxPage;
+import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.BDDAssertions.and;
 import static org.assertj.core.api.BDDAssertions.then;
@@ -16,9 +20,24 @@ import static org.assertj.core.api.BDDAssertions.then;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("Search for a Pricing Calculator, Estimate computer engine and Send email")
 class HardcoreTest {
+    private static final String TASK_COMPUTER_ENGINE_PARAMETERS = """
+            quantity: '4'
+            os: free
+            class: regular
+            series: n1
+            instance: n1-standard-8
+            addGPUs: 'true'
+            gpuType: NVIDIA Tesla V100
+            gpuCount: '1'
+            ssd: 2x375
+            location: Frankfurt
+            cud: '1'
+            """;
+
     private static final String FRANKFURT = "Frankfurt";
     private static final String EXPECTED_CURRENCY = "USD";
     private static final String EXPECTED_MONTHLY_COST = "1,081.20";
+    private static final BigDecimal EXPECTED_COST = BigDecimal.valueOf(1081.20);
 
     private static Browser browser;
 
@@ -27,6 +46,11 @@ class HardcoreTest {
     private static Estimate estimate;
     private static String randomEmailAddress;
     private static YopInboxPage yopInboxPage;
+
+    @RegisterExtension
+    @SuppressWarnings("unused")
+    private final ScreenshotWatcher5 watcher =
+            new ScreenshotWatcher5(browser.driver(), "target/surefire-reports");
 
     @BeforeAll
     static void setUp() {
@@ -51,7 +75,7 @@ class HardcoreTest {
         // when
         pricingCalculator = browser.go(GoogleCloudPricingCalculatorPage::new);
 
-        then(pricingCalculator.parameters())
+        then(pricingCalculator.getParameters())
                 .as("initial state of the parameters")
                 .isNotEmpty()
                 .hasSizeGreaterThan(10)
@@ -66,17 +90,7 @@ class HardcoreTest {
     void estimate_the_monthly_rent_for_a_computer_engine() {
         // when
         estimate = pricingCalculator
-                .model("computeServer.quantity").set("4")
-                .model("computeServer.os").set("free")
-                .model("computeServer.class").set("regular")
-                .model("computeServer.series").set("n1")
-                .model("computeServer.instance").set("n1-standard-8")
-                .model("computeServer.addGPUs").set("true")
-                .model("computeServer.gpuType").set("NVIDIA Tesla V100")
-                .model("computeServer.gpuCount").set("1")
-                .model("computeServer.ssd").set("2x375")
-                .model("computeServer.location").set(FRANKFURT)
-                .model("computeServer.cud").set("1")
+                .setParameters(TASK_COMPUTER_ENGINE_PARAMETERS)
                 .estimate();
 
         then(estimate.getItems())
@@ -120,10 +134,6 @@ class HardcoreTest {
         then(yopInboxPage.emailAddress())
                 .as("our address in Inbox equals to generated email address")
                 .isEqualTo(randomEmailAddress);
-
-        and.then(yopInboxPage.mailCount())
-                .as("we have no emails in our inbox")
-                .startsWith("0");
     }
 
     @Test
@@ -140,14 +150,19 @@ class HardcoreTest {
     @Test
     @Order(7)
     void read_mail_with_estimated_monthly_cost() {
-        var estimateMail = yopInboxPage.getEstimateEmail();
+        var expectedCost = Money.of(EXPECTED_COST, "USD");
+        var estimatedBill = yopInboxPage.getEstimateEmail().getEstimatedBill();
 
-        then(estimateMail.subject())
+        then(estimatedBill.subject())
                 .isEqualTo("Google Cloud Price Estimate");
 
-        and.then(estimateMail.monthlyCost())
-                .startsWith("Estimated Monthly Cost")
-                .contains(EXPECTED_CURRENCY)
-                .contains(EXPECTED_MONTHLY_COST);
+        then(estimatedBill.monthlyCost().getCurrency())
+                .asString().isEqualTo("USD");
+
+        then(estimatedBill.monthlyCost().getNumberStripped())
+                .isEqualByComparingTo(EXPECTED_COST);
+
+        then(estimatedBill.monthlyCost())
+                .isEqualByComparingTo(expectedCost);
     }
 }

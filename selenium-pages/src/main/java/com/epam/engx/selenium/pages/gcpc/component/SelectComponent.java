@@ -1,27 +1,29 @@
-package com.epam.engx.selenium.pages.gcpc.model;
+package com.epam.engx.selenium.pages.gcpc.component;
 
-import com.epam.engx.selenium.pages.gcpc.Calculator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 @SuppressWarnings("CssInvalidHtmlTagReference")
-public record Select(AngularCalculator calculator, WebElement menu,
-                     Function<String, Predicate<WebElement>> searchStrategy
-) implements Model {
+public record SelectComponent(
+        SearchContext root, WebElement menu,
+        Consumer<WebElement> jsActionClick,
+        Function<String, Predicate<WebElement>> searchStrategy
+) implements Component {
 
     @Override
-    public Calculator set(String text) {
-        calculator.click(menu);
+    public void set(String text) {
+        jsActionClick.accept(menu);
         select(option(text));
-        return calculator;
     }
 
     private void select(WebElement option) {
         if (notSelected(option)) {
-            calculator.click(option);
+            jsActionClick.accept(option);
         }
     }
 
@@ -33,7 +35,7 @@ public record Select(AngularCalculator calculator, WebElement menu,
 
     private WebElement option(String text) {
         var areaId = menu.getAttribute("aria-owns");
-        return calculator.findElement(By.id(areaId))
+        return root.findElement(By.id(areaId))
                 .findElements(By.cssSelector("md-option"))
                 .stream()
                 .filter(searchStrategy().apply(text))

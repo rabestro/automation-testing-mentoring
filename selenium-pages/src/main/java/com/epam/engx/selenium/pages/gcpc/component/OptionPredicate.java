@@ -1,4 +1,4 @@
-package com.epam.engx.selenium.pages.gcpc.model;
+package com.epam.engx.selenium.pages.gcpc.component;
 
 import org.openqa.selenium.WebElement;
 
@@ -12,7 +12,7 @@ import java.util.function.Predicate;
  *
  * @param text we use to find the desired menu option
  */
-public record OptionEquals(String text) implements Predicate<WebElement> {
+record OptionPredicate(String text) implements Predicate<WebElement> {
 
     @Override
     public boolean test(WebElement element) {

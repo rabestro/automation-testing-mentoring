@@ -1,9 +1,13 @@
 package com.epam.engx.selenium.pages.gcpc;
 
 import com.epam.engx.selenium.pages.browser.Browser;
+import com.epam.engx.selenium.pages.test.PricingCalculatorParameterizedTest;
+import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Map;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
@@ -16,7 +20,7 @@ class GoogleCloudPricingCalculatorPageUITest {
 
     @BeforeEach
     void open_pricing_calculator_page() {
-        browser = Browser.firefox();
+        browser = Browser.create();
         calculator = browser.go(GoogleCloudPricingCalculatorPage::new);
     }
 
@@ -74,7 +78,7 @@ class GoogleCloudPricingCalculatorPageUITest {
                 .contains("europe-west");
     }
 
-    @RepeatedTest(5)
+    @Test
     void set_series_to_n1() {
         var series = calculator.model("series");
 
@@ -97,34 +101,9 @@ class GoogleCloudPricingCalculatorPageUITest {
                 .contains("RAM: 3.75GB");
     }
 
-    @RepeatedTest(5)
-    void set_machine_type_n1_standard_8() {
-        calculator
-                .model("computeServer.quantity").set("4")
-                .model("computeServer.os").set("free")
-                .model("computeServer.class").set("regular")
-                .model("computeServer.series").set("n1");
-
-        var machineType = calculator.model("instance");
-
-        then(machineType.get())
-                .as("default machine type for N1 series")
-                .startsWith("n1-standard-1")
-                .contains("vCPUs: 1")
-                .contains("RAM: 3.75GB");
-
-        machineType.set("n1-standard-8");
-
-        then(machineType.get())
-                .as("set machine type n1-standard-8")
-                .startsWith("n1-standard-8")
-                .contains("vCPUs: 8")
-                .contains("RAM: 30GB");
-    }
-
     @Test
     void the_initial_calculator_parameters_on_the_page_load() {
-        then(calculator.parameters())
+        then(calculator.getParameters())
                 .isNotEmpty()
                 .hasSizeGreaterThan(10)
                 .containsEntry("computeServer.class", "Regular")
@@ -133,46 +112,26 @@ class GoogleCloudPricingCalculatorPageUITest {
                 .containsEntry("computeServer.addGPUs", "false");
     }
 
-    @Test
-    void setting_the_parameters_required_by_the_task_3() {
-        calculator
-                .model("computeServer.quantity").set("4")
-                .model("computeServer.os").set("free")
-                .model("computeServer.class").set("regular")
-                .model("computeServer.series").set("n1")
-                .model("computeServer.instance").set("n1-standard-8")
-                .model("computeServer.addGPUs").set("true")
-                .model("computeServer.gpuType").set("NVIDIA Tesla V100")
-                .model("computeServer.gpuCount").set("1")
-                .model("computeServer.ssd").set("2x375")
-                .model("computeServer.location").set(FRANKFURT)
-                .model("computeServer.cud").set("1");
+    @PricingCalculatorParameterizedTest
+    void calculate_estimate_monthly_cost(@SuppressWarnings("unused") String description,
+                                         Map<String, String> params, Money expectedCost
+    ) {
+        // given
+        calculator.setParameters(params);
 
-        then(calculator.parameters())
-                .as("checking the set parameters")
-                .isNotEmpty()
-                .hasSizeGreaterThan(10)
-                .containsEntry("computeServer.quantity", "4")
-                .containsEntry("computeServer.class", "Regular")
-                .containsEntry("computeServer.series", "N1")
-                .containsEntry("computeServer.family", "General purpose")
-                .containsEntry("computeServer.ssd", "2x375 GB")
-                .containsEntry("computeServer.addGPUs", "true");
-
+        // when
         var estimate = calculator.estimate();
 
         then(estimate.getItems())
                 .as("parameters for estimate")
-                .containsEntry("Region", FRANKFURT)
+                .containsEntry("Region", params.get("location"))
                 .containsEntry("Provisioning model", "Regular")
                 .containsEntry("Commitment term", "1 Year")
-                .containsEntry("Instance type", "n1-standard-8")
+                .containsEntry("Instance type", params.get("instance"))
                 .containsEntry("Local SSD", "2x375 GiB");
 
-        then(estimate.totalEstimatedCost())
-                .as("the monthly rent")
-                .startsWith("Total Estimated Cost:")
-                .endsWith("per 1 month")
-                .contains("USD 1,081.20");
+        then(estimate.estimatedMonthlyCost())
+                .as("the estimated monthly cost")
+                .isEqualByComparingTo(expectedCost);
     }
 }

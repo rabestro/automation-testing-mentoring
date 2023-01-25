@@ -1,5 +1,6 @@
 package com.epam.engx.selenium.pages.google;
 
+import com.epam.engx.selenium.pages.SmokeTest;
 import com.epam.engx.selenium.pages.browser.Browser;
 import org.junit.jupiter.api.*;
 
@@ -11,7 +12,7 @@ class GoogleCloudPageTest {
 
     @BeforeAll
     static void setUp() {
-        browser = Browser.chrome();
+        browser = Browser.create();
     }
 
     @AfterAll
@@ -19,7 +20,7 @@ class GoogleCloudPageTest {
         browser.quit();
     }
 
-    @Test
+    @SmokeTest
     void go_to_google_cloud_page() {
         browser.go(GoogleCloudPage::new);
 

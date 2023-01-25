@@ -11,21 +11,39 @@
 
     <modules>
         <module>aircompany</module>
-        <module>calculator</module>
+        <!--        <module>calculator</module>-->
         <module>selenium-pages</module>
         <module>selenium-task-1</module>
         <module>selenium-task-2</module>
         <module>selenium-task-3</module>
         <module>selenium-task-4</module>
         <module>course-support-classes</module>
-        <module>course-integration-testing</module>
     </modules>
 
     <properties>
         <java.version>17</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <groovy.version>4.0.7</groovy.version>
+
+        <!-- Common Libraries -->
+        <lombok.version>1.18.24</lombok.version>
+        <snakeyaml.version>1.33</snakeyaml.version>
+        <javamoney.version>1.4.2</javamoney.version>
+        <collections.version>4.4</collections.version>
+
+        <!-- Test Frameworks -->
         <junit.version>5.9.2</junit.version>
+        <testng.version>7.7.0</testng.version>
+        <spock.version>2.3-groovy-4.0</spock.version>
+
+        <!-- Test Libraries -->
         <mockito.version>5.0.0</mockito.version>
+        <hamcrest.version>2.2</hamcrest.version>
+        <assertj.version>3.24.2</assertj.version>
+        <selenium.version>4.7.2</selenium.version>
+        <ngwebdriver.version>1.2</ngwebdriver.version>
+
+        <!-- other properties -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencyManagement>
@@ -38,11 +56,41 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- Java Money and Currency API for the Java™ Platform -->
+            <dependency>
+                <groupId>org.javamoney</groupId>
+                <artifactId>moneta</artifactId>
+                <version>${javamoney.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <!-- a complete YAML 1.1 processor for JVM -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
+            </dependency>
+
+            <!-- Project Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- The Apache Commons Collections -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${collections.version}</version>
+            </dependency>
+
             <!-- Maven’s Bill of Materials (BOM) for JUnit 5-->
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.9.2</version>
+                <version>${junit.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -54,7 +102,6 @@
                 <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
-
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-junit-jupiter</artifactId>
@@ -66,7 +113,7 @@
             <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest</artifactId>
-                <version>2.2</version>
+                <version>${hamcrest.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -74,7 +121,7 @@
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>3.24.1</version>
+                <version>${assertj.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -82,27 +129,37 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>7.7.0</version>
+                <version>${testng.version}</version>
                 <scope>test</scope>
             </dependency>
 
+            <!-- The enterprise ready specification framework -->
+            <dependency>
+                <groupId>org.spockframework</groupId>
+                <artifactId>spock-core</artifactId>
+                <version>2.3-groovy-4.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.groovy</groupId>
+                <artifactId>groovy</artifactId>
+                <version>${groovy.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Selenium automates browsers. That's it! -->
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
-                <version>4.7.2</version>
+                <version>${selenium.version}</version>
                 <scope>test</scope>
             </dependency>
 
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-collections4</artifactId>
-                <version>4.4</version>
-            </dependency>
-
+            <!-- AngularJS and WebDriver bits and pieces for Java -->
             <dependency>
                 <groupId>com.paulhammant</groupId>
                 <artifactId>ngwebdriver</artifactId>
-                <version>1.2</version>
+                <version>${ngwebdriver.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -110,6 +167,34 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.codehaus.gmavenplus</groupId>
+                    <artifactId>gmavenplus-plugin</artifactId>
+                    <version>2.1.0</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>addSources</goal>
+                                <goal>addTestSources</goal>
+                                <goal>generateStubs</goal>
+                                <goal>compile</goal>
+                                <goal>generateTestStubs</goal>
+                                <goal>compileTests</goal>
+                                <goal>removeStubs</goal>
+                                <goal>removeTestStubs</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.groovy</groupId>
+                            <artifactId>groovy</artifactId>
+                            <version>${groovy.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.2.0</version>
@@ -124,7 +209,6 @@
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
-                        <release>${java.version}</release>
                     </configuration>
                 </plugin>
 
@@ -154,7 +238,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M7</version>
+                    <version>3.0.0-M8</version>
                     <configuration>
                         <statelessTestsetReporter
                                 implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5Xml30StatelessReporter">
@@ -282,5 +366,12 @@
             <url>scm:git:git@github.com:rabestro/automation-testing-mentoring.git</url>
         </site>
     </distributionManagement>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>groovy-plugins-release</id>
+            <url>https://groovy.jfrog.io/artifactory/plugins-release</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>

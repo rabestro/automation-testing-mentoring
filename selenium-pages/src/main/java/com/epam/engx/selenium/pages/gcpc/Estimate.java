@@ -1,5 +1,8 @@
 package com.epam.engx.selenium.pages.gcpc;
 
+import com.epam.engx.selenium.pages.gcpc.component.ByModel;
+import com.epam.engx.selenium.pages.utils.USMoneyParser;
+import org.javamoney.moneta.Money;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class Estimate extends PageFactory {
+    private final USMoneyParser moneyParser = new USMoneyParser();
     private final GoogleCloudPricingCalculatorPage calculator;
 
     @FindBy(css = "div.cpc-cart-total > h2.md-title > b.ng-binding")
@@ -29,6 +33,11 @@ public final class Estimate extends PageFactory {
 
     public String totalEstimatedCost() {
         return totalEstimatedCost.getText();
+    }
+
+    public Money estimatedMonthlyCost() {
+        var amount = totalEstimatedCost.getText().substring(21);
+        return moneyParser.apply(amount);
     }
 
     public String getItem(CharSequence label) {

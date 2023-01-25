@@ -1,0 +1,42 @@
+tests:
+  - description: hardcore (base)
+    computeServer: &base
+      quantity: 4
+      os: free
+      class: regular
+      series: n1
+      instance: n1-standard-8
+      addGPUs: true
+      gpuType: NVIDIA Tesla V100
+      gpuCount: 1
+      ssd: 2x375
+      location: Frankfurt
+      cud: 1
+    monthlyCost: USD 1,081.20
+
+  - description: two processors
+    computeServer:
+      <<: *base
+      quantity: 2
+    monthlyCost: USD 540.60
+
+  - description: one processor
+    computeServer:
+      <<: *base
+      label: for web server
+      quantity: 1
+    monthlyCost: USD 270.30
+
+  - description: Singapore
+    computeServer:
+      <<: *base
+      label: for web server
+      location: Singapore
+    monthlyCost: USD 1,028.58
+
+  - description: graphic card NVIDIA TESLA T4
+    computeServer:
+      <<: *base
+      label: for graphic design
+      gpuType: NVIDIA TESLA T4
+    monthlyCost: USD 1,840.40
