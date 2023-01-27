@@ -17,7 +17,7 @@ The final framework should include the following:
 
 First, you need to update all the dependencies for the test script. To do this, run the following command in the console:
 ```shell
-mvn --update-snapshots clean install 
+mvn --update-snapshots clean install
 ```
 In case if you want to install only `selenium-pages` and skip all it's tests:
 ```shell
