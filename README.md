@@ -1,4 +1,4 @@
-# Automated Testing Mentoring with Java: Basic 
+# Automated Testing Mentoring with Java: Basic
 
 The repository contains my solutions for practical tasks of the course.
 
@@ -13,11 +13,11 @@ The repository contains my solutions for practical tasks of the course.
    - [Bring It On](selenium-task-2)
    - [Hurt Me Plenty](selenium-task-3)
    - [Hardcore](selenium-task-4)
-6. Selenium WebDriver Advanced: 
+6. Selenium WebDriver Advanced:
    - Selenium [Support Classes](course-support-classes)
-   - Actions, JavaScript Executor, 
+   - Actions, JavaScript Executor,
    - Selenium Server + Selenium Grid
-7. TA Frameworks: 
+7. TA Frameworks:
    - Layers, Runner, Business Objects
    - [Practical Task](FRAMEWORK.md)
 8. Design Patterns in TA Frameworks implementation
