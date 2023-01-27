@@ -289,6 +289,32 @@
                     </configuration>
                 </plugin>
 
+                <!-- EditorConfig Maven Plugin -->
+                <plugin>
+                    <groupId>org.ec4j.maven</groupId>
+                    <artifactId>editorconfig-maven-plugin</artifactId>
+                    <version>0.1.1</version>
+                    <executions>
+                        <execution>
+                            <id>check</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <excludes>
+                            <exclude>**/.idea/</exclude>
+                        </excludes>
+                        <!-- All files are included by default:
+                        <includes>
+                          <include>**</include>
+                        </includes>
+                        -->
+                    </configuration>
+                </plugin>
+
             </plugins>
         </pluginManagement>
     </build>

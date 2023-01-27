@@ -1,13 +1,13 @@
 # Bring It On
 
 ## Objective
-For this task, please, use the Selenium WebDriver power, framework unit test, and Page Object concepts. 
+For this task, please, use the Selenium WebDriver power, framework unit test, and Page Object concepts.
 
 Automate the following script:
 
 1. Open https://pastebin.com/ or a similar service in any browser.
 2. Create 'New Paste' with the following attributes:
-   - Code: 
+   - Code:
 ```shell
 git config --global user.name  "New Sheriff in Town"
 git reset $(git commit-tree HEAD^{tree} -m "Legacy code")

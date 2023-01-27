@@ -2,9 +2,9 @@
 
 ## Java: Testing with JUnit
 
-### Objective: 
+### Objective:
 
-As a basis for this home task, use Calculator-1.0.jar 
+As a basis for this home task, use Calculator-1.0.jar
 
 Write unit tests for the calculator jar  library (Calculator-1.0.jar)
 * Add Calculator-1.0.jar to your project reference;

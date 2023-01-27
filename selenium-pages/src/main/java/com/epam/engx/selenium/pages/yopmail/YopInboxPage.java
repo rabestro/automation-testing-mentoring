@@ -48,6 +48,7 @@ public final class YopInboxPage extends Page {
         return this;
     }
 
+    @SuppressWarnings("MagicNumber")
     public void waitForNewEmail() {
         new FluentWait<>(refreshButton)
                 .withTimeout(Duration.ofSeconds(30L))

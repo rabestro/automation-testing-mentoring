@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement
 import spock.lang.*
 
 import java.util.function.Consumer
+import java.util.function.Function
+import java.util.function.Predicate
 
 
 @Title('The user selects menu option')
@@ -19,6 +21,13 @@ So that I am able to estimate the monthly cost of a VM
 class SelectComponentSpec extends Specification {
     static final SELECTED = 'aria-selected'
     static final AREA_ID = 'some-id'
+
+    def fakeSearchStrategy = new Function<String, Predicate<WebElement>>() {
+        @Override
+        Predicate<WebElement> apply(String text) {
+            (element) -> element.getAttribute("textContent") == text
+        }
+    }
 
     def options = ['one', 'two', 'three'].collect { name ->
         Stub(WebElement) {
@@ -42,7 +51,7 @@ class SelectComponentSpec extends Specification {
     SelectComponent component
 
     void setup() {
-        component = new SelectComponent(root, menu, jsActionClick, OptionPredicate::new)
+        component = new SelectComponent(root, menu, jsActionClick, fakeSearchStrategy)
     }
 
     def 'setting an option that is already selected'() {
