@@ -22,6 +22,7 @@ The repository contains my solutions for practical tasks of the course.
    - [Practical Task](FRAMEWORK.md)
 8. Design Patterns in TA Frameworks implementation
 9. Automated testing of Web Services: best practices
+    - [Practical Task](rest-api-task)
 10. BDD TA Frameworks
 11. Automated testing of Mobile Applications: best practices
 12. Continuous Integration with Jenkins
