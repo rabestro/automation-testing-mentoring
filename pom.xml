@@ -17,6 +17,7 @@
         <module>selenium-task-2</module>
         <module>selenium-task-3</module>
         <module>selenium-task-4</module>
+        <module>rest-api-task</module>
         <module>course-support-classes</module>
     </modules>
 
@@ -41,6 +42,7 @@
         <assertj.version>3.24.2</assertj.version>
         <selenium.version>4.7.2</selenium.version>
         <ngwebdriver.version>1.2</ngwebdriver.version>
+        <rest-assured.version>5.3.0</rest-assured.version>
 
         <!-- other properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -160,6 +162,13 @@
                 <groupId>com.paulhammant</groupId>
                 <artifactId>ngwebdriver</artifactId>
                 <version>${ngwebdriver.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>${rest-assured.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
