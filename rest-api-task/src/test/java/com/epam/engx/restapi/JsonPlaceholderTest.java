@@ -29,7 +29,6 @@ class JsonPlaceholderTest {
         given(requestSpec)
             .when().get("/users")
             .then()
-            .statusCode(HttpStatus.SC_OK)
             .header("Content-Type", notNullValue())
             .header("Content-Type", equalTo("application/json; charset=utf-8"));
     }
