@@ -1,4 +1,8 @@
-== HOME TASK
+= Continuous Integration with Jenkins
+:toc:
+
+== Practical Task
+
 As a basis for this home task, use this git repository: https://github.com/vitalliuss/helloci
 
 1. Jenkins Installation:
@@ -20,14 +24,14 @@ As a basis for this home task, use this git repository: https://github.com/vital
 
 3. As the result share the link to Jenkins OR set of detailed screenshots of Jenkins and job configuration & logs with your mentor.
 
-=== ACCEPTANCE CRITERIA
+== ACCEPTANCE CRITERIA
 1.	Jenkins server has been set up on local or remote machine with default port 8081
 2.	Slave node has been created
 3.	Jobs has been configured with necessary settings, parameters and build actions
 4.	Job is triggered according to task
 5.	Job has been set up to run on slave node only
 
-=== BONUS TASK
+== BONUS TASK
 1.	Make server on linux (use Cloud or virtual machine)
 2.	Make node on linux
 3.	Configure job history tracking and server backup
