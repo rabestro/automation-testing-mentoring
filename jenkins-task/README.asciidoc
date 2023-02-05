@@ -1,5 +1,6 @@
 = Continuous Integration with Jenkins
 :toc:
+:keywords: jenkins, CI/CD
 
 == Practical Task
 
