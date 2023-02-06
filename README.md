@@ -25,7 +25,7 @@ The repository contains my solutions for practical tasks of the course.
     - [Practical Task](rest-api-task)
 10. BDD TA Frameworks
 11. Automated testing of Mobile Applications: best practices
-12. Continuous Integration with Jenkins
+12. [Continuous Integration with Jenkins](jenkins-task)
 13. Results Analysis and Reporting in TA. Integration with reporting tools
 
 ## How to run all tests and publish site
