@@ -16,23 +16,24 @@ import static org.assertj.core.api.BDDAssertions.and;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SuppressWarnings("AccessStaticViaInstance")
+//@ExtendWith(ReportPortalExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("Search for a Pricing Calculator, Estimate computer engine and Send email")
 class HardcoreTest {
     private static final String TASK_COMPUTER_ENGINE_PARAMETERS = """
-            quantity: '4'
-            os: free
-            class: regular
-            series: n1
-            instance: n1-standard-8
-            addGPUs: 'true'
-            gpuType: NVIDIA Tesla V100
-            gpuCount: '1'
-            ssd: 2x375
-            location: Frankfurt
-            cud: '1'
-            """;
+        quantity: '4'
+        os: free
+        class: regular
+        series: n1
+        instance: n1-standard-8
+        addGPUs: 'true'
+        gpuType: NVIDIA Tesla V100
+        gpuCount: '1'
+        ssd: 2x375
+        location: Frankfurt
+        cud: '1'
+        """;
 
     private static final String FRANKFURT = "Frankfurt";
     private static final String EXPECTED_CURRENCY = "USD";
@@ -50,7 +51,7 @@ class HardcoreTest {
     @RegisterExtension
     @SuppressWarnings("unused")
     private final ScreenshotWatcher5 watcher =
-            new ScreenshotWatcher5(browser.driver(), "target/surefire-reports");
+        new ScreenshotWatcher5(browser.driver(), "target/surefire-reports");
 
     @BeforeAll
     static void setUp() {
@@ -68,7 +69,7 @@ class HardcoreTest {
         // given
         var googleCloud = browser.go(GoogleCloudPage::new);
         var searchResults = googleCloud
-                .search("Google Cloud Platform Pricing Calculator");
+            .search("Google Cloud Platform Pricing Calculator");
 
         browser.go(searchResults).clickFirstLink();
 
@@ -76,13 +77,13 @@ class HardcoreTest {
         pricingCalculator = browser.go(GoogleCloudPricingCalculatorPage::new);
 
         then(pricingCalculator.getParameters())
-                .as("initial state of the parameters")
-                .isNotEmpty()
-                .hasSizeGreaterThan(10)
-                .containsEntry("computeServer.class", "Regular")
-                .containsEntry("computeServer.family", "General purpose")
-                .containsEntry("computeServer.series", "E2")
-                .containsEntry("computeServer.addGPUs", "false");
+            .as("initial state of the parameters")
+            .isNotEmpty()
+            .hasSizeGreaterThan(10)
+            .containsEntry("computeServer.class", "Regular")
+            .containsEntry("computeServer.family", "General purpose")
+            .containsEntry("computeServer.series", "E2")
+            .containsEntry("computeServer.addGPUs", "false");
     }
 
     @Test
@@ -90,23 +91,23 @@ class HardcoreTest {
     void estimate_the_monthly_rent_for_a_computer_engine() {
         // when
         estimate = pricingCalculator
-                .setParameters(TASK_COMPUTER_ENGINE_PARAMETERS)
-                .estimate();
+            .setParameters(TASK_COMPUTER_ENGINE_PARAMETERS)
+            .estimate();
 
         then(estimate.getItems())
-                .as("parameters in the Estimate result block")
-                .containsEntry("Region", FRANKFURT)
-                .containsEntry("Provisioning model", "Regular")
-                .containsEntry("Commitment term", "1 Year")
-                .containsEntry("Instance type", "n1-standard-8")
-                .containsEntry("Local SSD", "2x375 GiB");
+            .as("parameters in the Estimate result block")
+            .containsEntry("Region", FRANKFURT)
+            .containsEntry("Provisioning model", "Regular")
+            .containsEntry("Commitment term", "1 Year")
+            .containsEntry("Instance type", "n1-standard-8")
+            .containsEntry("Local SSD", "2x375 GiB");
 
         and.then(estimate.totalEstimatedCost())
-                .as("the monthly rent for configured computer engine")
-                .startsWith("Total Estimated Cost:")
-                .endsWith("per 1 month")
-                .contains(EXPECTED_CURRENCY)
-                .contains(EXPECTED_MONTHLY_COST);
+            .as("the monthly rent for configured computer engine")
+            .startsWith("Total Estimated Cost:")
+            .endsWith("per 1 month")
+            .contains(EXPECTED_CURRENCY)
+            .contains(EXPECTED_MONTHLY_COST);
     }
 
     @Test
@@ -118,8 +119,8 @@ class HardcoreTest {
         randomEmailAddress = emailGeneratorPage.randomEmailAddress();
 
         then(randomEmailAddress)
-                .as("address ends with YopMail domain")
-                .endsWith("@yopmail.com");
+            .as("address ends with YopMail domain")
+            .endsWith("@yopmail.com");
     }
 
     @Test
@@ -132,8 +133,8 @@ class HardcoreTest {
         yopInboxPage = emailGeneratorPage.inbox();
 
         then(yopInboxPage.emailAddress())
-                .as("our address in Inbox equals to generated email address")
-                .isEqualTo(randomEmailAddress);
+            .as("our address in Inbox equals to generated email address")
+            .isEqualTo(randomEmailAddress);
     }
 
     @Test
@@ -143,8 +144,8 @@ class HardcoreTest {
         yopInboxPage.waitForNewEmail();
 
         then(yopInboxPage.mailCount())
-                .as("a new mail arrived to our inbox")
-                .startsWith("1");
+            .as("a new mail arrived to our inbox")
+            .startsWith("1");
     }
 
     @Test
@@ -154,15 +155,15 @@ class HardcoreTest {
         var estimatedBill = yopInboxPage.getEstimateEmail().getEstimatedBill();
 
         then(estimatedBill.subject())
-                .isEqualTo("Google Cloud Price Estimate");
+            .isEqualTo("Google Cloud Price Estimate");
 
         then(estimatedBill.monthlyCost().getCurrency())
-                .asString().isEqualTo("USD");
+            .asString().isEqualTo("USD");
 
         then(estimatedBill.monthlyCost().getNumberStripped())
-                .isEqualByComparingTo(EXPECTED_COST);
+            .isEqualByComparingTo(EXPECTED_COST);
 
         then(estimatedBill.monthlyCost())
-                .isEqualByComparingTo(expectedCost);
+            .isEqualByComparingTo(expectedCost);
     }
 }
