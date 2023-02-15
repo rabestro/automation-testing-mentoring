@@ -43,7 +43,7 @@
         <selenium.version>4.7.2</selenium.version>
         <ngwebdriver.version>1.2</ngwebdriver.version>
         <rest-assured.version>5.3.0</rest-assured.version>
-
+        <report.portal>5.1.5</report.portal>
         <!-- other properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -170,6 +170,13 @@
                 <version>${rest-assured.version}</version>
                 <scope>test</scope>
             </dependency>
+
+            <!-- EPAM Report Portal -->
+            <dependency>
+                <groupId>com.epam.reportportal</groupId>
+                <artifactId>agent-java-junit5</artifactId>
+                <version>${report.portal}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -271,6 +278,11 @@
                             <usePhrasedClassNameInRunning>true</usePhrasedClassNameInRunning>
                             <usePhrasedClassNameInTestCaseSummary>true</usePhrasedClassNameInTestCaseSummary>
                         </statelessTestsetInfoReporter>
+                        <properties>
+                            <configurationParameters>
+                                junit.jupiter.extensions.autodetection.enabled = true
+                            </configurationParameters>
+                        </properties>
                     </configuration>
                 </plugin>
 
