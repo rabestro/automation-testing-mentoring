@@ -1,0 +1,13 @@
+= Cucumber Essential Training
+
+== Home Task
+Adopt the previous home task (WebDriver project with patterns implemented) to make possible test execution with Cucumber-JVM. Follow relevant configuration steps for jUnit/TestNg depending on the existing project architecture.
+
+== Acceptance Criteria
+1. At least one test should use *"Scenario Outline"* keyword and *“Examples:”* section.
+2. Apply *“Background”* keyword for preconditions/recurrent steps.
+3. Use filtering/regular expressions in Gherkin step definitions for parametrization and flexibility.
+
+NOTE: discuss assignment specifics with your mentor
+
+NOTE: discuss any bonus task with your mentor (should be relevant to an assignment)
