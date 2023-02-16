@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"com.epam.engx.selenium.pages","c":"BaseLocalTest","l":"BaseLocalTest()","u":"%3Cinit%3E()"},{"p":"com.epam.engx.selenium.pages","c":"SmokeTestSuite","l":"SmokeTestSuite()","u":"%3Cinit%3E()"},{"p":"com.epam.engx.selenium.pages","c":"UnitTestSuite","l":"UnitTestSuite()","u":"%3Cinit%3E()"}];updateSearchResults();

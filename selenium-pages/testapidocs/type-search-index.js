@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.epam.engx.selenium.pages","l":"BaseLocalTest"},{"p":"com.epam.engx.selenium.pages","l":"SmokeTest"},{"p":"com.epam.engx.selenium.pages","l":"SmokeTestSuite"},{"p":"com.epam.engx.selenium.pages","l":"UnitTest"},{"p":"com.epam.engx.selenium.pages","l":"UnitTestSuite"}];updateSearchResults();
