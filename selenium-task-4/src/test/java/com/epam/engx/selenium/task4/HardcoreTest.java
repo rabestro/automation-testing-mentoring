@@ -16,7 +16,6 @@ import static org.assertj.core.api.BDDAssertions.and;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SuppressWarnings("AccessStaticViaInstance")
-//@ExtendWith(ReportPortalExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("Search for a Pricing Calculator, Estimate computer engine and Send email")

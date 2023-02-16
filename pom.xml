@@ -171,12 +171,6 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- EPAM Report Portal -->
-            <dependency>
-                <groupId>com.epam.reportportal</groupId>
-                <artifactId>agent-java-junit5</artifactId>
-                <version>${report.portal}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -278,11 +272,6 @@
                             <usePhrasedClassNameInRunning>true</usePhrasedClassNameInRunning>
                             <usePhrasedClassNameInTestCaseSummary>true</usePhrasedClassNameInTestCaseSummary>
                         </statelessTestsetInfoReporter>
-                        <properties>
-                            <configurationParameters>
-                                junit.jupiter.extensions.autodetection.enabled = true
-                            </configurationParameters>
-                        </properties>
                     </configuration>
                 </plugin>
 
